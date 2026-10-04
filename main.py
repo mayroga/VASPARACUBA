@@ -40,3 +40,13 @@ async def read_root():
     # Devuelve la interfaz principal integrada
     return
     
+Qu-Quieres-Llevar
+Asesoría de Viaje Independiente - May Roga LLC
+
+¿Qué artículo deseas consultar?
+Escribe lo que quieres llevar para saber en qué maleta debe ir y si está permitido.
+
+Ej. Perfume, Power Bank, Medicamentos...
+ 
+Resultado de la Asesoría:
+Aplicación informativa independiente de May Roga LLC. No representa a aerolíneas ni gobiernos.
