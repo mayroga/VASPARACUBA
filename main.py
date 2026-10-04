@@ -38,21 +38,12 @@ class TripAnalysisRequest(BaseModel):
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
     # Renderiza la interfaz principal garantizando coherencia absoluta con el index.html y la filosofía de May Roga LLC
-    return """
-    
-
-```
-
-```
-"""
-
-```
+    return
 
 @app.post("/api/check-item")
 async def check_item(data: ItemCheckRequest):
 item = data.item_name.lower()
 
-```
 # Integración con Gemini API para análisis inteligente de artículos y restricciones de viaje
 if GEMINI_API_KEY:
     try:
@@ -96,10 +87,6 @@ else:
         "source": "Guía general de May Roga LLC"
     }
 
-```
-
 @app.get("/api/health")
 async def health_check():
 return {"status": "healthy", "service": "Qu-Quieres-Llevar online"}
-
-```
