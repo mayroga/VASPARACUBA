@@ -1,4 +1,3 @@
-```python
 import os
 import httpx
 from fastapi import FastAPI, HTTPException
@@ -102,7 +101,5 @@ else:
 @app.get("/api/health")
 async def health_check():
 return {"status": "healthy", "service": "Qu-Quieres-Llevar online"}
-
-```
 
 ```
