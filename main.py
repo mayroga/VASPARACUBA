@@ -10,7 +10,7 @@ from fastapi.responses import FileResponse,HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel,Field
 
-APP_VERSION="11.0.0"
+APP_VERSION="11.0.1"
 BASE_DIR=Path(__file__).resolve().parent
 STATIC_DIR=BASE_DIR/"static"
 INDEX_FILE=STATIC_DIR/"index.html"
@@ -43,22 +43,22 @@ class GeminiRequest(BaseModel):
     prompt:str=Field(...,min_length=1,max_length=10000)
 
 AIRLINES=[
-{"name":"American Airlines","type":"Aerolínea comercial","url":"https://www.aa.com/"},
-{"name":"Delta Air Lines","type":"Aerolínea comercial","url":"https://www.delta.com/"},
-{"name":"United Airlines","type":"Aerolínea comercial","url":"https://www.united.com/"},
-{"name":"Southwest Airlines","type":"Aerolínea comercial","url":"https://www.southwest.com/"},
-{"name":"JetBlue","type":"Aerolínea comercial","url":"https://www.jetblue.com/"},
-{"name":"Havana Air","type":"Charter","url":"https://www.havanaair.com/"},
-{"name":"Aerocuba","type":"Charter","url":"https://www.aerocuba.com/"},
-{"name":"Anex / Xael Charters","type":"Charter","url":"https://www.anextours.com/"},
-{"name":"Invictus Charter","type":"Charter","url":"https://www.invictustours.com/"}
+    {"name":"American Airlines","type":"Aerolínea comercial","url":"https://www.aa.com/"},
+    {"name":"Delta Air Lines","type":"Aerolínea comercial","url":"https://www.delta.com/"},
+    {"name":"United Airlines","type":"Aerolínea comercial","url":"https://www.united.com/"},
+    {"name":"Southwest Airlines","type":"Aerolínea comercial","url":"https://www.southwest.com/"},
+    {"name":"JetBlue","type":"Aerolínea comercial","url":"https://www.jetblue.com/"},
+    {"name":"Havana Air","type":"Charter","url":"https://www.havanaair.com/"},
+    {"name":"Aerocuba","type":"Charter","url":"https://www.aerocuba.com/"},
+    {"name":"Anex / Xael Charters","type":"Charter","url":"https://www.anextours.com/"},
+    {"name":"Invictus Charter","type":"Charter","url":"https://www.invictustours.com/"}
 ]
 
 OFFICIAL_SOURCES={
-"aduana":{"name":"Aduana General de la República de Cuba","url":"https://www.aduana.gob.cu/"},
-"dviajeros":{"name":"D’Viajeros","url":"https://dviajeros.mitrans.gob.cu/"},
-"evisa":{"name":"eVisa Cuba","url":"https://evisacuba.cu/"},
-"flights":{"name":"Google Flights","url":"https://www.google.com/travel/flights"}
+    "aduana":{"name":"Aduana General de la República de Cuba","url":"https://www.aduana.gob.cu/"},
+    "dviajeros":{"name":"D’Viajeros","url":"https://dviajeros.mitrans.gob.cu/"},
+    "evisa":{"name":"eVisa Cuba","url":"https://evisacuba.cu/"},
+    "flights":{"name":"Google Flights","url":"https://www.google.com/travel/flights"}
 }
 
 def clean_text(value:Any)->str:
@@ -72,9 +72,7 @@ def source_for_destination(destination:str)->dict:
 def local_item_check(item:str,destination:str,luggage_type:str)->dict:
     q=clean_text(item).lower()
     dest=clean_text(destination) or "Cuba"
-    cuba="cuba" in dest.lower()
-    src=source_for_destination(dest)
-    base={"article":item,"what_matters":[],"questions_to_confirm":[],"official_sources":[src]}
+    base={"article":item,"what_matters":[],"questions_to_confirm":[],"official_sources":[source_for_destination(dest)]}
     if not q:
         return {**base,"status":"REVISA ESTO ANTES DE VIAJAR","recommendation":"Escribe el nombre del artículo para poder orientarte."}
 
@@ -85,10 +83,10 @@ def local_item_check(item:str,destination:str,luggage_type:str)->dict:
         return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Las baterías pueden tener reglas específicas de transporte. La respuesta puede cambiar según el tipo de batería, capacidad, peso, si es una batería instalada o suelta y dónde viajará. No des por permitido el artículo sin comprobar esos datos con la aerolínea y la autoridad correspondiente.","what_matters":["tipo de batería","capacidad en Wh","peso","batería instalada o suelta","cabina o equipaje facturado"],"questions_to_confirm":["¿Cuántos Wh indica la etiqueta?","¿Qué tipo de batería utiliza?","¿Cuál es el peso?","¿La batería se puede retirar?"]}
 
     if any(x in q for x in ["automóvil","automovil","carro","auto","coche","vehículo","vehiculo"]):
-        return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Un automóvil no debe tratarse automáticamente como equipaje de pasajero. Hay que distinguir entre transportar el vehículo como carga, enviarlo por otra vía o simplemente viajar con alguna pieza del vehículo. La respuesta depende del tipo de transporte y de las reglas aduaneras aplicables.","what_matters":["vehículo completo o pieza","método de transporte","modelo","año","valor","combustible y batería"],"questions_to_confirm":["¿Quieres llevar el vehículo completo o una pieza?","¿Lo transportarías como carga o equipaje?","¿Cuál es la marca, modelo y año?"]}
+        return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Un automóvil no debe tratarse automáticamente como equipaje de pasajero. Hay que distinguir entre transportar el vehículo como carga, enviarlo por otra vía o simplemente viajar con alguna pieza del vehículo.","what_matters":["vehículo completo o pieza","método de transporte","modelo","año","valor","combustible y batería"],"questions_to_confirm":["¿Quieres llevar el vehículo completo o una pieza?","¿Lo transportarías como carga o equipaje?","¿Cuál es la marca, modelo y año?"]}
 
     if any(x in q for x in ["motocicleta","moto","motorcycle","scooter","patineta","patinete","bicicleta eléctrica","bicicleta electrica","e-bike","ebike"]):
-        return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Los vehículos pequeños y eléctricos no deben tratarse todos de la misma manera. Si tiene batería, esa batería puede cambiar completamente las condiciones de transporte. También importan el tamaño, peso y forma de transporte.","what_matters":["si tiene batería","tipo y capacidad de batería","peso","dimensiones","batería desmontable","equipaje o carga"],"questions_to_confirm":["¿Es eléctrica o de combustible?","¿Qué capacidad tiene la batería en Wh, si tiene batería?","¿Cuál es el peso?","¿La batería se puede retirar?"]}
+        return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Los vehículos pequeños y eléctricos no deben tratarse todos de la misma manera. Si tiene batería, esa batería puede cambiar las condiciones de transporte. También importan el tamaño, peso y forma de transporte.","what_matters":["si tiene batería","tipo y capacidad de batería","peso","dimensiones","batería desmontable","equipaje o carga"],"questions_to_confirm":["¿Es eléctrica o de combustible?","¿Qué capacidad tiene la batería en Wh, si tiene batería?","¿Cuál es el peso?","¿La batería se puede retirar?"]}
 
     if any(x in q for x in ["bicicleta","bike"]):
         return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Una bicicleta puede estar sujeta a condiciones específicas de transporte según la aerolínea, tamaño, peso y forma de embalaje. Si es eléctrica, la batería añade reglas adicionales.","what_matters":["peso","dimensiones","embalaje","eléctrica o convencional","batería"],"questions_to_confirm":["¿Es eléctrica?","¿Cuánto pesa?","¿La batería se puede retirar?"]}
@@ -103,7 +101,7 @@ def local_item_check(item:str,destination:str,luggage_type:str)->dict:
         return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Los líquidos, aerosoles y geles pueden tener condiciones diferentes según el tipo de equipaje y los controles de seguridad. Confirma el envase, cantidad y forma de transporte.","what_matters":["tipo de producto","cantidad","tamaño del envase","cabina o facturado"],"questions_to_confirm":["¿Cuánto contiene el envase?","¿Lo llevarás en cabina o facturado?"]}
 
     if any(x in q for x in ["celular","teléfono","telefono","iphone","android","laptop","computadora","ordenador","tablet","ipad","cámara","camara","electrónico","electronico"]):
-        return {**base,"status":"PUEDE SER POSIBLE, PERO DEBES CONFIRMAR","recommendation":"Los equipos electrónicos suelen poder transportarse, pero la batería y las condiciones de la aerolínea pueden cambiar la forma correcta de llevarlos. Confirma las instrucciones de la aerolínea que opera tu vuelo.","what_matters":["batería","peso","tamaño","cabina o facturado"],"questions_to_confirm":["¿Tiene batería de litio?","¿Cuál es el modelo si se trata de un equipo especial?"]}
+        return {**base,"status":"PUEDE SER POSIBLE, PERO DEBES CONFIRMAR","recommendation":"Los equipos electrónicos pueden tener condiciones específicas por sus baterías y por la aerolínea que opera el vuelo. Confirma las instrucciones oficiales antes de viajar.","what_matters":["batería","peso","tamaño","cabina o facturado"],"questions_to_confirm":["¿Tiene batería de litio?","¿Cuál es el modelo si se trata de un equipo especial?"]}
 
     if any(x in q for x in ["ropa","camisa","pantalón","pantalon","vestido","abrigo","zapatos","tenis","sandalias","ropa interior"]):
         return {**base,"status":"REVISA CANTIDAD Y CONDICIONES","recommendation":"La ropa y el calzado forman parte normalmente de las pertenencias del viajero, pero la cantidad, peso, volumen y tratamiento aduanero pueden cambiar según las circunstancias.","what_matters":["cantidad","peso","uso personal o comercial"],"questions_to_confirm":["¿Es para uso personal?","¿Llevas una cantidad fuera de lo habitual?"]}
@@ -115,7 +113,7 @@ def local_item_check(item:str,destination:str,luggage_type:str)->dict:
         return {**base,"status":"NO LO DES POR PERMITIDO","recommendation":"Los productos de origen animal pueden estar sujetos a controles sanitarios y restricciones especiales. Confirma el producto exacto con la autoridad correspondiente antes de viajar.","what_matters":["tipo de producto","origen","procesamiento","cantidad","condición sanitaria"],"questions_to_confirm":["¿Qué producto es exactamente?","¿Está fresco, congelado, cocido o procesado?"]}
 
     if any(x in q for x in ["herramienta","martillo","taladro","destornillador","sierra","cuchillo","navaja","alicate","llave"]):
-        return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Las herramientas pueden tener condiciones diferentes en cabina y equipaje facturado. La respuesta depende del objeto exacto y de las reglas de seguridad de la aerolínea y del aeropuerto.","what_matters":["tipo de herramienta","tamaño","cabina o facturado"],"questions_to_confirm":["¿Qué herramienta es exactamente?","¿En qué tipo de equipaje quieres llevarla?"]}
+        return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Las herramientas pueden tener condiciones diferentes en cabina y equipaje facturado. La respuesta depende del objeto exacto y de las reglas oficiales de seguridad.","what_matters":["tipo de herramienta","tamaño","cabina o facturado"],"questions_to_confirm":["¿Qué herramienta es exactamente?","¿En qué tipo de equipaje quieres llevarla?"]}
 
     if any(x in q for x in ["electrodoméstico","electrodomestico","ventilador","microondas","licuadora","refrigerador","nevera","televisor","televisión","television","aire acondicionado","lavadora"]):
         return {**base,"status":"REQUIERE REVISIÓN","recommendation":"Un equipo grande puede estar condicionado por peso, dimensiones, cantidad, valor y forma de transporte. No asumas que puede viajar como equipaje normal.","what_matters":["peso","dimensiones","cantidad","valor","tipo de transporte"],"questions_to_confirm":["¿Qué equipo es exactamente?","¿Cuánto pesa y mide?"]}
@@ -127,7 +125,8 @@ def local_item_check(item:str,destination:str,luggage_type:str)->dict:
 
 def parse_gemini_text(data:dict)->str:
     try:
-        return "\n".join(str(p.get("text","")) for p in data.get("candidates",[{}])[0].get("content",{}).get("parts",[]) if p.get("text")).strip()
+        parts=data.get("candidates",[{}])[0].get("content",{}).get("parts",[])
+        return "\n".join(str(p.get("text","")) for p in parts if p.get("text")).strip()
     except Exception:
         return ""
 
@@ -140,25 +139,24 @@ def extract_json(text:str)->Optional[dict]:
         obj=json.loads(text)
         return obj if isinstance(obj,dict) else None
     except Exception:
-        m=re.search(r"\{.*\}",text,re.S)
-        if m:
-            try:
-                obj=json.loads(m.group(0))
-                return obj if isinstance(obj,dict) else None
-            except Exception:
-                return None
-    return None
+        match=re.search(r"\{.*\}",text,re.S)
+        if not match:return None
+        try:
+            obj=json.loads(match.group(0))
+            return obj if isinstance(obj,dict) else None
+        except Exception:
+            return None
 
 def normalize_ai_answer(data:dict,item:str,destination:str)->dict:
     fallback=local_item_check(item,destination,"")
     if not isinstance(data,dict):return fallback
     status=clean_text(data.get("status")) or "NECESITAMOS COMPROBARLO"
-    recommendation=clean_text(data.get("recommendation") or data.get("message"))
     article=clean_text(data.get("article")) or item
-    matters=data.get("what_matters")
-    questions=data.get("questions_to_confirm")
-    sources=data.get("official_sources")
+    recommendation=clean_text(data.get("recommendation") or data.get("message"))
     if not recommendation:return fallback
+    matters=data.get("what_matters",[])
+    questions=data.get("questions_to_confirm",[])
+    sources=data.get("official_sources",[])
     if not isinstance(matters,list):matters=[]
     if not isinstance(questions,list):questions=[]
     if not isinstance(sources,list):sources=[]
@@ -169,8 +167,7 @@ def normalize_ai_answer(data:dict,item:str,destination:str)->dict:
             url=clean_text(s.get("url"))
             if name and url and (url.startswith("https://") or url.startswith("http://")):
                 clean_sources.append({"name":name,"url":url})
-    if not clean_sources:
-        clean_sources=fallback["official_sources"]
+    if not clean_sources:clean_sources=fallback["official_sources"]
     return {
         "status":status,
         "article":article,
@@ -180,66 +177,46 @@ def normalize_ai_answer(data:dict,item:str,destination:str)->dict:
         "official_sources":clean_sources
     }
 
+def build_gemini_prompt(item:str,destination:str,luggage_type:str,origin:str="",airline:str="",context:str="")->str:
+    cuba="cuba" in destination.lower()
+    if cuba:
+        official="Aduana General de la República de Cuba: https://www.aduana.gob.cu/ ; D’Viajeros: https://dviajeros.mitrans.gob.cu/ ; eVisa Cuba: https://evisacuba.cu/"
+    else:
+        official="Debes identificar la autoridad oficial aplicable al destino. Si no puedes hacerlo con seguridad, indica al usuario que debe buscar la autoridad aduanera oficial del destino."
+    rules=[
+        "Eres el motor de análisis de artículos de ¿QUÉ QUIERES LLEVAR? de May Roga LLC.",
+        f"Artículo: {item}",
+        f"Destino: {destination}",
+        f"Origen: {origin or 'no indicado'}",
+        f"Tipo de equipaje: {luggage_type or 'no indicado'}",
+        f"Aerolínea: {airline or 'no indicada'}",
+        f"Contexto: {context or 'no indicado'}",
+        "Tu objetivo es ayudar al usuario a saber QUÉ DEBE COMPROBAR antes de transportar el artículo.",
+        "NO INVENTES leyes, prohibiciones, permisos, cantidades, límites de peso, límites de Wh, tarifas, impuestos, horarios, disponibilidad ni requisitos.",
+        "No conviertas una suposición en una regla.",
+        "Si no puedes respaldar una afirmación con una fuente oficial aplicable, no la presentes como hecho.",
+        "Diferencia entre seguridad de transporte/aerolínea y aduana/importación.",
+        "Si el artículo puede cambiar de tratamiento por batería, Wh, peso, dimensiones, combustible, líquido, presión, cantidad, modelo, valor, origen, embalaje o tipo de equipaje, indícalo.",
+        "Si falta un dato que realmente cambia la respuesta, pregunta solamente por ese dato.",
+        "Si no hay información suficiente, no digas simplemente sí o no. Explica qué debe comprobar el usuario y dónde.",
+        "Para vehículos, motores, baterías, estaciones de energía, bicicletas eléctricas, motocicletas, patinetas eléctricas, repuestos y artículos grandes, analiza las características que pueden cambiar el tratamiento.",
+        "Para Cuba, separa las cuestiones aduaneras de las reglas de la aerolínea.",
+        "Usa fuentes oficiales. No uses blogs, foros, Reddit, TikTok ni páginas comerciales como autoridad.",
+        "Si una fuente oficial no confirma el punto, dilo claramente.",
+        "Nunca solicites contraseñas, CVV, códigos de seguridad, datos bancarios ni credenciales.",
+        "Habla en español sencillo, tranquilo y resolutivo.",
+        "El usuario debe terminar sabiendo qué hacer a continuación.",
+        f"Fuentes oficiales conocidas: {official}",
+        "Devuelve ÚNICAMENTE JSON válido, sin markdown.",
+        'El JSON debe tener exactamente estas claves: status, article, recommendation, what_matters, questions_to_confirm, official_sources.',
+        'status debe ser uno de: "SE PUEDE ORIENTAR", "PUEDE SER POSIBLE, PERO DEBES CONFIRMAR", "REQUIERE REVISIÓN", "NO LO DES POR PERMITIDO", "NECESITAMOS COMPROBARLO".',
+        'official_sources debe contener solamente sitios oficiales que realmente correspondan al análisis.'
+    ]
+    return "\n".join(rules)
+
 async def ask_gemini(item:str,destination:str,luggage_type:str,origin:str="",airline:str="",context:str="")->Optional[dict]:
     if not GEMINI_API_KEY:return None
-    cuba="cuba" in destination.lower()
-    official="Aduana General de la República de Cuba: https://www.aduana.gob.cu/; D’Viajeros: https://dviajeros.mitrans.gob.cu/; eVisa Cuba: https://evisacuba.cu/" if cuba else "Indica la autoridad oficial correspondiente al destino y no inventes una URL."
-    prompt=f"""
-Eres el motor de análisis de artículos de la aplicación ¿QUÉ QUIERES LLEVAR? de May Roga LLC.
-
-OBJETIVO:
-Ayudar al usuario a entender QUÉ DEBE COMPROBAR antes de transportar un artículo.
-
-DATOS:
-Artículo: {item}
-Destino: {destination}
-Origen: {origin or "no indicado"}
-Tipo de equipaje: {luggage_type or "no indicado"}
-Aerolínea: {airline or "no indicada"}
-Contexto: {context or "no indicado"}
-
-REGLAS OBLIGATORIAS:
-1. NO INVENTES. Está prohibido inventar leyes, prohibiciones, permisos, cantidades, límites de peso, límites de Wh, tarifas, impuestos, horarios, disponibilidad o requisitos.
-2. No conviertas una suposición en una regla.
-3. Si no puedes respaldar una afirmación con una fuente oficial aplicable, no la presentes como hecho.
-4. Diferencia entre seguridad de transporte/aerolínea y aduana/importación.
-5. Si el artículo puede cambiar de tratamiento por batería, Wh, peso, dimensiones, combustible, líquido, presión, cantidad, modelo, valor, origen, embalaje o tipo de equipaje, indícalo.
-6. Si falta un dato que realmente cambia la respuesta, pregunta solamente por ese dato.
-7. Si no hay información suficiente, NO digas simplemente "sí" o "no". Di que requiere comprobación y explica exactamente dónde debe mirar el usuario.
-8. Para vehículos, motores, baterías, estaciones de energía, bicicletas eléctricas, motocicletas, patinetas eléctricas, repuestos y artículos grandes, analiza las características que pueden cambiar el tratamiento.
-9. Para Cuba, separa claramente las cuestiones aduaneras de las reglas de la aerolínea.
-10. Usa fuentes oficiales. No uses blogs, foros, TikTok, Reddit ni páginas comerciales como autoridad.
-11. Si una fuente oficial no confirma el punto, dilo.
-12. Nunca solicites contraseñas, CVV, códigos de seguridad, datos bancarios ni credenciales.
-13. Habla en español sencillo, tranquilo y resolutivo.
-14. El usuario debe terminar sabiendo qué hacer a continuación.
-15. Si solo puedes dar una orientación preliminar, dilo claramente.
-16. Fuentes oficiales conocidas para Cuba: {official}
-
-IMPORTANTE:
-No afirmes que una regla está vigente solamente porque la recuerdes.
-Cuando una regla dependa de una aerolínea concreta, manda al usuario a la política oficial de la aerolínea que opera su vuelo.
-Cuando dependa de Aduana de Cuba, manda al usuario a Aduana.
-Cuando dependa de D’Viajeros, manda a D’Viajeros.
-Cuando corresponda a eVisa, manda a eVisa.
-
-DEVUELVE ÚNICAMENTE JSON VÁLIDO, SIN MARKDOWN:
-{{
- "status":"...",
- "article":"...",
- "recommendation":"...",
- "what_matters":["..."],
- "questions_to_confirm":["..."],
- "official_sources":[{{"name":"...","url":"https://..."}}]
-}}
-
-STATUS debe ser uno de estos:
-"SE PUEDE ORIENTAR"
-"PUEDE SER POSIBLE, PERO DEBES CONFIRMAR"
-"REQUIERE REVISIÓN"
-"NO LO DES POR PERMITIDO"
-"NECESITAMOS COMPROBARLO"
-
+    prompt=build_gemini_prompt(item,destination,luggage_type,origin,airline,context)
     url=f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
     payload={
         "contents":[{"role":"user","parts":[{"text":prompt}]}],
@@ -247,36 +224,48 @@ STATUS debe ser uno de estos:
     }
     try:
         async with httpx.AsyncClient(timeout=35) as client:
-            r=await client.post(url,params={"key":GEMINI_API_KEY},json=payload)
-        if r.status_code!=200:return None
-        raw=parse_gemini_text(r.json())
+            response=await client.post(url,params={"key":GEMINI_API_KEY},json=payload)
+        if response.status_code!=200:return None
+        raw=parse_gemini_text(response.json())
         parsed=extract_json(raw)
-        return normalize_ai_answer(parsed,item,destination) if parsed else None
+        if not parsed:return None
+        return normalize_ai_answer(parsed,item,destination)
     except Exception:
         return None
 
 @app.get("/",response_class=HTMLResponse)
 async def root():
-    if INDEX_FILE.exists():return FileResponse(str(INDEX_FILE),media_type="text/html")
+    if INDEX_FILE.exists():
+        return FileResponse(str(INDEX_FILE),media_type="text/html")
     return HTMLResponse("<h1>¿QUÉ QUIERES LLEVAR?</h1><p>No se encontró static/index.html.</p>")
 
 @app.get("/api/health")
 async def health():
-    return {"status":"ok","app":"¿QUÉ QUIERES LLEVAR?","version":APP_VERSION,"gemini_configured":bool(GEMINI_API_KEY),"gemini_model":GEMINI_MODEL,"static_exists":STATIC_DIR.exists(),"index_exists":INDEX_FILE.exists()}
+    return {
+        "status":"ok",
+        "app":"¿QUÉ QUIERES LLEVAR?",
+        "version":APP_VERSION,
+        "gemini_configured":bool(GEMINI_API_KEY),
+        "gemini_model":GEMINI_MODEL,
+        "static_exists":STATIC_DIR.exists(),
+        "index_exists":INDEX_FILE.exists()
+    }
 
 @app.post("/api/check-item")
 async def check_item(request:ItemCheckRequest):
     item=clean_text(request.item_name)
     destination=clean_text(request.destination) or "Cuba"
     luggage=clean_text(request.luggage_type) or "No indicado"
-    if not item:raise HTTPException(status_code=400,detail="Debes indicar un artículo.")
+    if not item:
+        raise HTTPException(status_code=400,detail="Debes indicar un artículo.")
     ai=await ask_gemini(item,destination,luggage,clean_text(request.origin),clean_text(request.airline),clean_text(request.context))
-    result=ai or local_item_check(item,destination,luggage)
-    if not ai:
+    if ai:
+        result=ai
+        result["ai_available"]=True
+    else:
+        result=local_item_check(item,destination,luggage)
         result["ai_available"]=False
         result["notice"]="No se obtuvo una respuesta de Gemini. Se muestra orientación de respaldo y se recomienda confirmar en la fuente oficial."
-    else:
-        result["ai_available"]=True
     result["item"]=item
     result["destination"]=destination
     result["luggage_type"]=luggage
@@ -284,26 +273,45 @@ async def check_item(request:ItemCheckRequest):
 
 @app.get("/api/airlines")
 async def airlines():
-    return {"destination":"Cuba","notice":"Consulta cada sitio oficial para confirmar rutas, fechas, horarios, equipaje y disponibilidad.","google_flights":OFFICIAL_SOURCES["flights"],"airlines":AIRLINES}
+    return {
+        "destination":"Cuba",
+        "notice":"Consulta cada sitio oficial para confirmar rutas, fechas, horarios, equipaje y disponibilidad.",
+        "google_flights":OFFICIAL_SOURCES["flights"],
+        "airlines":AIRLINES
+    }
 
 @app.get("/api/dviajeros")
 async def dviajeros():
-    return {"name":"D’Viajeros","url":OFFICIAL_SOURCES["dviajeros"]["url"],"official":True,"notice":"El proceso real debe completarse directamente en el sitio oficial."}
+    return {
+        "name":"D’Viajeros",
+        "url":OFFICIAL_SOURCES["dviajeros"]["url"],
+        "official":True,
+        "notice":"El proceso real debe completarse directamente en el sitio oficial."
+    }
 
 @app.get("/api/evisa")
 async def evisa():
-    return {"name":"eVisa Cuba","url":OFFICIAL_SOURCES["evisa"]["url"],"official":True,"notice":"Consulta directamente el sitio oficial para conocer el proceso vigente."}
+    return {
+        "name":"eVisa Cuba",
+        "url":OFFICIAL_SOURCES["evisa"]["url"],
+        "official":True,
+        "notice":"Consulta directamente el sitio oficial para conocer el proceso vigente."
+    }
 
 @app.get("/api/trip")
 async def trip_info():
-    return {"message":"La preparación del viaje se realiza en el navegador.","storage":"No se almacenan datos personales del viaje en el servidor mediante este endpoint."}
+    return {
+        "message":"La preparación del viaje se realiza en el navegador.",
+        "storage":"No se almacenan datos personales del viaje en el servidor mediante este endpoint."
+    }
 
 @app.post("/api/analyze-trip")
 async def analyze_trip(request:TripAnalysisRequest):
     origin=clean_text(request.origin)
     destination=clean_text(request.destination)
     stops=clean_text(request.has_stops)
-    if not origin or not destination:raise HTTPException(status_code=400,detail="Faltan origen o destino.")
+    if not origin or not destination:
+        raise HTTPException(status_code=400,detail="Faltan origen o destino.")
     if stops in ["stops","Sí","Si","yes"]:
         explanation=f"Tu práctica es un viaje de {origin} a {destination} con conexión. Confirma qué aerolínea opera cada tramo y cómo se manejará el equipaje durante la conexión."
     else:
@@ -312,26 +320,49 @@ async def analyze_trip(request:TripAnalysisRequest):
 
 @app.post("/api/gemini")
 async def gemini_proxy(request:GeminiRequest):
-    if not GEMINI_API_KEY:raise HTTPException(status_code=503,detail="Gemini no está configurado en Render.")
+    if not GEMINI_API_KEY:
+        raise HTTPException(status_code=503,detail="Gemini no está configurado en Render.")
     url=f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
-    payload={"contents":[{"role":"user","parts":[{"text":request.prompt}]}],"generationConfig":{"temperature":0.2,"maxOutputTokens":1000}}
+    payload={
+        "contents":[{"role":"user","parts":[{"text":request.prompt}]}],
+        "generationConfig":{"temperature":0.2,"maxOutputTokens":1000}
+    }
     try:
         async with httpx.AsyncClient(timeout=35) as client:
-            r=await client.post(url,params={"key":GEMINI_API_KEY},json=payload)
-        if r.status_code!=200:raise HTTPException(status_code=502,detail="El servicio de IA no respondió correctamente.")
-        return {"ok":True,"text":parse_gemini_text(r.json())}
-    except HTTPException:raise
-    except Exception:raise HTTPException(status_code=502,detail="No fue posible consultar el servicio de IA.")
+            response=await client.post(url,params={"key":GEMINI_API_KEY},json=payload)
+        if response.status_code!=200:
+            raise HTTPException(status_code=502,detail="El servicio de IA no respondió correctamente.")
+        return {"ok":True,"text":parse_gemini_text(response.json())}
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(status_code=502,detail="No fue posible consultar el servicio de IA.")
 
 @app.get("/api/config")
 async def config():
-    return {"app_version":APP_VERSION,"gemini_configured":bool(GEMINI_API_KEY),"gemini_model":GEMINI_MODEL,"client_configuration":False}
+    return {
+        "app_version":APP_VERSION,
+        "gemini_configured":bool(GEMINI_API_KEY),
+        "gemini_model":GEMINI_MODEL,
+        "client_configuration":False
+    }
 
 @app.get("/api")
 async def api_root():
-    return {"app":"¿QUÉ QUIERES LLEVAR?","version":APP_VERSION,"endpoints":["/api/health","/api/check-item","/api/airlines","/api/dviajeros","/api/evisa","/api/analyze-trip","/api/trip"]}
+    return {
+        "app":"¿QUÉ QUIERES LLEVAR?",
+        "version":APP_VERSION,
+        "endpoints":[
+            "/api/health",
+            "/api/check-item",
+            "/api/airlines",
+            "/api/dviajeros",
+            "/api/evisa",
+            "/api/analyze-trip",
+            "/api/trip"
+        ]
+    }
 
 @app.get("/favicon.ico")
 async def favicon():
     return HTMLResponse("",status_code=204)
-
