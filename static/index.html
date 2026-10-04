@@ -4,642 +4,239 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>¿QUÉ QUIERES LLEVAR? | May Roga LLC</title>
-<meta name="description" content="Preparación sencilla para viajar: vuelos, equipaje, mercancías, documentos, D'Viajeros, eVisa y fuentes oficiales.">
+<meta name="description" content="Preparación práctica para vuelos, equipaje, artículos, D'Viajeros, eVisa y fuentes oficiales.">
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#050505;color:#fff;font-family:Arial,Helvetica,sans-serif}
-body{min-height:100vh}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-a{color:#fff}
-#app{max-width:1100px;margin:auto;padding:16px}
-header{border:1px solid #333;border-radius:18px;padding:20px;margin-bottom:16px;background:#0b0b0b}
-h1,h2,h3{margin-top:0}
-h1{font-size:clamp(28px,5vw,48px);line-height:1.05}
-h2{font-size:clamp(24px,4vw,34px)}
-h3{font-size:20px}
-p{line-height:1.55}
-.small{font-size:14px;color:#ccc}
-.muted{color:#aaa}
-.notice{border-left:5px solid #fff;padding:12px 15px;background:#111;border-radius:10px;margin:14px 0}
-.steps{display:flex;gap:7px;overflow-x:auto;padding:4px 0 12px}
-.stepdot{min-width:38px;height:38px;border:1px solid #555;border-radius:50%;background:#111;color:#fff}
-.stepdot.active{background:#fff;color:#000}
-.screen{display:none;border:1px solid #333;border-radius:18px;background:#0b0b0b;padding:20px;margin-bottom:16px}
-.screen.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.card{border:1px solid #333;border-radius:16px;padding:16px;background:#101010}
-.card strong{display:block;margin-bottom:7px}
-.primary{width:100%;background:#fff;color:#000;border:0;border-radius:13px;padding:15px 18px;font-weight:700;margin-top:10px}
-.secondary{width:100%;background:#151515;color:#fff;border:1px solid #555;border-radius:13px;padding:14px 18px;font-weight:700;margin-top:10px}
-.danger{border-color:#8a2222}
-label{display:block;font-weight:700;margin:14px 0 7px}
-input,select,textarea{width:100%;background:#050505;color:#fff;border:1px solid #555;border-radius:12px;padding:14px}
-textarea{min-height:110px;resize:vertical}
-select option{background:#050505;color:#fff}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
-@media(max-width:600px){.actions{grid-template-columns:1fr}}
-.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px;margin-top:12px}
-.quick button{background:#151515;color:#fff;border:1px solid #444;border-radius:10px;padding:11px 8px}
-.quick button:hover,.secondary:hover{border-color:#fff}
-.result{margin-top:18px;border:1px solid #444;border-radius:16px;padding:18px;background:#080808}
-.result-status{display:inline-block;border:1px solid #777;border-radius:999px;padding:8px 13px;font-weight:700;margin-bottom:12px}
-.status-ok{border-color:#fff}
-.status-review{border-color:#f5f5f5}
-.status-no{border-color:#aaa}
-.answer-main{font-size:19px;line-height:1.55;margin:8px 0 18px}
-.result-section{border-top:1px solid #333;padding-top:14px;margin-top:14px}
-.result-section ul{padding-left:21px;line-height:1.65}
-.source-list{display:grid;gap:8px}
-.source-list a{display:block;border:1px solid #444;border-radius:10px;padding:11px;text-decoration:none;background:#111}
-.source-list a:hover{border-color:#fff}
-.item-head{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
-.search-row{display:grid;grid-template-columns:1fr auto;gap:9px}
-@media(max-width:600px){.search-row{grid-template-columns:1fr}}
-.airline{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid #333;border-radius:12px;padding:13px;margin:8px 0;background:#101010}
-.airline a{font-weight:700;text-decoration:none}
-.tag{display:inline-block;border:1px solid #555;border-radius:999px;padding:4px 9px;font-size:12px;color:#ddd}
-.footer{border-top:1px solid #333;margin-top:20px;padding:20px 0;color:#aaa;font-size:13px;line-height:1.6}
-.hidden{display:none!important}
-#loading{display:none;text-align:center;border:1px solid #555;border-radius:12px;padding:15px;margin-top:12px;background:#111}
-#loading.show{display:block}
-.summary-box{border:1px solid #444;border-radius:14px;padding:15px;margin:10px 0;background:#101010}
-.summary-box strong{display:block;margin-bottom:6px}
-.print-only{display:none}
-@media print{
-body{background:#fff;color:#000}
-#app{max-width:none}
-header,.steps,.screen:not(#step8),button,.footer{display:none!important}
-.screen{display:block!important;border:0;padding:0}
-.print-only{display:block}
-.result,.summary-box{border:1px solid #999;background:#fff;color:#000}
-a{color:#000}
-}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:#050505;color:#fff;font-family:Arial,Helvetica,sans-serif}body{min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}a{color:#fff}#app{max-width:1100px;margin:auto;padding:16px}header,.screen,.card,.result{border:1px solid #333;border-radius:18px;background:#0b0b0b}header{padding:20px;margin-bottom:16px}h1{font-size:clamp(30px,5vw,48px);margin:0 0 10px}h2{font-size:clamp(24px,4vw,34px);margin-top:0}h3{margin-top:0}p,li{line-height:1.55}.small{font-size:14px;color:#ccc}.notice{border-left:5px solid #fff;padding:12px 15px;background:#111;border-radius:10px;margin:14px 0}.steps{display:flex;gap:7px;overflow:auto;padding:4px 0 12px}.stepdot{min-width:38px;height:38px;border:1px solid #555;border-radius:50%;background:#111;color:#fff}.stepdot.active{background:#fff;color:#000}.screen{display:none;padding:20px;margin-bottom:16px}.screen.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.card{padding:16px}.card strong{display:block;margin-bottom:7px}.primary,.secondary{width:100%;border-radius:13px;padding:14px 18px;font-weight:700;margin-top:10px}.primary{background:#fff;color:#000;border:0}.secondary{background:#151515;color:#fff;border:1px solid #555}label{display:block;font-weight:700;margin:14px 0 7px}input,select,textarea{width:100%;background:#050505;color:#fff;border:1px solid #555;border-radius:12px;padding:14px}select option{background:#050505;color:#fff}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}@media(max-width:600px){.actions{grid-template-columns:1fr}}.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:8px;margin-top:12px}.quick button{background:#151515;color:#fff;border:1px solid #444;border-radius:10px;padding:11px 7px}.result{padding:18px;margin-top:16px}.result-status{display:inline-block;border:1px solid #aaa;border-radius:999px;padding:8px 13px;font-weight:700;margin-bottom:12px}.answer-main{font-size:19px;line-height:1.55;margin:8px 0 18px}.result-section{border-top:1px solid #333;padding-top:14px;margin-top:14px}.result-section ul{padding-left:22px}.source-list{display:grid;gap:8px}.source-list a{display:block;border:1px solid #444;border-radius:10px;padding:12px;text-decoration:none;background:#111}.search-row{display:grid;grid-template-columns:1fr 150px;gap:9px}@media(max-width:600px){.search-row{grid-template-columns:1fr}}.airline{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #333;border-radius:12px;padding:13px;margin:8px 0;background:#101010}.airline a{font-weight:700;text-decoration:none}.tag{display:inline-block;border:1px solid #555;border-radius:999px;padding:4px 9px;font-size:12px}.hidden{display:none!important}.loading{text-align:center;border:1px solid #555;border-radius:12px;padding:14px;margin-top:12px;background:#111}.summary-box{border:1px solid #444;border-radius:14px;padding:15px;margin:10px 0;background:#101010}.footer{border-top:1px solid #333;margin-top:20px;padding:20px 0;color:#aaa;font-size:13px}
 </style>
 </head>
 <body>
 <div id="app">
 <header>
 <h1>¿QUÉ QUIERES LLEVAR?</h1>
-<p>Prepárate para tu viaje con calma. Aprende a buscar tu vuelo, entender tu equipaje, comprobar lo que quieres llevar y llegar a los sitios oficiales con más seguridad.</p>
-<div class="notice"><strong>May Roga LLC</strong> es una herramienta independiente de preparación y orientación. No es una aerolínea, agencia de viajes ni autoridad gubernamental. Las reglas oficiales y las decisiones finales corresponden a las autoridades y al transportista aplicables.</div>
+<p>Prepárate para tu viaje sin miedo y sin adivinar. Aquí puedes practicar tu vuelo, entender exactamente tu equipaje y comprobar lo que quieres llevar.</p>
+<div class="notice"><strong>May Roga LLC</strong> ofrece preparación y orientación independiente. Las condiciones finales corresponden a la aerolínea y a las autoridades oficiales.</div>
 </header>
 
-<div class="steps" aria-label="Pasos">
-<button class="stepdot active" id="dot1" onclick="goToStep(1)">1</button>
-<button class="stepdot" id="dot2" onclick="goToStep(2)">2</button>
-<button class="stepdot" id="dot3" onclick="goToStep(3)">3</button>
-<button class="stepdot" id="dot4" onclick="goToStep(4)">4</button>
-<button class="stepdot" id="dot5" onclick="goToStep(5)">5</button>
-<button class="stepdot" id="dot6" onclick="goToStep(6)">6</button>
-<button class="stepdot" id="dot7" onclick="goToStep(7)">7</button>
-<button class="stepdot" id="dot8" onclick="goToStep(8)">8</button>
+<div class="steps">
+<button class="stepdot active" onclick="go(1)">1</button><button class="stepdot" onclick="go(2)">2</button><button class="stepdot" onclick="go(3)">3</button><button class="stepdot" onclick="go(4)">4</button><button class="stepdot" onclick="go(5)">5</button><button class="stepdot" onclick="go(6)">6</button><button class="stepdot" onclick="go(7)">7</button><button class="stepdot" onclick="go(8)">8</button>
 </div>
 
-<section class="screen active" id="step1">
+<section class="screen active" id="s1">
 <h2>Empieza aquí</h2>
-<p>Esta aplicación te acompaña paso a paso. No necesitas saber de aviación, equipaje ni trámites para comenzar.</p>
+<p>Elige lo que necesitas hacer. La aplicación te lleva paso a paso y te dice qué debes comprobar.</p>
 <div class="grid">
-<div class="card"><strong>✈️ Quiero saber cómo buscar mi vuelo</strong><span class="small">Practica antes de entrar al sitio de una aerolínea.</span></div>
-<div class="card"><strong>🧳 Quiero entender mi equipaje</strong><span class="small">Aprende qué debes comprobar antes de viajar.</span></div>
-<div class="card"><strong>📦 Quiero saber si puedo llevar algo</strong><span class="small">Escribe cualquier cosa que quieras transportar.</span></div>
-<div class="card"><strong>🇨🇺 Voy a Cuba</strong><span class="small">Practica D'Viajeros, eVisa y revisa Aduana.</span></div>
+<div class="card"><strong>✈️ Buscar mi vuelo</strong><span class="small">Practica antes de buscar o comprar.</span></div>
+<div class="card"><strong>🧳 Entender mi equipaje</strong><span class="small">Peso, medidas, piezas, maletas y condiciones.</span></div>
+<div class="card"><strong>📦 ¿Qué quiero llevar?</strong><span class="small">Pregunta por alimentos, baterías, vehículos, herramientas y otros artículos.</span></div>
+<div class="card"><strong>🇨🇺 Preparar Cuba</strong><span class="small">D'Viajeros, eVisa y Aduana.</span></div>
 </div>
-<button class="primary" onclick="goToStep(2)">EMPEZAR</button>
+<button class="primary" onclick="go(2)">EMPEZAR</button>
 </section>
 
-<section class="screen" id="step2">
-<h2>1. Primero, cuéntame sobre tu viaje</h2>
-<p>Estos datos ayudan a que la orientación tenga sentido para tu viaje. No introduzcas contraseñas ni datos bancarios.</p>
-
-<label for="origin">¿Desde dónde sales?</label>
-<input id="origin" placeholder="Ej.: Miami, Florida">
-
-<label for="destination">¿A dónde viajas?</label>
-<select id="destination">
-<option value="Cuba">Cuba</option>
-<option value="México">México</option>
-<option value="República Dominicana">República Dominicana</option>
-<option value="Colombia">Colombia</option>
-<option value="Otro">Otro destino</option>
-</select>
-
-<label for="passengers">¿Cuántas personas viajan?</label>
-<input id="passengers" type="number" min="1" max="20" value="1">
-
-<label for="stops">¿Cuántas escalas tiene tu vuelo?</label>
-<select id="stops">
-<option value="0">Sin escalas</option>
-<option value="1">1 escala</option>
-<option value="2">2 escalas</option>
-<option value="3">3 o más</option>
-</select>
-
-<label for="airline">Aerolínea, si ya la sabes</label>
-<select id="airline">
-<option value="">Todavía no sé</option>
-<option>American Airlines</option>
-<option>Delta Air Lines</option>
-<option>United Airlines</option>
-<option>Southwest Airlines</option>
-<option>JetBlue</option>
-<option>Havana Air</option>
-<option>Aerocuba</option>
-<option>Anex / Xael Charters</option>
-<option>Invictus Charter</option>
-</select>
-
-<label for="luggage">¿Cómo quieres llevar tus cosas?</label>
-<select id="luggage">
-<option>Todavía no sé</option>
-<option>Equipaje de mano / cabina</option>
-<option>Equipaje facturado</option>
-<option>Artículo personal</option>
-<option>Necesito saber cuál corresponde</option>
-</select>
-
-<div class="actions">
-<button class="secondary" onclick="goToStep(1)">← VOLVER</button>
-<button class="primary" onclick="saveTripInfoAndNext()">CONTINUAR →</button>
-</div>
+<section class="screen" id="s2">
+<h2>Tu viaje</h2>
+<label>¿Desde dónde sales?</label><input id="origin" placeholder="Ej.: Miami, Florida">
+<label>¿A dónde viajas?</label><select id="destination"><option>Cuba</option><option>México</option><option>República Dominicana</option><option>Colombia</option><option>Otro destino</option></select>
+<label>¿Cuántas personas viajan?</label><input id="passengers" type="number" min="1" value="1">
+<label>¿Tienes escalas?</label><select id="stops"><option value="0">Sin escalas</option><option value="1">1 escala</option><option value="2">2 escalas</option><option value="3">3 o más</option></select>
+<label>¿Qué aerolínea?</label><select id="airline"><option value="">Todavía no sé</option><option>American Airlines</option><option>Delta Air Lines</option><option>United Airlines</option><option>Southwest Airlines</option><option>JetBlue</option><option>Havana Air</option><option>Aerocuba</option><option>Anex / Xael Charters</option><option>Invictus Charter</option></select>
+<div class="actions"><button class="secondary" onclick="go(1)">← VOLVER</button><button class="primary" onclick="saveTrip();go(3)">CONTINUAR →</button></div>
 </section>
 
-<section class="screen" id="step3">
-<h2>2. Practica cómo buscar tu vuelo</h2>
-<p>Aquí puedes practicar. La compra o reserva final se realiza directamente con la aerolínea o el servicio correspondiente.</p>
-
-<div class="card">
-<strong>¿Qué debes mirar?</strong>
-<ul>
-<li>Ciudad y aeropuerto de salida.</li>
-<li>Destino.</li>
-<li>Fecha.</li>
-<li>Escalas.</li>
-<li>Aerolínea.</li>
-<li>Condiciones del equipaje.</li>
-<li>Condiciones que aparecen antes de comprar.</li>
-</ul>
-</div>
-
-<button class="primary" onclick="openFlights()">BUSCAR VUELOS</button>
-<button class="secondary" onclick="renderFlightExplanation()">¿QUÉ DEBO MIRAR EN UN VUELO?</button>
-<div id="flightExplanation" class="result hidden"></div>
-
-<div class="actions">
-<button class="secondary" onclick="goToStep(2)">← VOLVER</button>
-<button class="primary" onclick="goToStep(4)">CONTINUAR →</button>
-</div>
+<section class="screen" id="s3">
+<h2>Buscar tu vuelo</h2>
+<p>Antes de comprar, comprueba aeropuerto, fecha, hora, escalas, aerolínea y equipaje.</p>
+<div class="card"><strong>No mires solamente el precio.</strong><ul><li>Comprueba quién opera el vuelo.</li><li>Comprueba si tienes conexión.</li><li>Comprueba qué equipaje incluye la tarifa.</li><li>Comprueba las condiciones antes de pagar.</li></ul></div>
+<a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://www.google.com/travel/flights" target="_blank" rel="noopener">BUSCAR VUELOS</a>
+<button class="secondary" onclick="go(4)">ENTENDER MI EQUIPAJE →</button>
+<div class="actions"><button class="secondary" onclick="go(2)">← VOLVER</button><button class="primary" onclick="go(4)">CONTINUAR →</button></div>
 </section>
 
-<section class="screen" id="step4">
-<h2>3. Entiende tu equipaje</h2>
-<p>Las reglas no son iguales para todos los vuelos. Dependen de la aerolínea, el tipo de equipaje y el artículo.</p>
+<section class="screen" id="s4">
+<h2>Entiende tu equipaje</h2>
+<p><strong>Aquí no vamos a dejarte con una respuesta genérica.</strong> Selecciona la aerolínea y te ayudaremos a comprobar la cantidad de maletas o piezas, peso, medidas y condiciones de tu equipaje según la información oficial disponible.</p>
 
-<div class="grid">
-<div class="card"><strong>🎒 Artículo personal</strong><span class="small">Comprueba las dimensiones y condiciones de tu aerolínea.</span></div>
-<div class="card"><strong>🧳 Cabina</strong><span class="small">Comprueba dimensiones, peso y artículos restringidos.</span></div>
-<div class="card"><strong>🛄 Facturado</strong><span class="small">Comprueba peso, dimensiones y artículos que no pueden viajar de esta manera.</span></div>
-<div class="card"><strong>⚠️ Artículo especial</strong><span class="small">Baterías, líquidos, herramientas y otros artículos pueden necesitar comprobación específica.</span></div>
-</div>
+<label>Aerolínea</label>
+<select id="bagAirline">
+<option value="">Selecciona una aerolínea</option>
+<option>American Airlines</option><option>Delta Air Lines</option><option>United Airlines</option><option>Southwest Airlines</option><option>JetBlue</option><option>Havana Air</option><option>Aerocuba</option><option>Anex / Xael Charters</option><option>Invictus Charter</option>
+</select>
 
-<button class="primary" onclick="goToStep(5)">QUIERO COMPROBAR ALGO QUE LLEVO →</button>
+<label>¿Qué tipo de equipaje quieres comprobar?</label>
+<select id="bagType">
+<option value="articulo_personal">Artículo personal</option>
+<option value="cabina">Equipaje de mano / cabina</option>
+<option value="facturado">Equipaje facturado</option>
+<option value="todo">Quiero saberlo todo</option>
+</select>
 
-<div class="actions">
-<button class="secondary" onclick="goToStep(3)">← VOLVER</button>
-<button class="primary" onclick="goToStep(5)">CONTINUAR →</button>
-</div>
+<label>¿Qué tarifa compraste?</label>
+<input id="bagFare" placeholder="Ej.: Economy, Basic Economy, Main Cabin...">
+
+<label>¿Cuántas maletas o piezas quieres llevar?</label>
+<input id="bagCount" type="number" min="1" value="1">
+
+<label>¿Cuántos objetos quieres llevar?</label>
+<input id="objectCount" placeholder="Ej.: 12 objetos">
+
+<label>¿Qué quieres saber exactamente?</label>
+<textarea id="bagQuestion" placeholder="Ej.: ¿Cuántas maletas puedo facturar y cuánto puede pesar cada una?"></textarea>
+
+<button class="primary" onclick="checkBaggage()">DIME EXACTAMENTE QUÉ DEBO COMPROBAR</button>
+<div id="bagLoading" class="loading hidden">Comprobando la información oficial...</div>
+<div id="bagResult" class="result hidden"></div>
+
+<div class="notice"><strong>Importante:</strong> el número de maletas, el peso y las medidas pueden cambiar según la aerolínea, tarifa, ruta y tipo de equipaje. Por eso primero identificamos esos datos y después comprobamos la regla correspondiente.</div>
+
+<div class="actions"><button class="secondary" onclick="go(3)">← VOLVER</button><button class="primary" onclick="go(5)">¿QUÉ QUIERES LLEVAR? →</button></div>
 </section>
 
-<section class="screen" id="step5">
-<h2>4. ¿Qué quieres llevar?</h2>
-<p><strong>Pregúntame</strong> por cualquier cosa que quieras llevar. Puedes escribir un producto común o algo mucho más específico.</p>
-<div class="notice">
-<strong>Importante:</strong> que un artículo pueda entrar en un avión y que pueda entrar en un país son dos preguntas diferentes. Aquí te ayudamos a identificar qué debes comprobar en cada caso.
-</div>
-
-<div class="search-row">
-<input id="itemSearch" placeholder="Ej.: power bank de 20,000 mAh, bicicleta eléctrica, arroz, medicamentos..." onkeydown="if(event.key==='Enter')performItemCheck()">
-<button class="primary" style="margin-top:0" onclick="performItemCheck()">PREGÚNTAME</button>
-</div>
-
+<section class="screen" id="s5">
+<h2>¿Qué quieres llevar?</h2>
+<p>Escribe exactamente lo que quieres llevar. <strong>Pregúntame</strong> te ayuda a identificar la regla que debes comprobar y, cuando existe información oficial suficiente, te da una respuesta concreta.</p>
+<div class="notice"><strong>No importa si parece algo sencillo o complicado.</strong> Puedes preguntar por comida, medicamentos, líquidos, electrónicos, baterías, power banks, estaciones de energía, bicicletas, bicicletas eléctricas, patinetas, motos, autos, herramientas, repuestos y otros artículos.</div>
+<div class="search-row"><input id="item" placeholder="Ej.: batería de litio 20,000 mAh"><button class="primary" style="margin:0" onclick="checkItem()">PREGÚNTAME</button></div>
 <div class="quick">
-<button onclick="quickSelect('Arroz')">Arroz</button>
-<button onclick="quickSelect('Frijoles')">Frijoles</button>
-<button onclick="quickSelect('Café')">Café</button>
-<button onclick="quickSelect('Comida empacada')">Comida empacada</button>
-<button onclick="quickSelect('Medicamentos')">Medicamentos</button>
-<button onclick="quickSelect('Vitaminas')">Vitaminas</button>
-<button onclick="quickSelect('Ropa')">Ropa</button>
-<button onclick="quickSelect('Zapatos')">Zapatos</button>
-<button onclick="quickSelect('Perfume')">Perfume</button>
-<button onclick="quickSelect('Shampoo')">Shampoo</button>
-<button onclick="quickSelect('Cosméticos')">Cosméticos</button>
-<button onclick="quickSelect('Artículos de higiene')">Higiene</button>
-<button onclick="quickSelect('Celular')">Celular</button>
-<button onclick="quickSelect('Laptop')">Laptop</button>
-<button onclick="quickSelect('Tablet')">Tablet</button>
-<button onclick="quickSelect('Cámara')">Cámara</button>
-<button onclick="quickSelect('Power bank')">Power bank</button>
-<button onclick="quickSelect('Batería')">Batería</button>
-<button onclick="quickSelect('Estación de energía')">Estación de energía</button>
-<button onclick="quickSelect('Electrodoméstico')">Electrodoméstico</button>
-<button onclick="quickSelect('Televisor')">Televisor</button>
-<button onclick="quickSelect('Herramientas')">Herramientas</button>
-<button onclick="quickSelect('Pieza de carro')">Pieza de carro</button>
-<button onclick="quickSelect('Carro')">Carro</button>
-<button onclick="quickSelect('Motocicleta')">Motocicleta</button>
-<button onclick="quickSelect('Bicicleta')">Bicicleta</button>
-<button onclick="quickSelect('Bicicleta eléctrica')">Bicicleta eléctrica</button>
-<button onclick="quickSelect('Patineta eléctrica')">Patineta eléctrica</button>
-<button onclick="quickSelect('Motor')">Motor</button>
-<button onclick="quickSelect('Juguetes')">Juguetes</button>
-<button onclick="quickSelect('Artículos de bebé')">Bebé</button>
-<button onclick="quickSelect('Regalos')">Regalos</button>
-<button onclick="quickSelect('Artículos deportivos')">Deportes</button>
-<button onclick="quickSelect('Libros')">Libros</button>
+<button onclick="q('Power bank')">Power bank</button><button onclick="q('Batería de litio')">Batería</button><button onclick="q('Estación de energía')">Estación de energía</button><button onclick="q('Bicicleta eléctrica')">Bicicleta eléctrica</button><button onclick="q('Patineta eléctrica')">Patineta eléctrica</button><button onclick="q('Motocicleta')">Motocicleta</button><button onclick="q('Automóvil')">Automóvil</button><button onclick="q('Pieza de carro')">Pieza de carro</button><button onclick="q('Herramientas')">Herramientas</button><button onclick="q('Medicamentos')">Medicamentos</button><button onclick="q('Perfume')">Perfume</button><button onclick="q('Alimentos')">Alimentos</button><button onclick="q('Arroz')">Arroz</button><button onclick="q('Frijoles')">Frijoles</button><button onclick="q('Laptop')">Laptop</button><button onclick="q('Celular')">Celular</button><button onclick="q('Televisor')">Televisor</button><button onclick="q('Ropa')">Ropa</button>
 </div>
-
-<div id="loading">Estoy preparando una orientación para este artículo...</div>
+<div id="itemLoading" class="loading hidden">Comprobando las fuentes correspondientes...</div>
 <div id="itemResult" class="result hidden"></div>
-
-<div class="actions">
-<button class="secondary" onclick="goToStep(4)">← VOLVER</button>
-<button class="primary" onclick="goToStep(6)">CONTINUAR →</button>
-</div>
+<div class="actions"><button class="secondary" onclick="go(4)">← VOLVER</button><button class="primary" onclick="go(6)">CONTINUAR →</button></div>
 </section>
 
-<section class="screen" id="step6">
-<h2>5. Si vas a Cuba: prepara tus procesos oficiales</h2>
-<p>Practica aquí antes de entrar a los sitios oficiales. La simulación sirve para prepararte; el trámite real se realiza en el sitio oficial.</p>
-
+<section class="screen" id="s6">
+<h2>Preparación para Cuba</h2>
+<p>Practica primero y realiza después el proceso real directamente en el sitio oficial.</p>
 <div class="grid">
-<div class="card">
-<h3>D'Viajeros</h3>
-<p class="small">Practica qué información debes preparar para completar el proceso.</p>
-<button class="primary" onclick="startDviajeros()">PRACTICAR D'VIAJEROS</button>
-<a class="secondary" style="display:block;text-align:center;text-decoration:none" href="https://dviajeros.mitrans.gob.cu/" target="_blank" rel="noopener">SITIO OFICIAL</a>
+<div class="card"><h3>D'Viajeros</h3><p class="small">Organiza la información antes de entrar al formulario.</p><button class="primary" onclick="practice('dviajeros')">PRACTICAR</button><a class="secondary" style="display:block;text-align:center;text-decoration:none" href="https://dviajeros.mitrans.gob.cu/" target="_blank">SITIO OFICIAL</a></div>
+<div class="card"><h3>eVisa Cuba</h3><p class="small">Prepárate antes de realizar el proceso oficial.</p><button class="primary" onclick="practice('evisa')">PRACTICAR</button><a class="secondary" style="display:block;text-align:center;text-decoration:none" href="https://evisacuba.cu/" target="_blank">SITIO OFICIAL</a></div>
+<div class="card"><h3>Aduana</h3><p class="small">Consulta las reglas oficiales de entrada.</p><a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://www.aduana.gob.cu/" target="_blank">ADUANA OFICIAL</a></div>
 </div>
-
-<div class="card">
-<h3>eVisa Cuba</h3>
-<p class="small">Conoce el proceso y después consulta directamente el sitio oficial.</p>
-<button class="primary" onclick="startEvisa()">PRACTICAR eVISA</button>
-<a class="secondary" style="display:block;text-align:center;text-decoration:none" href="https://evisacuba.cu/" target="_blank" rel="noopener">SITIO OFICIAL</a>
-</div>
-
-<div class="card">
-<h3>Aduana de Cuba</h3>
-<p class="small">Consulta directamente las reglas oficiales de entrada y mercancías.</p>
-<a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://www.aduana.gob.cu/" target="_blank" rel="noopener">VER ADUANA OFICIAL</a>
-</div>
-</div>
-
-<div id="dviajerosPractice" class="result hidden"></div>
-
-<div class="actions">
-<button class="secondary" onclick="goToStep(5)">← VOLVER</button>
-<button class="primary" onclick="goToStep(7)">CONTINUAR →</button>
-</div>
+<div id="practice" class="result hidden"></div>
+<div class="actions"><button class="secondary" onclick="go(5)">← VOLVER</button><button class="primary" onclick="go(7)">CONTINUAR →</button></div>
 </section>
 
-<section class="screen" id="step7">
-<h2>6. Aerolíneas y charters</h2>
-<p>Estas son puertas de entrada para que consultes directamente vuelos y condiciones. La disponibilidad y las rutas pueden cambiar.</p>
-<div id="airlineList"></div>
-
-<div class="card" style="margin-top:15px">
-<strong>Buscador de vuelos</strong>
-<p class="small">Úsalo para comparar opciones y después confirma las condiciones directamente con la aerolínea.</p>
-<a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://www.google.com/travel/flights" target="_blank" rel="noopener">ABRIR GOOGLE FLIGHTS</a>
-</div>
-
-<div class="actions">
-<button class="secondary" onclick="goToStep(6)">← VOLVER</button>
-<button class="primary" onclick="goToStep(8)">VER MI RESUMEN →</button>
-</div>
+<section class="screen" id="s7">
+<h2>Aerolíneas y charters</h2>
+<p>Consulta directamente las condiciones de la empresa que opera tu vuelo.</p>
+<div id="airlines">Cargando...</div>
+<a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://www.google.com/travel/flights" target="_blank">GOOGLE FLIGHTS</a>
+<div class="actions"><button class="secondary" onclick="go(6)">← VOLVER</button><button class="primary" onclick="go(8)">MI RESUMEN →</button></div>
 </section>
 
-<section class="screen" id="step8">
-<h2>7. Mi resumen de preparación</h2>
-<p>Guarda una copia de lo que has preparado. Este resumen no sustituye los documentos ni las confirmaciones oficiales.</p>
-
+<section class="screen" id="s8">
+<h2>Mi resumen</h2>
 <div id="summary"></div>
-
-<div class="grid" style="margin-top:15px">
-<div class="card">
-<strong>Documentos oficiales</strong>
-<a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://dviajeros.mitrans.gob.cu/" target="_blank" rel="noopener">D'VIAJEROS</a>
-<a class="secondary" style="display:block;text-align:center;text-decoration:none" href="https://evisacuba.cu/" target="_blank" rel="noopener">eVISA</a>
-<a class="secondary" style="display:block;text-align:center;text-decoration:none" href="https://www.aduana.gob.cu/" target="_blank" rel="noopener">ADUANA</a>
-</div>
-
-<div class="card">
-<strong>Guardar</strong>
 <button class="primary" onclick="window.print()">GUARDAR / IMPRIMIR PDF</button>
-<button class="secondary" onclick="downloadSummary()">DESCARGAR RESUMEN</button>
-</div>
-</div>
-
-<button class="secondary" onclick="goToStep(7)">← VOLVER</button>
-<button class="primary" onclick="resetApp()">EMPEZAR DE NUEVO</button>
+<button class="secondary" onclick="download()">DESCARGAR RESUMEN</button>
+<button class="secondary" onclick="resetApp()">EMPEZAR DE NUEVO</button>
 </section>
 
-<div class="footer">
-<strong>May Roga LLC</strong><br>
-¿QUÉ QUIERES LLEVAR? es una herramienta independiente de preparación y orientación. No es una aerolínea, agencia de viajes, autoridad aduanera, autoridad migratoria ni organismo gubernamental. Las reglas oficiales y las decisiones finales corresponden a las autoridades y al transportista aplicables.
-</div>
+<footer class="footer">May Roga LLC — herramienta independiente de preparación y orientación. No es una aerolínea, agencia de viajes ni autoridad gubernamental. Las condiciones finales deben confirmarse en las fuentes oficiales correspondientes.</footer>
 </div>
 
 <script>
-const state={
-step:1,
-trip:{
-origin:"",
-destination:"Cuba",
-passengers:1,
-stops:0,
-airline:"",
-luggage:"Todavía no sé"
-},
-items:[]
-};
+const state={trip:{origin:"",destination:"Cuba",passengers:1,stops:0,airline:""},items:[]};
+const $=id=>document.getElementById(id);
+const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 
-function $(id){return document.getElementById(id)}
-
-function escapeHtml(value){
-return String(value??"").replace(/[&<>"']/g,function(c){
-return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]
-})
-}
-
-function goToStep(n){
-state.step=n;
+function go(n){
 document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));
-const target=$("step"+n);
-if(target)target.classList.add("active");
-document.querySelectorAll(".stepdot").forEach((x,i)=>{
-x.classList.toggle("active",i+1===n)
-});
+$("s"+n).classList.add("active");
+document.querySelectorAll(".stepdot").forEach((x,i)=>x.classList.toggle("active",i===n-1));
 if(n===7)loadAirlines();
-if(n===8)renderSummary();
-window.scrollTo({top:0,behavior:"smooth"});
+if(n===8)summary();
+scrollTo({top:0,behavior:"smooth"});
 }
 
-function saveTripInfoAndNext(){
+function saveTrip(){
 state.trip.origin=$("origin").value.trim();
 state.trip.destination=$("destination").value;
-state.trip.passengers=Math.max(1,parseInt($("passengers").value||"1",10));
-state.trip.stops=parseInt($("stops").value||"0",10);
+state.trip.passengers=$("passengers").value;
+state.trip.stops=$("stops").value;
 state.trip.airline=$("airline").value;
-state.trip.luggage=$("luggage").value;
-goToStep(3);
+if(state.trip.airline)$("bagAirline").value=state.trip.airline;
 }
 
-function openFlights(){
-window.open("https://www.google.com/travel/flights","_blank","noopener");
+function q(x){$("item").value=x;checkItem()}
+
+function sourcesHtml(arr){
+if(!Array.isArray(arr)||!arr.length)return"";
+return `<div class="result-section"><strong>Fuentes oficiales</strong><div class="source-list">${arr.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name||"Fuente oficial")} ↗</a>`).join("")}</div></div>`;
 }
 
-function renderFlightExplanation(){
-$("flightExplanation").classList.remove("hidden");
-$("flightExplanation").innerHTML=`
-<div class="result-status status-review">ANTES DE COMPRAR</div>
-<div class="answer-main">No mires solamente el precio. Comprueba que el aeropuerto, fecha, escalas, aerolínea y condiciones de equipaje correspondan realmente a tu viaje.</div>
-<div class="result-section"><strong>Comprueba especialmente:</strong><ul>
-<li>Origen y destino.</li>
-<li>Fecha y hora.</li>
-<li>Escalas y aeropuertos de conexión.</li>
-<li>Aerolínea que opera el vuelo.</li>
-<li>Equipaje incluido.</li>
-<li>Condiciones que aparecen antes de pagar.</li>
-</ul></div>`;
-}
-
-function quickSelect(item){
-$("itemSearch").value=item;
-$("itemSearch").focus();
-performItemCheck();
-}
-
-function listHtml(title,list){
-if(!Array.isArray(list)||!list.length)return"";
-return `<div class="result-section"><strong>${escapeHtml(title)}</strong><ul>${list.map(x=>`<li>${escapeHtml(x)}</li>`).join("")}</ul></div>`;
-}
-
-function sourceHtml(sources){
-if(!Array.isArray(sources)||!sources.length)return"";
-return `<div class="result-section"><strong>Fuentes oficiales para comprobarlo</strong><div class="source-list">${sources.map(s=>{
-const url=escapeHtml(s.url||"");
-const name=escapeHtml(s.name||"Fuente oficial");
-return `<a href="${url}" target="_blank" rel="noopener">${name} ↗</a>`
-}).join("")}</div></div>`;
-}
-
-function renderItemResult(data,item){
-const result=$("itemResult");
-result.classList.remove("hidden");
-
-let cls="status-review";
-if(data.status==="PUEDES")cls="status-ok";
-if(data.status==="NO LO DES POR PERMITIDO"||data.status==="NO")cls="status-no";
-
-const title=data.status==="PUEDES"?"ORIENTACIÓN POSITIVA":
-data.status==="NO LO DES POR PERMITIDO"||data.status==="NO"?"NO LO DES POR PERMITIDO":"NECESITA COMPROBACIÓN";
-
-result.innerHTML=`
-<div class="item-head">
-<div>
-<div class="result-status ${cls}">${escapeHtml(title)}</div>
-<h3>${escapeHtml(item)}</h3>
-</div>
-</div>
-<div class="answer-main">${escapeHtml(data.recommendation||"Necesitamos comprobar este artículo antes de darte una respuesta responsable.")}</div>
-<div class="result-section"><strong>¿Qué estamos comprobando?</strong><p>${escapeHtml(data.article||"Las condiciones de transporte y, cuando corresponda, las reglas de entrada al destino.")}</p></div>
-${listHtml("Lo que puede cambiar la respuesta",data.what_matters)}
-${listHtml("Datos que conviene confirmar",data.questions_to_confirm)}
-${listHtml("Qué debes comprobar",data.where_to_look)}
-${listHtml("Importante",data.warnings)}
-${sourceHtml(data.official_sources)}
-<div class="result-section small"><strong>Importante:</strong> las fuentes oficiales son las que debes utilizar para confirmar la condición final antes de viajar.</div>
-`;
-
-state.items.unshift({
-item:item,
-status:data.status,
-recommendation:data.recommendation||"",
-sources:data.official_sources||[]
+function resultHtml(data){
+let text=esc(data.recommendation||"No se pudo obtener una respuesta.");
+let lists="";
+["what_matters","questions_to_confirm","where_to_look","warnings"].forEach((key,i)=>{
+const names=["Lo que cambia la respuesta","Lo que debes confirmar","Dónde debes comprobarlo","Importante"];
+if(Array.isArray(data[key])&&data[key].length)lists+=`<div class="result-section"><strong>${names[i]}</strong><ul>${data[key].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`;
 });
-state.items=state.items.slice(0,20);
+return `<div class="result-status">${esc(data.status||"RESPUESTA")}</div><div class="answer-main">${text}</div>${lists}${sourcesHtml(data.official_sources)}`;
 }
 
-async function performItemCheck(){
-const item=$("itemSearch").value.trim();
-if(!item){
-$("itemResult").classList.remove("hidden");
-$("itemResult").innerHTML=`<div class="result-status status-review">ESCRIBE UN ARTÍCULO</div><div class="answer-main">Escribe qué quieres llevar para poder orientarte.</div>`;
-$("itemSearch").focus();
-return;
-}
-
-$("loading").classList.add("show");
+async function checkItem(){
+const item=$("item").value.trim();
+if(!item){$("item").focus();return}
+$("itemLoading").classList.remove("hidden");
 $("itemResult").classList.add("hidden");
-
-const payload={
-item_name:item,
-destination:state.trip.destination||"Cuba",
-luggage_type:state.trip.luggage||"Todavía no sé",
-origin:state.trip.origin||"",
-airline:state.trip.airline||"",
-context:"Consulta realizada desde la sección ¿Qué quieres llevar?"
-};
-
 try{
-const response=await fetch("/api/check-item",{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify(payload)
-});
-const data=await response.json();
-if(!response.ok)throw new Error(data.detail||"No fue posible consultar");
-renderItemResult(data,item);
-}catch(error){
+const r=await fetch("/api/check-item",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({item_name:item,destination:state.trip.destination,origin:state.trip.origin,airline:state.trip.airline,luggage_type:"",fare:""})});
+const data=await r.json();
+if(!r.ok)throw new Error(data.detail||"Error");
+$("itemResult").innerHTML=resultHtml(data);
 $("itemResult").classList.remove("hidden");
-$("itemResult").innerHTML=`
-<div class="result-status status-review">NO SE PUDO COMPLETAR LA COMPROBACIÓN</div>
-<div class="answer-main">No queremos darte una respuesta inventada. Intenta nuevamente o comprueba directamente las reglas oficiales de tu aerolínea y, si corresponde, de Aduana.</div>
-${state.trip.destination.toLowerCase().includes("cuba")?`<div class="source-list"><a href="https://www.aduana.gob.cu/" target="_blank" rel="noopener">Aduana General de la República de Cuba ↗</a></div>`:""}`;
-}finally{
-$("loading").classList.remove("show");
-}
-}
-
-function startDviajeros(){
-const box=$("dviajerosPractice");
-box.classList.remove("hidden");
-box.innerHTML=`
-<h3>Práctica D'Viajeros</h3>
-<p>Esta práctica te ayuda a organizar la información antes de entrar al sitio oficial.</p>
-<div class="result-section"><strong>Prepara con calma:</strong><ul>
-<li>Información del viaje.</li>
-<li>Datos personales que el formulario oficial solicite.</li>
-<li>Información relacionada con tu entrada y salida.</li>
-<li>La información que corresponda a tu equipaje o declaración.</li>
-</ul></div>
-<div class="notice"><strong>Recuerda:</strong> esta es una práctica. Para realizar el proceso real debes utilizar el sitio oficial de D'Viajeros.</div>
-<a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://dviajeros.mitrans.gob.cu/" target="_blank" rel="noopener">ABRIR D'VIAJEROS OFICIAL</a>`;
+state.items.unshift({item,status:data.status,recommendation:data.recommendation||""});
+state.items=state.items.slice(0,20);
+}catch(e){
+$("itemResult").innerHTML=`<div class="result-status">NO SE PUDO COMPROBAR</div><div class="answer-main">No vamos a inventarte una respuesta. Intenta nuevamente o utiliza directamente las fuentes oficiales.</div>`;
+$("itemResult").classList.remove("hidden");
+}finally{$("itemLoading").classList.add("hidden")}
 }
 
-function startEvisa(){
-const box=$("dviajerosPractice");
-box.classList.remove("hidden");
-box.innerHTML=`
-<h3>Práctica eVisa</h3>
-<p>Antes de realizar el proceso oficial, familiarízate con la información que puede solicitarse y ten preparados tus documentos.</p>
-<div class="result-section"><strong>Hazlo con calma:</strong><ul>
-<li>Lee cada pantalla antes de continuar.</li>
-<li>Escribe los datos exactamente como correspondan a tus documentos.</li>
-<li>No entregues información a páginas que no sean la oficial.</li>
-<li>Comprueba la información antes de finalizar.</li>
-</ul></div>
-<div class="notice"><strong>Esta práctica no es el trámite oficial.</strong></div>
-<a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://evisacuba.cu/" target="_blank" rel="noopener">ABRIR eVISA OFICIAL</a>`;
+async function checkBaggage(){
+const airline=$("bagAirline").value;
+if(!airline){$("bagResult").classList.remove("hidden");$("bagResult").innerHTML=`<div class="result-status">SELECCIONA LA AEROLÍNEA</div><div class="answer-main">Necesitamos la aerolínea porque el peso, las medidas y la cantidad de piezas pueden cambiar entre empresas y tarifas.</div>`;return}
+$("bagLoading").classList.remove("hidden");$("bagResult").classList.add("hidden");
+try{
+const r=await fetch("/api/check-baggage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({airline,destination:state.trip.destination,baggage_type:$("bagType").value,fare:$("bagFare").value.trim(),bags:$("bagCount").value,item_count:$("objectCount").value.trim(),question:$("bagQuestion").value.trim()})});
+const data=await r.json();
+if(!r.ok)throw new Error(data.detail||"Error");
+$("bagResult").innerHTML=resultHtml(data);
+$("bagResult").classList.remove("hidden");
+}catch(e){
+$("bagResult").innerHTML=`<div class="result-status">NO SE PUDO COMPROBAR</div><div class="answer-main">No se pudo obtener en este momento la regla oficial. Para no darte un peso, medida o cantidad incorrectos, consulta la página oficial de equipaje de ${esc(airline)}.</div>`;
+$("bagResult").classList.remove("hidden");
+}finally{$("bagLoading").classList.add("hidden")}
+}
+
+function practice(type){
+$("practice").classList.remove("hidden");
+$("practice").innerHTML=type==="dviajeros"?`<h3>Práctica D'Viajeros</h3><p>Prepara la información del viaje y lee cada campo antes de escribirlo. La práctica no sustituye el formulario oficial.</p><a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://dviajeros.mitrans.gob.cu/" target="_blank">ABRIR D'VIAJEROS OFICIAL</a>`:`<h3>Práctica eVisa</h3><p>Lee cada paso, utiliza la información que corresponda a tus documentos y comprueba antes de finalizar.</p><a class="primary" style="display:block;text-align:center;text-decoration:none" href="https://evisacuba.cu/" target="_blank">ABRIR eVISA OFICIAL</a>`;
 }
 
 async function loadAirlines(){
-const box=$("airlineList");
-box.innerHTML=`<div class="small">Cargando opciones...</div>`;
 try{
-const r=await fetch("/api/airlines");
-const data=await r.json();
-const list=data.airlines||[];
-box.innerHTML=list.map(a=>`
-<div class="airline">
-<div>
-<strong>${escapeHtml(a.name)}</strong>
-<div class="tag">${escapeHtml(a.type||"Consulta")}</div>
-</div>
-<a href="${escapeHtml(a.url)}" target="_blank" rel="noopener">CONSULTAR ↗</a>
-</div>`).join("");
-}catch(e){
-box.innerHTML=`<div class="notice">No se pudo cargar la lista. Puedes utilizar directamente Google Flights o los sitios oficiales de las aerolíneas.</div>`;
-}
+const r=await fetch("/api/airlines");const d=await r.json();
+$("airlines").innerHTML=(d.airlines||[]).map(a=>`<div class="airline"><div><strong>${esc(a.name)}</strong><br><span class="tag">${esc(a.type)}</span></div><a href="${esc(a.url)}" target="_blank" rel="noopener">CONSULTAR ↗</a></div>`).join("");
+}catch(e){$("airlines").innerHTML="No se pudo cargar la lista."}
 }
 
-function renderSummary(){
-const t=state.trip;
-const items=state.items;
-$("summary").innerHTML=`
-<div class="summary-box"><strong>Origen</strong>${escapeHtml(t.origin||"No indicado")}</div>
-<div class="summary-box"><strong>Destino</strong>${escapeHtml(t.destination||"Cuba")}</div>
-<div class="summary-box"><strong>Personas</strong>${escapeHtml(t.passengers)}</div>
-<div class="summary-box"><strong>Escalas</strong>${t.stops===0?"Sin escalas":escapeHtml(t.stops)}</div>
-<div class="summary-box"><strong>Aerolínea</strong>${escapeHtml(t.airline||"Todavía no seleccionada")}</div>
-<div class="summary-box"><strong>Equipaje</strong>${escapeHtml(t.luggage||"Todavía no sé")}</div>
-<div class="summary-box"><strong>Artículos consultados</strong>
-${items.length?`<ul>${items.map(x=>`<li><strong>${escapeHtml(x.item)}</strong> — ${escapeHtml(x.status)}</li>`).join("")}</ul>`:"Todavía no has consultado ningún artículo."}
-</div>
-<div class="notice"><strong>Último paso:</strong> utiliza las fuentes oficiales para confirmar las condiciones antes de viajar. Guarda este resumen como ayuda personal; no sustituye una autorización oficial.</div>`;
+function summary(){
+$("summary").innerHTML=`<div class="summary-box"><strong>Origen</strong>${esc(state.trip.origin||"No indicado")}</div><div class="summary-box"><strong>Destino</strong>${esc(state.trip.destination)}</div><div class="summary-box"><strong>Personas</strong>${esc(state.trip.passengers)}</div><div class="summary-box"><strong>Escalas</strong>${state.trip.stops==="0"?"Sin escalas":esc(state.trip.stops)}</div><div class="summary-box"><strong>Aerolínea</strong>${esc(state.trip.airline||"Todavía no seleccionada")}</div><div class="summary-box"><strong>Artículos consultados</strong>${state.items.length?"<ul>"+state.items.map(x=>`<li><strong>${esc(x.item)}</strong> — ${esc(x.status)}</li>`).join("")+"</ul>":"Ninguno"}</div>`;
 }
 
-function downloadSummary(){
-const t=state.trip;
-const lines=[
-"¿QUÉ QUIERES LLEVAR? | May Roga LLC",
-"",
-"RESUMEN DE PREPARACIÓN",
-"Origen: "+(t.origin||"No indicado"),
-"Destino: "+(t.destination||"Cuba"),
-"Personas: "+t.passengers,
-"Escalas: "+(t.stops===0?"Sin escalas":t.stops),
-"Aerolínea: "+(t.airline||"Todavía no seleccionada"),
-"Equipaje: "+(t.luggage||"Todavía no sé"),
-"",
-"ARTÍCULOS CONSULTADOS:"
-];
-state.items.forEach(x=>{
-lines.push("- "+x.item+" | "+x.status);
-lines.push("  "+x.recommendation);
-});
-lines.push(
-"",
-"FUENTES OFICIALES:",
-"https://dviajeros.mitrans.gob.cu/",
-"https://evisacuba.cu/",
-"https://www.aduana.gob.cu/",
-"https://www.google.com/travel/flights",
-"",
-"May Roga LLC es una herramienta independiente de preparación y orientación."
-);
-const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
-const url=URL.createObjectURL(blob);
-const a=document.createElement("a");
-a.href=url;
-a.download="mi-resumen-que-quieres-llevar.txt";
-document.body.appendChild(a);
-a.click();
-a.remove();
-URL.revokeObjectURL(url);
+function download(){
+const text=`¿QUÉ QUIERES LLEVAR? | May Roga LLC\n\nOrigen: ${state.trip.origin||"No indicado"}\nDestino: ${state.trip.destination}\nPersonas: ${state.trip.passengers}\nEscalas: ${state.trip.stops}\nAerolínea: ${state.trip.airline||"No indicada"}\n\nARTÍCULOS CONSULTADOS:\n${state.items.map(x=>"- "+x.item+" | "+x.status+"\n  "+x.recommendation).join("\n")}\n\nFUENTES:\nhttps://www.aduana.gob.cu/\nhttps://dviajeros.mitrans.gob.cu/\nhttps://evisacuba.cu/\nhttps://www.google.com/travel/flights`;
+const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/plain;charset=utf-8"}));a.download="mi-resumen-que-quieres-llevar.txt";a.click();
 }
 
 function resetApp(){
-state.step=1;
-state.items=[];
-state.trip={origin:"",destination:"Cuba",passengers:1,stops:0,airline:"",luggage:"Todavía no sé"};
-$("origin").value="";
-$("destination").value="Cuba";
-$("passengers").value="1";
-$("stops").value="0";
-$("airline").value="";
-$("luggage").value="Todavía no sé";
-$("itemSearch").value="";
-$("itemResult").classList.add("hidden");
-$("flightExplanation").classList.add("hidden");
-$("dviajerosPractice").classList.add("hidden");
-goToStep(1);
+state.items=[];state.trip={origin:"",destination:"Cuba",passengers:1,stops:0,airline:""};
+document.querySelectorAll("input").forEach(x=>x.value="");
+$("destination").value="Cuba";$("passengers").value="1";$("stops").value="0";
+go(1);
 }
-
-document.addEventListener("DOMContentLoaded",function(){
-goToStep(1);
-});
 </script>
 </body>
 </html>
