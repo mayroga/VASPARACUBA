@@ -1,4 +1,3 @@
-```python
 import os
 import httpx
 
@@ -8,13 +7,11 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from typing import Optional
 
-
 app = FastAPI(
     title="Qu-Quieres-Llevar",
     description="Acompañante de preparación de viaje de May Roga LLC",
     version="1.0.0",
 )
-
 
 # ============================================================
 # CORS
@@ -27,7 +24,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # ============================================================
 # CONFIGURACIÓN
@@ -42,7 +38,6 @@ GEMINI_URL = (
     f"v1beta/models/{GEMINI_MODEL}:generateContent"
 )
 
-
 # ============================================================
 # MODELOS
 # ============================================================
@@ -52,13 +47,11 @@ class ItemCheckRequest(BaseModel):
     destination: Optional[str] = "Cuba"
     luggage_type: Optional[str] = "mano"
 
-
 class TripAnalysisRequest(BaseModel):
     origin: str
     destination: str
     flight_type: str
     airline: Optional[str] = "General"
-
 
 # ============================================================
 # PÁGINA PRINCIPAL
@@ -66,14 +59,12 @@ class TripAnalysisRequest(BaseModel):
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
-    """
     La interfaz principal se sirve desde static/index.html
     cuando el despliegue está configurado para servir archivos estáticos.
 
     Este endpoint solamente confirma que el backend está funcionando.
-    """
 
-    return """
+    return
     <!doctype html>
     <html lang="es">
     <head>
@@ -86,8 +77,6 @@ async def read_root():
         <p>May Roga LLC — servicio online activo.</p>
     </body>
     </html>
-    """
-
 
 # ============================================================
 # COMPROBAR ARTÍCULO
@@ -145,7 +134,6 @@ NO PUEDES LLEVARLO
 REVISA ESTO ANTES DE VIAJAR
 
 Después explica qué debe hacer la persona.
-"""
 
         try:
 
@@ -278,7 +266,6 @@ Después explica qué debe hacer la persona.
         "source": "Orientación May Roga LLC",
     }
 
-
 # ============================================================
 # ANÁLISIS BÁSICO DEL VIAJE
 # ============================================================
@@ -300,7 +287,6 @@ async def analyze_trip(data: TripAnalysisRequest):
         ),
     }
 
-
 # ============================================================
 # HEALTH CHECK
 # ============================================================
@@ -314,6 +300,5 @@ async def health_check():
         "version": "1.0.0",
         "gemini_configured": bool(GEMINI_API_KEY),
     }
-```
 
 Este código ya corrige los errores de sintaxis/indentación y mantiene los endpoints `/api/check-item`, `/api/analyze-trip` y `/api/health`.
