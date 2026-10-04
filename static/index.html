@@ -1,788 +1,1387 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es" class="h-full">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Qu-Quieres-Llevar — May Roga LLC</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            900: '#14532d',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .print-only { display: none; }
-        @media print {
-            body * { visibility: hidden; }
-            #printable-guide, #printable-guide * { visibility: visible; }
-            #printable-guide { position: absolute; left: 0; top: 0; width: 100%; }
-            .no-print { display: none !important; }
-            .print-only { display: block; }
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿QUÉ QUIERES LLEVAR? | May Roga LLC</title>
+<meta name="description" content="Guía independiente de preparación para viajar a Cuba: vuelos, aerolíneas, equipaje, mercancías, D’Viajeros, eVisa y fuentes oficiales.">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#050505;color:#fff;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,a,input,select{font:inherit}
+button{cursor:pointer}
+.card{background:#101010;border:1px solid #2b2b2b;border-radius:18px}
+.card2{background:#151515;border:1px solid #343434;border-radius:14px}
+.primary{background:#fff;color:#000}
+.primary:hover{background:#e7e7e7}
+.secondary{background:#191919;color:#fff;border:1px solid #444}
+.secondary:hover{background:#242424}
+.step{display:none}
+.step.active{display:block}
+.small{font-size:.86rem;color:#aaa}
+.muted{color:#aaa}
+.input{
+width:100%;background:#080808;color:#fff;border:1px solid #444;
+border-radius:12px;padding:14px 15px;outline:none
+}
+.input:focus{border-color:#fff;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+.quick{
+background:#171717;border:1px solid #383838;color:#fff;border-radius:12px;
+padding:12px;text-align:left;transition:.15s
+}
+.quick:hover{background:#222;border-color:#777}
+.section-title{font-size:1.45rem;font-weight:800;line-height:1.2}
+.badge{display:inline-flex;align-items:center;border:1px solid #444;background:#151515;border-radius:999px;padding:5px 10px;font-size:.75rem;color:#ddd}
+.result-good{border-left:4px solid #fff}
+.result-check{border-left:4px solid #888}
+.result-stop{border-left:4px solid #555}
+.link-card{
+display:block;text-decoration:none;color:#fff;background:#111;
+border:1px solid #333;border-radius:14px;padding:15px;transition:.15s
+}
+.link-card:hover{background:#1b1b1b;border-color:#777;transform:translateY(-1px)}
+.progress-dot{width:9px;height:9px;border-radius:50%;background:#444}
+.progress-dot.active{background:#fff}
+hr{border:0;border-top:1px solid #292929}
+.no-print{}
+@media print{
+body{background:#fff;color:#000}
+.no-print{display:none!important}
+.card,.card2{border:1px solid #ccc;background:#fff;color:#000}
+.muted,.small{color:#444}
+a{color:#000}
+}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 h-full flex flex-col antialiased">
 
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm no-print">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3 cursor-pointer" onclick="goToStep('welcome')">
-                <div class="bg-brand-600 text-white font-bold p-2.5 rounded-xl text-lg shadow-md">
-                    🎒
-                </div>
-                <div>
-                    <h1 class="font-bold text-lg text-slate-900 leading-tight">Qu-Quieres-Llevar</h1>
-                    <p class="text-xs text-slate-500 font-medium">por May Roga LLC</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-2">
-                <button onclick="openSettingsModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-2 rounded-lg transition border border-slate-200 flex items-center gap-1.5">
-                    ⚙️️ <span class="hidden sm:inline">Configurar API Gemini</span>
-                </button>
-                <button onclick="resetTrip()" class="text-xs bg-red-50 hover:bg-red-100 text-red-700 font-medium px-3 py-2 rounded-lg transition border border-red-200">
-                    🔄 Reiniciar Viaje
-                </button>
-            </div>
+<body class="min-h-full">
+
+<header class="border-b border-neutral-800 sticky top-0 z-40 bg-black/95 backdrop-blur no-print">
+<div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap gap-3 items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="text-3xl">🎒</div>
+<div>
+<div class="font-black text-lg leading-tight">¿QUÉ QUIERES LLEVAR?</div>
+<div class="text-xs text-neutral-400">May Roga LLC · Guía independiente</div>
+</div>
+</div>
+
+<div class="flex gap-2">
+<button onclick="goHome()" class="secondary rounded-xl px-4 py-2 text-sm font-bold">Inicio</button>
+<button onclick="resetTrip()" class="secondary rounded-xl px-4 py-2 text-sm font-bold">Reiniciar</button>
+</div>
+</div>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-6">
+
+<!-- PROGRESS -->
+<div class="no-print flex items-center justify-center gap-2 mb-6">
+<div id="dot1" class="progress-dot active"></div>
+<div id="dot2" class="progress-dot"></div>
+<div id="dot3" class="progress-dot"></div>
+<div id="dot4" class="progress-dot"></div>
+<div id="dot5" class="progress-dot"></div>
+<div id="dot6" class="progress-dot"></div>
+<div id="dot7" class="progress-dot"></div>
+<div id="dot8" class="progress-dot"></div>
+</div>
+
+<!-- =========================================================
+     1. BIENVENIDA
+========================================================= -->
+<section id="step-welcome" class="step active">
+<div class="card p-6 md:p-10">
+<div class="max-w-4xl">
+<span class="badge mb-4">PASO 1 · EMPEZAMOS SIN MIEDO</span>
+<h1 class="text-3xl md:text-5xl font-black leading-tight">
+Prepara tu viaje paso a paso.
+</h1>
+<p class="text-lg md:text-xl text-neutral-300 mt-5 leading-relaxed">
+Aquí puedes practicar cómo preparar tu viaje, entender tu vuelo,
+revisar qué puedes llevar y llegar preparado a los sitios oficiales.
+</p>
+<p class="text-neutral-400 mt-4 leading-relaxed">
+No necesitas saber palabras técnicas. Puedes escribir un artículo
+tal como lo llamas en casa. Si viajas a Cuba, encontrarás una sección
+especial para revisar mercancías, equipaje, vuelos y procesos oficiales.
+</p>
+
+<div class="grid md:grid-cols-3 gap-4 mt-8">
+<button class="quick" onclick="quickSelectDestination('Cuba')">
+<div class="text-2xl">🇨🇺</div>
+<div class="font-black text-lg mt-2">Voy a Cuba</div>
+<div class="small mt-1">Vuelos · mercancías · D’Viajeros · eVisa</div>
+</button>
+
+<button class="quick" onclick="quickSelectDestination('México')">
+<div class="text-2xl">🇲🇽</div>
+<div class="font-black text-lg mt-2">Voy a México</div>
+<div class="small mt-1">Preparación general del viaje</div>
+</button>
+
+<button class="quick" onclick="quickSelectDestination('República Dominicana')">
+<div class="text-2xl">🇩🇴</div>
+<div class="font-black text-lg mt-2">Voy a República Dominicana</div>
+<div class="small mt-1">Preparación general del viaje</div>
+</button>
+</div>
+
+<div class="mt-8 card2 p-5">
+<div class="font-bold">¿Qué hace esta app?</div>
+<ul class="text-neutral-300 mt-3 space-y-2 text-sm leading-relaxed">
+<li>✓ Te ayuda a practicar antes de entrar a un sitio oficial.</li>
+<li>✓ Te explica palabras y pasos de forma sencilla.</li>
+<li>✓ Te permite revisar artículos y mercancías.</li>
+<li>✓ Te ayuda a organizar lo que ya hiciste.</li>
+<li>✓ Te prepara un resumen que puedes imprimir o guardar como PDF.</li>
+</ul>
+</div>
+
+<div class="mt-8 flex justify-end">
+<button onclick="goToStep(2)" class="primary rounded-xl px-6 py-3 font-black">
+Comenzar
+</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- =========================================================
+     2. DATOS DEL VIAJE
+========================================================= -->
+<section id="step-trip-info" class="step">
+<div class="card p-6 md:p-10">
+<span class="badge">PASO 2 · MI VIAJE</span>
+<h2 class="section-title mt-4">Primero vamos a entender tu viaje</h2>
+<p class="muted mt-2">
+Solo necesitamos datos básicos para que la explicación tenga sentido.
+No estamos comprando ningún boleto aquí.
+</p>
+
+<div class="grid md:grid-cols-2 gap-5 mt-7">
+
+<div>
+<label class="block font-bold mb-2">¿Desde dónde sales?</label>
+<input id="origin" class="input" placeholder="Ej.: Miami, Florida">
+</div>
+
+<div>
+<label class="block font-bold mb-2">¿A dónde vas?</label>
+<select id="destination" class="input">
+<option value="">Selecciona un destino</option>
+<option value="Cuba">🇨🇺 Cuba</option>
+<option value="México">🇲🇽 México</option>
+<option value="República Dominicana">🇩🇴 República Dominicana</option>
+<option value="Guatemala">🇬🇹 Guatemala</option>
+<option value="El Salvador">🇸🇻 El Salvador</option>
+<option value="Honduras">🇭🇳 Honduras</option>
+<option value="Nicaragua">🇳🇮 Nicaragua</option>
+<option value="Costa Rica">🇨🇷 Costa Rica</option>
+<option value="Panamá">🇵🇦 Panamá</option>
+<option value="Colombia">🇨🇴 Colombia</option>
+<option value="Venezuela">🇻🇪 Venezuela</option>
+<option value="Ecuador">🇪🇨 Ecuador</option>
+<option value="Perú">🇵🇪 Perú</option>
+<option value="Chile">🇨🇱 Chile</option>
+<option value="Argentina">🇦🇷 Argentina</option>
+<option value="Brasil">🇧🇷 Brasil</option>
+<option value="Otro">Otro</option>
+</select>
+</div>
+
+<div>
+<label class="block font-bold mb-2">Fecha aproximada</label>
+<input id="travel-date" type="date" class="input">
+</div>
+
+<div>
+<label class="block font-bold mb-2">¿Cuántas personas viajan?</label>
+<select id="passengers" class="input">
+<option value="1">1 persona</option>
+<option value="2">2 personas</option>
+<option value="3">3 personas</option>
+<option value="4">4 personas</option>
+<option value="5">5 personas</option>
+<option value="6">6 o más</option>
+</select>
+</div>
+
+<div class="md:col-span-2">
+<label class="block font-bold mb-2">¿Tu vuelo es directo o tiene conexión?</label>
+<div class="grid md:grid-cols-2 gap-3">
+<button id="direct-btn" class="quick" onclick="setStops('direct')">
+<div class="font-black">✈️ Directo</div>
+<div class="small mt-1">El vuelo va de origen a destino sin conexión.</div>
+</button>
+<button id="stop-btn" class="quick" onclick="setStops('stops')">
+<div class="font-black">🔄 Tiene conexión</div>
+<div class="small mt-1">Debes cambiar de avión o hacer una conexión.</div>
+</button>
+</div>
+</div>
+
+<div id="stop-location-wrap" class="md:col-span-2 hidden">
+<label class="block font-bold mb-2">¿Dónde haces la conexión?</label>
+<input id="stop-location" class="input" placeholder="Ej.: Atlanta, Miami, Houston...">
+<p class="small mt-2">Si todavía no lo sabes, puedes dejarlo vacío.</p>
+</div>
+
+</div>
+
+<div class="mt-8 flex justify-between gap-3">
+<button onclick="goToStep(1)" class="secondary rounded-xl px-5 py-3 font-bold">← Atrás</button>
+<button onclick="saveTripInfoAndNext()" class="primary rounded-xl px-6 py-3 font-black">
+Continuar →
+</button>
+</div>
+</div>
+</section>
+
+<!-- =========================================================
+     3. PRACTICAR VUELO
+========================================================= -->
+<section id="step-flight" class="step">
+<div class="card p-6 md:p-10">
+<span class="badge">PASO 3 · PRACTICAR MI VUELO</span>
+<h2 class="section-title mt-4">Ahora vamos a practicar cómo buscar un vuelo</h2>
+<p class="muted mt-2">
+La aplicación no vende boletos ni muestra precios inventados.
+Te enseña dónde mirar y qué revisar antes de comprar.
+</p>
+
+<div id="flight-explanation" class="mt-7"></div>
+
+<div class="card2 p-5 mt-6">
+<div class="font-black text-lg">🧭 Una forma sencilla de hacerlo</div>
+<div class="grid md:grid-cols-3 gap-4 mt-5">
+<div>
+<div class="text-2xl">1️⃣</div>
+<div class="font-bold mt-2">Busca</div>
+<p class="small mt-1">Introduce origen, destino, fecha y pasajeros.</p>
+</div>
+<div>
+<div class="text-2xl">2️⃣</div>
+<div class="font-bold mt-2">Compara</div>
+<p class="small mt-1">Mira horarios, escalas, equipaje y condiciones.</p>
+</div>
+<div>
+<div class="text-2xl">3️⃣</div>
+<div class="font-bold mt-2">Confirma</div>
+<p class="small mt-1">Antes de pagar, revisa directamente con la aerolínea.</p>
+</div>
+</div>
+</div>
+
+<div class="mt-7">
+<div class="font-black text-lg">🔎 Practica la búsqueda</div>
+<p class="small mt-1">Estos enlaces te llevan a sitios externos. La disponibilidad y los precios pueden cambiar.</p>
+
+<div class="grid md:grid-cols-2 gap-3 mt-4">
+<a class="link-card" target="_blank" rel="noopener" href="https://www.google.com/travel/flights">
+<div class="font-black">Google Flights</div>
+<div class="small mt-1">Practicar búsqueda y comparación de vuelos</div>
+</a>
+
+<a class="link-card" target="_blank" rel="noopener" href="https://www.aa.com/">
+<div class="font-black">American Airlines</div>
+<div class="small mt-1">Sitio oficial</div>
+</a>
+</div>
+</div>
+
+<div class="mt-8 flex justify-between gap-3">
+<button onclick="goToStep(2)" class="secondary rounded-xl px-5 py-3 font-bold">← Atrás</button>
+<button onclick="goToStep(4)" class="primary rounded-xl px-6 py-3 font-black">Continuar →</button>
+</div>
+</div>
+</section>
+
+<!-- =========================================================
+     4. EQUIPAJE
+========================================================= -->
+<section id="step-luggage" class="step">
+<div class="card p-6 md:p-10">
+<span class="badge">PASO 4 · EQUIPAJE</span>
+<h2 class="section-title mt-4">Entiende dónde puede ir cada cosa</h2>
+<p class="muted mt-2">
+No existe una sola regla para todas las aerolíneas y tarifas.
+Aquí aprendemos la diferencia y después confirmamos con la aerolínea.
+</p>
+
+<div class="grid md:grid-cols-2 gap-4 mt-7">
+
+<div class="card2 p-5">
+<div class="text-3xl">🎒</div>
+<h3 class="font-black text-lg mt-3">Artículo personal</h3>
+<p class="small mt-2">Bolso, mochila u objeto pequeño que puede colocarse debajo del asiento, cuando la tarifa lo permite.</p>
+<p class="text-xs text-neutral-500 mt-3">Confirma tamaño y condiciones con tu aerolínea.</p>
+</div>
+
+<div class="card2 p-5">
+<div class="text-3xl">🧳</div>
+<h3 class="font-black text-lg mt-3">Equipaje de mano</h3>
+<p class="small mt-2">Maleta que puede viajar en la cabina cuando la tarifa y la aerolínea la permiten.</p>
+<p class="text-xs text-neutral-500 mt-3">El tamaño y la cantidad dependen de la aerolínea y tarifa.</p>
+</div>
+
+<div class="card2 p-5">
+<div class="text-3xl">🧳</div>
+<h3 class="font-black text-lg mt-3">Equipaje facturado</h3>
+<p class="small mt-2">Maleta que entregas a la aerolínea antes de pasar al avión.</p>
+<p class="text-xs text-neutral-500 mt-3">Peso, dimensiones, cantidad y precio dependen de la tarifa y ruta.</p>
+</div>
+
+<div class="card2 p-5">
+<div class="text-3xl">💵</div>
+<h3 class="font-black text-lg mt-3">Tarifa básica</h3>
+<p class="small mt-2">Una tarifa puede incluir menos equipaje o servicios que otra.</p>
+<p class="text-xs text-neutral-500 mt-3">Nunca asumas qué incluye: revisa las condiciones de tu boleto.</p>
+</div>
+
+</div>
+
+<div class="card2 p-5 mt-6">
+<div class="font-black">⚠️ Antes de cerrar tu maleta</div>
+<ul class="small mt-3 space-y-2">
+<li>• Mira las condiciones de tu aerolínea.</li>
+<li>• Revisa la tarifa que realmente compraste.</li>
+<li>• Comprueba artículos restringidos o especiales.</li>
+<li>• Si tienes dudas, confirma con la aerolínea o autoridad correspondiente.</li>
+</ul>
+</div>
+
+<div class="mt-8 flex justify-between gap-3">
+<button onclick="goToStep(3)" class="secondary rounded-xl px-5 py-3 font-bold">← Atrás</button>
+<button onclick="goToStep(5)" class="primary rounded-xl px-6 py-3 font-black">Continuar →</button>
+</div>
+</div>
+</section>
+
+<!-- =========================================================
+     5. MERCANCIAS / ARTICULOS
+========================================================= -->
+<section id="step-items" class="step">
+<div class="card p-6 md:p-10">
+<span class="badge">PASO 5 · ¿QUÉ QUIERO LLEVAR?</span>
+
+<h2 class="section-title mt-4">
+Especialmente para Cuba: pregunta por casi cualquier cosa
+</h2>
+
+<p class="muted mt-2 leading-relaxed">
+No tienes que conocer el nombre técnico. Escribe el artículo como lo llamas
+en casa. La respuesta es una orientación para ayudarte a saber qué debes
+revisar antes de viajar.
+</p>
+
+<div class="card2 p-5 mt-6">
+<div class="font-black text-lg">🇨🇺 Si vas a Cuba</div>
+<p class="small mt-2 leading-relaxed">
+Sabemos que una persona puede viajar con ropa, alimentos, medicinas,
+electrónicos, regalos, herramientas, piezas, artículos del hogar,
+productos de higiene y muchas otras cosas. Por eso no queremos limitarte
+a una lista pequeña.
+</p>
+<p class="small mt-2 leading-relaxed">
+Si no encuentras una categoría, escribe directamente el nombre del artículo.
+</p>
+</div>
+
+<!-- CATEGORIAS -->
+<div class="mt-7">
+<div class="font-black text-lg">Elige algo para practicar</div>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+
+<button class="quick" onclick="checkQuickItem('arroz')">🍚 Arroz</button>
+<button class="quick" onclick="checkQuickItem('frijoles')">🫘 Frijoles</button>
+<button class="quick" onclick="checkQuickItem('café')">☕ Café</button>
+<button class="quick" onclick="checkQuickItem('alimentos empacados')">🥫 Alimentos</button>
+
+<button class="quick" onclick="checkQuickItem('medicamentos')">💊 Medicamentos</button>
+<button class="quick" onclick="checkQuickItem('vitaminas')">💊 Vitaminas</button>
+<button class="quick" onclick="checkQuickItem('ropa')">👕 Ropa</button>
+<button class="quick" onclick="checkQuickItem('zapatos')">👟 Zapatos</button>
+
+<button class="quick" onclick="checkQuickItem('perfume')">🧴 Perfume</button>
+<button class="quick" onclick="checkQuickItem('shampoo')">🧴 Shampoo</button>
+<button class="quick" onclick="checkQuickItem('cosméticos')">💄 Cosméticos</button>
+<button class="quick" onclick="checkQuickItem('productos de higiene')">🧼 Higiene</button>
+
+<button class="quick" onclick="checkQuickItem('celular')">📱 Celular</button>
+<button class="quick" onclick="checkQuickItem('computadora portátil')">💻 Laptop</button>
+<button class="quick" onclick="checkQuickItem('tablet')">📱 Tablet</button>
+<button class="quick" onclick="checkQuickItem('cámara')">📷 Cámara</button>
+
+<button class="quick" onclick="checkQuickItem('power bank')">🔋 Power bank</button>
+<button class="quick" onclick="checkQuickItem('baterías')">🔋 Baterías</button>
+<button class="quick" onclick="checkQuickItem('electrodoméstico')">🔌 Electrodoméstico</button>
+<button class="quick" onclick="checkQuickItem('televisor')">📺 Televisor</button>
+
+<button class="quick" onclick="checkQuickItem('herramientas')">🔧 Herramientas</button>
+<button class="quick" onclick="checkQuickItem('repuestos de automóvil')">🚗 Repuestos</button>
+<button class="quick" onclick="checkQuickItem('artículos del hogar')">🏠 Hogar</button>
+<button class="quick" onclick="checkQuickItem('juguetes')">🧸 Juguetes</button>
+
+<button class="quick" onclick="checkQuickItem('artículos para bebé')">👶 Bebé</button>
+<button class="quick" onclick="checkQuickItem('regalos')">🎁 Regalos</button>
+<button class="quick" onclick="checkQuickItem('artículos deportivos')">⚽ Deportes</button>
+<button class="quick" onclick="checkQuickItem('libros')">📚 Libros</button>
+
+</div>
+</div>
+
+<!-- BUSQUEDA -->
+<div class="mt-7">
+<label class="block font-black mb-2">¿No aparece lo que llevas?</label>
+<div class="flex flex-col md:flex-row gap-3">
+<input id="item-search" class="input" placeholder="Ej.: motor pequeño, queso, ventilador, piezas, zapatos...">
+<button onclick="performItemCheck()" class="primary rounded-xl px-6 py-3 font-black">
+Revisar artículo
+</button>
+</div>
+<p class="small mt-2">
+Escribe una cosa a la vez para recibir una orientación más clara.
+</p>
+</div>
+
+<!-- RESULTADO -->
+<div id="item-result" class="mt-7"></div>
+
+<!-- OFICIALES -->
+<div class="mt-8">
+<div class="font-black text-lg">🇨🇺 Para confirmar antes de viajar</div>
+<div class="grid md:grid-cols-3 gap-3 mt-4">
+
+<a class="link-card" target="_blank" rel="noopener"
+href="https://www.aduana.gob.cu/">
+<div class="font-black">Aduana General de la República</div>
+<div class="small mt-1">Fuente oficial para revisar aduana y mercancías</div>
+</a>
+
+<a class="link-card" target="_blank" rel="noopener"
+href="https://dviajeros.mitrans.gob.cu/">
+<div class="font-black">D’Viajeros</div>
+<div class="small mt-1">Portal oficial del viajero</div>
+</a>
+
+<a class="link-card" target="_blank" rel="noopener"
+href="https://evisacuba.cu/">
+<div class="font-black">eVisa Cuba</div>
+<div class="small mt-1">Sitio oficial de eVisa</div>
+</a>
+
+</div>
+</div>
+
+<div class="mt-8 flex justify-between gap-3">
+<button onclick="goToStep(4)" class="secondary rounded-xl px-5 py-3 font-bold">← Atrás</button>
+<button onclick="goToStep(6)" class="primary rounded-xl px-6 py-3 font-black">Continuar →</button>
+</div>
+</div>
+</section>
+
+<!-- =========================================================
+     6. CUBA: PROCESOS OFICIALES
+========================================================= -->
+<section id="step-cuba" class="step">
+<div class="card p-6 md:p-10">
+<span class="badge">PASO 6 · CUBA</span>
+
+<h2 class="section-title mt-4">Tus procesos importantes para Cuba</h2>
+
+<p class="muted mt-2 leading-relaxed">
+Aquí no tienes que memorizar todo. Practica primero y después entra al
+sitio oficial correspondiente para realizar el proceso real.
+</p>
+
+<div class="grid md:grid-cols-2 gap-5 mt-7">
+
+<div class="card2 p-6">
+<div class="text-3xl">🛂</div>
+<h3 class="font-black text-xl mt-3">eVisa Cuba</h3>
+<p class="small mt-2 leading-relaxed">
+Consulta directamente el sistema oficial para conocer el proceso
+correspondiente a tu viaje.
+</p>
+<a href="https://evisacuba.cu/" target="_blank" rel="noopener"
+class="primary inline-block rounded-xl px-5 py-3 font-black mt-5">
+Abrir eVisa Cuba
+</a>
+</div>
+
+<div class="card2 p-6">
+<div class="text-3xl">🧾</div>
+<h3 class="font-black text-xl mt-3">D’Viajeros</h3>
+<p class="small mt-2 leading-relaxed">
+Practica la información que normalmente necesitarás preparar y luego
+completa el proceso en el portal oficial.
+</p>
+<a href="https://dviajeros.mitrans.gob.cu/" target="_blank" rel="noopener"
+class="primary inline-block rounded-xl px-5 py-3 font-black mt-5">
+Abrir D’Viajeros
+</a>
+</div>
+
+<div class="card2 p-6">
+<div class="text-3xl">🛃</div>
+<h3 class="font-black text-xl mt-3">Aduana de Cuba</h3>
+<p class="small mt-2 leading-relaxed">
+Cuando tengas dudas sobre mercancías, equipaje o artículos específicos,
+confirma siempre con la autoridad oficial.
+</p>
+<a href="https://www.aduana.gob.cu/" target="_blank" rel="noopener"
+class="primary inline-block rounded-xl px-5 py-3 font-black mt-5">
+Abrir Aduana
+</a>
+</div>
+
+<div class="card2 p-6">
+<div class="text-3xl">✈️</div>
+<h3 class="font-black text-xl mt-3">Buscar vuelos</h3>
+<p class="small mt-2 leading-relaxed">
+Busca vuelos y después confirma directamente las condiciones de la
+aerolínea que vayas a utilizar.
+</p>
+<a href="https://www.google.com/travel/flights" target="_blank" rel="noopener"
+class="primary inline-block rounded-xl px-5 py-3 font-black mt-5">
+Abrir Google Flights
+</a>
+</div>
+
+</div>
+
+<!-- SIMULACION D'VIAJEROS -->
+<div class="card2 p-6 mt-7">
+<div class="flex flex-wrap items-center justify-between gap-3">
+<div>
+<div class="font-black text-xl">🧪 Practicar D’Viajeros</div>
+<div class="small mt-1">Simulación educativa. No es el formulario oficial.</div>
+</div>
+<button onclick="toggleDviajeros()" class="primary rounded-xl px-5 py-3 font-black">
+Practicar
+</button>
+</div>
+
+<div id="dviajeros-sim" class="hidden mt-6">
+<div class="grid md:grid-cols-2 gap-4">
+<div>
+<label class="block font-bold mb-2">Nombre</label>
+<input id="sim-name" class="input" placeholder="Escribe un nombre de práctica">
+</div>
+<div>
+<label class="block font-bold mb-2">Número de pasajeros</label>
+<select id="sim-passengers" class="input">
+<option>1</option><option>2</option><option>3</option><option>4</option>
+</select>
+</div>
+<div>
+<label class="block font-bold mb-2">País de procedencia</label>
+<input id="sim-country" class="input" placeholder="Ej.: Estados Unidos">
+</div>
+<div>
+<label class="block font-bold mb-2">Número de vuelo</label>
+<input id="sim-flight" class="input" placeholder="Ej.: AA123">
+</div>
+</div>
+
+<div class="mt-5">
+<button onclick="finishDviajerosSimulation()" class="primary rounded-xl px-5 py-3 font-black">
+Revisar mi práctica
+</button>
+</div>
+
+<div id="dviajeros-result" class="mt-5"></div>
+
+<p class="text-xs text-neutral-500 mt-5">
+Esta simulación no envía información a D’Viajeros y no sustituye el
+formulario oficial.
+</p>
+</div>
+</div>
+
+<div class="mt-8 flex justify-between gap-3">
+<button onclick="goToStep(5)" class="secondary rounded-xl px-5 py-3 font-bold">← Atrás</button>
+<button onclick="goToStep(7)" class="primary rounded-xl px-6 py-3 font-black">Continuar →</button>
+</div>
+</div>
+</section>
+
+<!-- =========================================================
+     7. AEROLINEAS Y CHARTERS
+========================================================= -->
+<section id="step-airlines" class="step">
+<div class="card p-6 md:p-10">
+<span class="badge">PASO 7 · AEROLÍNEAS Y CHARTERS</span>
+
+<h2 class="section-title mt-4">¿Dónde puedo buscar mi vuelo a Cuba?</h2>
+
+<p class="muted mt-2 leading-relaxed">
+Aquí tienes enlaces para consultar directamente. La existencia de una ruta,
+horario, aeropuerto, frecuencia o precio puede cambiar, por lo que debes
+confirmarlo en el sitio oficial antes de comprar.
+</p>
+
+<div class="card2 p-5 mt-6">
+<div class="font-black">✈️ Aerolíneas comerciales</div>
+
+<div class="grid md:grid-cols-2 gap-3 mt-4">
+
+<a class="link-card" href="https://www.aa.com/" target="_blank" rel="noopener">
+<div class="font-black">American Airlines</div>
+<div class="small mt-1">Sitio oficial</div>
+</a>
+
+<a class="link-card" href="https://www.delta.com/" target="_blank" rel="noopener">
+<div class="font-black">Delta Air Lines</div>
+<div class="small mt-1">Sitio oficial</div>
+</a>
+
+<a class="link-card" href="https://www.united.com/" target="_blank" rel="noopener">
+<div class="font-black">United Airlines</div>
+<div class="small mt-1">Sitio oficial</div>
+</a>
+
+<a class="link-card" href="https://www.southwest.com/" target="_blank" rel="noopener">
+<div class="font-black">Southwest Airlines</div>
+<div class="small mt-1">Sitio oficial</div>
+</a>
+
+<a class="link-card" href="https://www.jetblue.com/" target="_blank" rel="noopener">
+<div class="font-black">JetBlue</div>
+<div class="small mt-1">Sitio oficial</div>
+</a>
+
+</div>
+</div>
+
+<div class="card2 p-5 mt-5">
+<div class="font-black">🛩️ Charters</div>
+
+<div class="grid md:grid-cols-2 gap-3 mt-4">
+
+<a class="link-card" href="https://www.havanaair.com/" target="_blank" rel="noopener">
+<div class="font-black">Havana Air</div>
+<div class="small mt-1">Charter · sitio oficial</div>
+</a>
+
+<a class="link-card" href="https://www.aerocuba.com/" target="_blank" rel="noopener">
+<div class="font-black">Aerocuba</div>
+<div class="small mt-1">Charter · sitio oficial</div>
+</a>
+
+<a class="link-card" href="https://www.anextours.com/" target="_blank" rel="noopener">
+<div class="font-black">Anex / Xael Charters</div>
+<div class="small mt-1">Charter · sitio oficial</div>
+</a>
+
+<a class="link-card" href="https://www.invictustours.com/" target="_blank" rel="noopener">
+<div class="font-black">Invictus Charter</div>
+<div class="small mt-1">Charter · sitio oficial</div>
+</a>
+
+</div>
+</div>
+
+<div class="card2 p-5 mt-5">
+<div class="font-black">🔎 También puedes empezar comparando</div>
+<a class="link-card mt-4" href="https://www.google.com/travel/flights"
+target="_blank" rel="noopener">
+<div class="font-black">Google Flights</div>
+<div class="small mt-1">
+Úsalo para practicar la búsqueda y después verifica la información
+directamente con la aerolínea.
+</div>
+</a>
+</div>
+
+<div class="card2 p-5 mt-6">
+<div class="font-black">🇨🇺 Sitios oficiales relacionados con tu llegada</div>
+<div class="grid md:grid-cols-3 gap-3 mt-4">
+
+<a class="link-card" href="https://dviajeros.mitrans.gob.cu/"
+target="_blank" rel="noopener">
+<div class="font-black">D’Viajeros</div>
+</a>
+
+<a class="link-card" href="https://evisacuba.cu/"
+target="_blank" rel="noopener">
+<div class="font-black">eVisa Cuba</div>
+</a>
+
+<a class="link-card" href="https://www.aduana.gob.cu/"
+target="_blank" rel="noopener">
+<div class="font-black">Aduana</div>
+</a>
+
+</div>
+</div>
+
+<div class="mt-8 flex justify-between gap-3">
+<button onclick="goToStep(6)" class="secondary rounded-xl px-5 py-3 font-bold">← Atrás</button>
+<button onclick="goToStep(8)" class="primary rounded-xl px-6 py-3 font-black">Ver mi resumen →</button>
+</div>
+</div>
+</section>
+
+<!-- =========================================================
+     8. RESUMEN
+========================================================= -->
+<section id="step-summary" class="step">
+<div class="card p-6 md:p-10">
+<span class="badge">PASO 8 · MI RESUMEN</span>
+
+<h2 class="section-title mt-4">Tu guía de preparación</h2>
+
+<p class="muted mt-2">
+Este resumen sirve para organizar lo que preparaste en la aplicación.
+No es un documento oficial de viaje.
+</p>
+
+<div id="summary-content" class="mt-7"></div>
+
+<div class="card2 p-5 mt-6">
+<div class="font-black">🔎 Antes de viajar</div>
+<ul class="small mt-3 space-y-2 leading-relaxed">
+<li>• Confirma los datos de tu boleto directamente con la aerolínea.</li>
+<li>• Confirma las reglas de equipaje de tu tarifa.</li>
+<li>• Confirma las mercancías directamente con la autoridad correspondiente.</li>
+<li>• Completa los procesos oficiales que correspondan a tu viaje.</li>
+<li>• Guarda tus documentos y comprobantes oficiales.</li>
+</ul>
+</div>
+
+<div class="mt-8 grid md:grid-cols-2 gap-3 no-print">
+<button onclick="window.print()" class="primary rounded-xl px-6 py-4 font-black">
+🖨️ Imprimir / Guardar como PDF
+</button>
+
+<button onclick="goToStep(1)" class="secondary rounded-xl px-6 py-4 font-black">
+Volver al inicio
+</button>
+</div>
+
+<div class="mt-7 no-print">
+<button onclick="resetTrip()" class="secondary rounded-xl px-5 py-3 font-bold">
+Reiniciar todo
+</button>
+</div>
+</div>
+</section>
+
+<!-- AVISO -->
+<div class="mt-8 mb-8 text-center text-xs text-neutral-500 leading-relaxed">
+<strong>May Roga LLC</strong> ofrece una guía independiente de preparación.
+No es una aerolínea, agencia de viajes, autoridad migratoria, autoridad
+aduanera, consulado ni gobierno. Los sitios externos tienen sus propias
+reglas y procesos. Verifica siempre la información directamente con la
+fuente oficial correspondiente.
+</div>
+
+</main>
+
+<script>
+"use strict";
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let currentStep = 1;
+
+let tripState = {
+  origin: "",
+  destination: "",
+  date: "",
+  passengers: "1",
+  hasStops: "direct",
+  stopLocation: "",
+  consultedItems: []
+};
+
+/* =========================================================
+   UTILIDADES
+========================================================= */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function isCuba(){
+  return (tripState.destination || "").toLowerCase().includes("cuba");
+}
+
+function goHome(){
+  goToStep(1);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* =========================================================
+   PASOS
+========================================================= */
+
+function goToStep(step){
+  currentStep = step;
+
+  document.querySelectorAll(".step").forEach(el=>{
+    el.classList.remove("active");
+  });
+
+  const map = {
+    1:"step-welcome",
+    2:"step-trip-info",
+    3:"step-flight",
+    4:"step-luggage",
+    5:"step-items",
+    6:"step-cuba",
+    7:"step-airlines",
+    8:"step-summary"
+  };
+
+  if($(map[step])){
+    $(map[step]).classList.add("active");
+  }
+
+  for(let i=1;i<=8;i++){
+    const dot=$("dot"+i);
+    if(dot){
+      dot.classList.toggle("active",i===step);
+    }
+  }
+
+  if(step===3) renderFlightExplanation();
+  if(step===8) renderSummaryGuide();
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* =========================================================
+   DESTINO RAPIDO
+========================================================= */
+
+function quickSelectDestination(destination){
+  $("destination").value = destination;
+  if(destination==="Cuba"){
+    $("origin").value = $("origin").value || "Miami, Florida";
+  }
+  goToStep(2);
+}
+
+/* =========================================================
+   VIAJE
+========================================================= */
+
+function setStops(type){
+  tripState.hasStops=type;
+
+  const direct=$("direct-btn");
+  const stops=$("stop-btn");
+
+  direct.style.borderColor = type==="direct" ? "#fff" : "";
+  stops.style.borderColor = type==="stops" ? "#fff" : "";
+
+  $("stop-location-wrap").classList.toggle("hidden",type!=="stops");
+}
+
+function saveTripInfoAndNext(){
+  tripState.origin = $("origin").value.trim();
+  tripState.destination = $("destination").value;
+  tripState.date = $("travel-date").value;
+  tripState.passengers = $("passengers").value;
+  tripState.stopLocation = $("stop-location").value.trim();
+
+  if(!tripState.origin){
+    $("origin").focus();
+    alert("Escribe desde qué lugar sales.");
+    return;
+  }
+
+  if(!tripState.destination){
+    $("destination").focus();
+    alert("Selecciona tu destino.");
+    return;
+  }
+
+  goToStep(3);
+}
+
+/* =========================================================
+   EXPLICACION DEL VUELO
+========================================================= */
+
+function renderFlightExplanation(){
+
+  const origin=escapeHtml(tripState.origin || "tu ciudad");
+  const destination=escapeHtml(tripState.destination || "tu destino");
+  const passengers=escapeHtml(tripState.passengers || "1");
+
+  let html=`
+  <div class="card2 p-6">
+    <div class="text-2xl">✈️</div>
+    <h3 class="font-black text-xl mt-3">
+      Tu práctica: ${origin} → ${destination}
+    </h3>
+    <p class="small mt-2">
+      Pasajeros: ${passengers}
+    </p>
+  `;
+
+  if(tripState.hasStops==="direct"){
+    html+=`
+      <div class="mt-5 result-good p-4 bg-neutral-900 rounded-xl">
+        <div class="font-black">Vuelo directo</div>
+        <p class="small mt-2">
+          En tu práctica has seleccionado un vuelo directo.
+          Eso significa que no estás planeando un cambio de avión durante
+          el trayecto que estás simulando.
+        </p>
+      </div>
+    `;
+  }else{
+    html+=`
+      <div class="mt-5 result-check p-4 bg-neutral-900 rounded-xl">
+        <div class="font-black">Vuelo con conexión</div>
+        <p class="small mt-2">
+          Has indicado que existe una conexión
+          ${tripState.stopLocation ? "en "+escapeHtml(tripState.stopLocation) : ""}.
+          Antes de comprar, revisa quién opera cada tramo y qué ocurre
+          con tu equipaje durante la conexión.
+        </p>
+      </div>
+    `;
+  }
+
+  html+=`
+    <div class="mt-5 grid md:grid-cols-3 gap-3">
+      <div class="bg-black rounded-xl p-4">
+        <div class="font-bold">1. Boleto</div>
+        <div class="small mt-1">Revisa nombre, fecha, ruta y pasajeros.</div>
+      </div>
+      <div class="bg-black rounded-xl p-4">
+        <div class="font-bold">2. Equipaje</div>
+        <div class="small mt-1">Confirma qué incluye exactamente tu tarifa.</div>
+      </div>
+      <div class="bg-black rounded-xl p-4">
+        <div class="font-bold">3. Aerolínea</div>
+        <div class="small mt-1">Confirma las condiciones directamente.</div>
+      </div>
+    </div>
+  </div>
+  `;
+
+  if(isCuba()){
+    html+=`
+    <div class="card2 p-6 mt-5">
+      <div class="font-black text-lg">🇨🇺 Como tu destino es Cuba</div>
+      <p class="small mt-2 leading-relaxed">
+        Además del vuelo, tendrás que prestar atención a documentación,
+        procesos de entrada y mercancías. La aplicación te llevará a esos
+        temas antes del resumen.
+      </p>
+    </div>`;
+  }
+
+  $("flight-explanation").innerHTML=html;
+}
+
+/* =========================================================
+   ARTICULOS
+========================================================= */
+
+function checkQuickItem(item){
+  $("item-search").value=item;
+  performItemCheck();
+}
+
+async function performItemCheck(){
+
+  const input=$("item-search");
+  const query=(input.value || "").trim();
+
+  if(!query){
+    input.focus();
+    alert("Escribe el artículo que quieres revisar.");
+    return;
+  }
+
+  const destination=tripState.destination || "Cuba";
+
+  $("item-result").innerHTML=`
+    <div class="card2 p-6">
+      <div class="font-black">🔎 Revisando: ${escapeHtml(query)}</div>
+      <p class="small mt-2">
+        Estamos preparando una orientación. Después confirma la regla
+        correspondiente en la fuente oficial.
+      </p>
+    </div>
+  `;
+
+  try{
+
+    const response=await fetch("/api/check-item",{
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        item_name:query,
+        destination:destination,
+        luggage_type:"mano"
+      })
+    });
+
+    let data={};
+
+    try{
+      data=await response.json();
+    }catch(e){
+      data={};
+    }
+
+    if(!response.ok){
+      throw new Error(data.detail || "No fue posible consultar el artículo.");
+    }
+
+    const status=String(data.status || "REVISA ESTO ANTES DE VIAJAR");
+    const recommendation=String(
+      data.recommendation ||
+      data.message ||
+      "Confirma este artículo antes de viajar."
+    );
+    const source=String(
+      data.source ||
+      "Confirma directamente con la autoridad o aerolínea correspondiente."
+    );
+
+    tripState.consultedItems.push({
+      item:query,
+      status:status,
+      recommendation:recommendation,
+      source:source
+    });
+
+    renderItemResult(query,status,recommendation,source);
+
+  }catch(error){
+
+    tripState.consultedItems.push({
+      item:query,
+      status:"REVISA ESTO ANTES DE VIAJAR",
+      recommendation:"No se pudo obtener una respuesta automática. Revisa el artículo directamente con la fuente oficial.",
+      source:"Aduana General de la República de Cuba"
+    });
+
+    renderItemResult(
+      query,
+      "REVISA ESTO ANTES DE VIAJAR",
+      "No se pudo obtener una respuesta automática. Eso no significa que el artículo esté prohibido. Confirma su tratamiento antes de viajar.",
+      "Aduana General de la República de Cuba"
+    );
+  }
+}
+
+function renderItemResult(query,status,recommendation,source){
+
+  const normalized=status.toUpperCase();
+
+  let className="result-check";
+
+  if(
+    normalized.includes("PUEDES") ||
+    normalized.includes("PERMITIDO")
+  ){
+    className="result-good";
+  }
+
+  if(
+    normalized.includes("NO") &&
+    (normalized.includes("PUEDES") || normalized.includes("PERMITIDO"))
+  ){
+    className="result-stop";
+  }
+
+  let sourceLink="https://www.aduana.gob.cu/";
+
+  if(isCuba()){
+    sourceLink="https://www.aduana.gob.cu/";
+  }
+
+  $("item-result").innerHTML=`
+    <div class="card2 p-6 ${className}">
+      <div class="badge">ORIENTACIÓN</div>
+
+      <h3 class="font-black text-xl mt-4">
+        ${escapeHtml(query)}
+      </h3>
+
+      <div class="mt-4">
+        <div class="font-black">${escapeHtml(normalized)}</div>
+        <p class="text-neutral-300 mt-2 leading-relaxed">
+          ${escapeHtml(recommendation)}
+        </p>
+      </div>
+
+      <div class="mt-5 p-4 bg-black rounded-xl">
+        <div class="text-sm font-bold">Fuente para confirmar</div>
+        <div class="text-sm text-neutral-300 mt-1">
+          ${escapeHtml(source)}
         </div>
-    </header>
+        <a
+          href="${sourceLink}"
+          target="_blank"
+          rel="noopener"
+          class="inline-block primary rounded-xl px-4 py-2 mt-4 font-black text-sm">
+          Confirmar en sitio oficial
+        </a>
+      </div>
 
-    <main class="flex-grow max-w-4xl w-full mx-auto p-4 sm:p-6 flex flex-col justify-between">
-        
-        <!-- STEP 0: WELCOME & PHILOSOPHY -->
-        <section id="step-welcome" class="space-y-6 animate-fade-in py-4">
-            <div class="bg-gradient-to-br from-brand-600 to-brand-800 text-white rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden">
-                <div class="absolute right-0 bottom-0 opacity-10 text-9xl transform translate-x-10 translate-y-10 pointer-events-none">✈️</div>
-                <div class="max-w-2xl relative z-10">
-                    <span class="inline-block bg-brand-500/30 text-brand-100 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4 border border-brand-400/30">
-                        Guía Independiente y Educativa
-                    </span>
-                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-                        Viaja sin miedo, sin estrés y sin confusiones.
-                    </h2>
-                    <p class="text-brand-100 text-base sm:text-lg leading-relaxed mb-6">
-                        Te tomamos de la mano para enseñarte qué hacer, qué llevar y cómo entender los términos de las aerolíneas y autoridades. Explicaciones claras para personas que quieren viajar tranquilas.
-                    </p>
-                    <button onclick="goToStep('trip-info')" class="bg-white text-brand-800 hover:bg-brand-50 font-bold px-8 py-4 rounded-2xl shadow-lg transition transform hover:-translate-y-0.5 text-base flex items-center gap-3">
-                        <span>Empezar mi preparación de viaje</span>
-                        <span class="text-xl">➔</span>
-                    </button>
-                </div>
-            </div>
+      <p class="text-xs text-neutral-500 mt-5 leading-relaxed">
+        Una orientación de esta aplicación no sustituye la decisión de una
+        autoridad, aeropuerto o aerolínea. Las reglas pueden depender del
+        artículo, cantidad, país, vuelo, equipaje y circunstancias del viaje.
+      </p>
+    </div>
+  `;
+}
 
-            <!-- Trust Notice -->
-            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex items-start gap-4">
-                <div class="text-3xl">🛡️</div>
-                <div>
-                    <h3 class="font-bold text-slate-800 text-sm">Aviso Importante May Roga LLC</h3>
-                    <p class="text-xs text-slate-600 mt-1 leading-relaxed">
-                        No somos aerolínea, agencia de viajes, banco, gobierno ni consulado. No vendemos boletos ni visas. Esta aplicación es una herramienta 100% educativa diseñada para orientarte, explicarte conceptos complejos en lenguaje humano y guiarte hacia las fuentes oficiales antes de abordar.
-                    </p>
-                </div>
-            </div>
+/* =========================================================
+   D'VIAJEROS
+========================================================= */
 
-            <!-- Quick Access Destination Buttons -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                <div onclick="quickSelectDestination('Cuba')" class="bg-white hover:border-brand-500 border border-slate-200 rounded-2xl p-5 shadow-sm cursor-pointer transition group">
-                    <div class="text-2xl mb-2">🇨🇺</div>
-                    <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition">Viajes a Cuba</h4>
-                    <p class="text-xs text-slate-500 mt-1">Visa, D'Viajeros y restricciones de equipaje y artículos.</p>
-                </div>
-                <div onclick="quickSelectDestination('Mexico')" class="bg-white hover:border-brand-500 border border-slate-200 rounded-2xl p-5 shadow-sm cursor-pointer transition group">
-                    <div class="text-2xl mb-2">🇲🇽</div>
-                    <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition">México y Centroamérica</h4>
-                    <p class="text-xs text-slate-500 mt-1">Requisitos de entrada, escalas y equipaje de mano.</p>
-                </div>
-                <div onclick="quickSelectDestination('Dominicana')" class="bg-white hover:border-brand-500 border border-slate-200 rounded-2xl p-5 shadow-sm cursor-pointer transition group">
-                    <div class="text-2xl mb-2">🇩🇴</div>
-                    <p class="text-2xl mb-2 hidden">✈️</p>
-                    <h4 class="font-bold text-slate-800 group-hover:text-brand-600 transition">República Dominicana</h4>
-                    <p class="text-xs text-slate-500 mt-1">E-Ticket, aduanas y preparativos generales.</p>
-                </div>
-            </div>
-        </section>
+function toggleDviajeros(){
+  $("dviajeros-sim").classList.toggle("hidden");
+}
 
-        <!-- STEP 1: QUIERO VIAJAR (Trip Info) -->
-        <section id="step-trip-info" class="space-y-6 hidden animate-fade-in py-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Paso 1 de 5</span>
-                        <h2 class="text-2xl font-bold text-slate-900 mt-1">¿A dónde y cuándo viajas?</h2>
-                    </div>
-                    <span class="text-3xl">🛫</span>
-                </div>
+function finishDviajerosSimulation(){
 
-                <div class="space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Ciudad u Origen</label>
-                            <input type="text" id="trip-origin" placeholder="Ej. Miami (MIA)" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-base outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Destino Final</label>
-                            <input type="text" id="trip-destination" placeholder="Ej. La Habana (HAV), Cuba" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-base outline-none">
-                        </div>
-                    </div>
+  const name=$("sim-name").value.trim();
+  const passengers=$("sim-passengers").value;
+  const country=$("sim-country").value.trim();
+  const flight=$("sim-flight").value.trim();
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Fecha de Salida</label>
-                            <input type="date" id="trip-date" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-base outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-1">Pasajeros</label>
-                            <select id="trip-passengers" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-base bg-white outline-none">
-                                <option value="1">1 Adulto</option>
-                                <option value="2">2 Adultos</option>
-                                <option value="family">Familia con niños</option>
-                            </select>
-                        </div>
-                    </div>
+  const missing=[];
 
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-1">¿Tu vuelo tiene escalas o conexión?</label>
-                        <select id="trip-has-stops" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-base bg-white outline-none" onchange="toggleStopDetails()">
-                            <option value="direct">Vuelo directo (Sin escalas)</option>
-                            <option value="stops">Sí, tiene 1 o más escalas / conexiones</option>
-                        </select>
-                    </div>
+  if(!name) missing.push("nombre");
+  if(!country) missing.push("país de procedencia");
+  if(!flight) missing.push("número de vuelo");
 
-                    <div id="stop-details-box" class="hidden bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-                        <label class="block text-sm font-semibold text-slate-700">¿Dónde es la escala principal?</label>
-                        <input type="text" id="trip-stop-location" placeholder="Ej. Cancún (CUN) o Ciudad de Panamá (PTY)" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-base outline-none bg-white">
-                        <p class="text-xs text-slate-500">No te preocupes, en el siguiente paso te explicaremos exactamente qué debes hacer al aterrizar en esa escala.</p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-100">
-                    <button onclick="goToStep('welcome')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2">
-                        ← Volver
-                    </button>
-                    <button onclick="saveTripInfoAndNext()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-md transition flex items-center gap-2">
-                        <span>Siguiente: Entender mi vuelo y escalas</span>
-                        <span>➔</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 2: ENTIENDO MI VUELO Y ESCALAS -->
-        <section id="step-flight-understanding" class="space-y-6 hidden animate-fade-in py-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Paso 2 de 5</span>
-                        <h2 class="text-2xl font-bold text-slate-900 mt-1">Entendiendo tu vuelo y escalas sin enredos</h2>
-                    </div>
-                    <span class="text-3xl">🧭</span>
-                </div>
-
-                <div class="space-y-4" id="flight-explanation-content">
-                    <!-- Dynamic populated based on step 1 -->
-                </div>
-
-                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 mt-6 flex items-start gap-3">
-                    <div class="text-2xl">💡</div>
-                    <div>
-                        <h4 class="font-bold text-amber-900 text-sm">Consejo de May Roga para escalas</h4>
-                        <p class="text-xs text-amber-800 mt-0.5 leading-relaxed">
-                            Si tu maleta va documentada hasta el destino final, solo encárgate de caminar a tu nueva puerta de embarque. Si debes recogerla y volverla a registrar, el sistema te lo indicará en tu boleto. ¡Siempre pregunta en el mostrador de origen si tu maleta viaja directo!
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-100">
-                    <button onclick="goToStep('trip-info')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2">
-                        ← Anterior
-                    </button>
-                    <button onclick="goToStep('luggage-translator')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-md transition flex items-center gap-2">
-                        <span>Siguiente: Entender mi equipaje</span>
-                        <span>➔</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 3: ENTIENDO MI EQUIPAJE -->
-        <section id="step-luggage-translator" class="space-y-6 hidden animate-fade-in py-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Paso 3 de 5</span>
-                        <h2 class="text-2xl font-bold text-slate-900 mt-1">Traductor Humano de Equipaje</h2>
-                    </div>
-                    <span class="text-3xl">🧳</span>
-                </div>
-                <p class="text-sm text-slate-600 mb-6">
-                    Las aerolíneas usan nombres raros. Aquí te explicamos exactamente qué significa cada uno en español sencillo y sin misterios:
-                </p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Card 1 -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-bold text-slate-900 text-base">Artículo Personal</h3>
-                            <span class="text-xs bg-brand-100 text-brand-800 font-semibold px-2 py-0.5 rounded">Va contigo</span>
-                        </div>
-                        <p class="text-xs text-slate-500 font-medium mb-3">También llamado: <span class="italic">Personal Item, mochila pequeña, bolso</span></p>
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            Es una cartera, mochila pequeña o maletín de laptop que <b>cabe obligatoriamente debajo del asiento delantero</b>. Es gratuito en casi todas las tarifas.
-                        </p>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-bold text-slate-900 text-base">Equipaje de Mano</h3>
-                            <span class="text-xs bg-brand-100 text-brand-800 font-semibold px-2 py-0.5 rounded">En cabina</span>
-                        </div>
-                        <p class="text-xs text-slate-500 font-medium mb-3">También llamado: <span class="italic">Carry-on, maleta de mano</span></p>
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            Es la maleta pequeña con ruedas que <b>sube contigo al avión y se coloca en los compartimentos superiores</b> sobre los asientos. Revisa el límite de peso de tu aerolínea.
-                        </p>
-                    </div>
-
-                    <!-- Card 3 -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-bold text-slate-900 text-base">Maleta Registrada</h3>
-                            <span class="text-xs bg-brand-100 text-brand-800 font-semibold px-2 py-0.5 rounded">Se entrega al Chequeo</span>
-                        </div>
-                        <p class="text-xs text-slate-500 font-medium mb-3">También llamado: <span class="italic">Checked baggage, maleta documentada, bulto</span></p>
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            Es la maleta grande que entregas en el mostrador del aeropuerto antes de pasar seguridad. Viaja en la parte de abajo del avión. Suele tener un peso máximo estándar de 50 libras (23 kg).
-                        </p>
-                    </div>
-
-                    <!-- Card 4 -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-bold text-slate-900 text-base">Tarifa Básica</h3>
-                            <span class="text-xs bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded">Atención</span>
-                        </div>
-                        <p class="text-xs text-slate-500 font-medium mb-3">También llamado: <span class="italic">Basic Economy, Light</span></p>
-                        <p class="text-xs text-slate-700 leading-relaxed">
-                            Tarifas económicas que a menudo <b>solo incluyen tu artículo personal</b>. Si llevas maleta de mano o registrada, tendrás que pagar un excedente o elegir una tarifa superior.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-100">
-                    <button onclick="goToStep('flight-understanding')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2">
-                        ← Anterior
-                    </button>
-                    <button onclick="goToStep('item-checker')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-md transition flex items-center gap-2">
-                        <span>Siguiente: Revisar qué quiero llevar</span>
-                        <span>➔</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 4: REVISO LO QUE QUIERO LLEVAR (Item Checker & Gemini) -->
-        <section id="step-item-checker" class="space-y-6 hidden animate-fade-in py-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Paso 4 de 5</span>
-                        <h2 class="text-2xl font-bold text-slate-900 mt-1">Buscador Inteligente de Artículos</h2>
-                    </div>
-                    <span class="text-3xl">🔍</span>
-                </div>
-                <p class="text-sm text-slate-600 mb-6">
-                    Escribe cualquier objeto, alimento, medicina o equipo electrónico para saber si puedes llevarlo, dónde debes colocarlo y qué regla aplica.
-                </p>
-
-                <!-- Quick Buttons for common travel items -->
-                <div class="mb-4">
-                    <p class="text-xs font-semibold text-slate-500 mb-2">Consultas frecuentes:</p>
-                    <div class="flex flex-wrap gap-2">
-                        <button onclick="checkItemQuick('Power bank / Batería externa')" class="text-xs bg-slate-100 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-300 border border-slate-200 px-3 py-1.5 rounded-xl transition font-medium">🔋 Power Bank</button>
-                        <button onclick="checkItemQuick('Medicamentos en pastillas')" class="text-xs bg-slate-100 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-300 border border-slate-200 px-3 py-1.5 rounded-xl transition font-medium">💊 Medicamentos</button>
-                        <button onclick="checkItemQuick('Líquidos, perfumes y cremas')" class="text-xs bg-slate-100 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-300 border border-slate-200 px-3 py-1.5 rounded-xl transition font-medium">🧴 Líquidos y Cremas</button>
-                        <button onclick="checkItemQuick('Café y alimentos en grano')" class="text-xs bg-slate-100 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-300 border border-slate-200 px-3 py-1.5 rounded-xl transition font-medium">☕ Café / Alimentos</button>
-                        <button onclick="checkItemQuick('Laptop y tablet')" class="text-xs bg-slate-100 hover:bg-brand-50 hover:text-brand-700 hover:border-brand-300 border border-slate-200 px-3 py-1.5 rounded-xl transition font-medium">💻 Laptops y Electrónicos</button>
-                    </div>
-                </div>
-
-                <!-- Input search box -->
-                <div class="flex gap-2 mb-6">
-                    <input type="text" id="item-search-input" placeholder="Ej. plancha de pelo, analgésicos, carne, taladro..." class="flex-grow px-4 py-3.5 rounded-2xl border border-slate-300 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 text-base outline-none">
-                    <button onclick="performItemCheck()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition flex items-center gap-2">
-                        <span>Revisar</span>
-                    </button>
-                </div>
-
-                <!-- Result Container -->
-                <div id="item-result-container" class="hidden bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <!-- Populated via JS -->
-                </div>
-
-                <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-100">
-                    <button onclick="goToStep('luggage-translator')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2">
-                        ← Anterior
-                    </button>
-                    <button onclick="goToStep('cuba-module')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-md transition flex items-center gap-2">
-                        <span>Siguiente: Módulo Especial Cuba & D'Viajeros</span>
-                        <span>➔</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 5: MÓDULO ESPECIAL CUBA & D'VIAJEROS -->
-        <section id="step-cuba-module" class="space-y-6 hidden animate-fade-in py-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-6">
-                    <div>
-                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Paso 5 de 5</span>
-                        <h2 class="text-2xl font-bold text-slate-900 mt-1">Módulo Esencial para Cuba</h2>
-                    </div>
-                    <span class="text-3xl">🇨🇺</span>
-                </div>
-
-                <div class="space-y-6">
-                    <!-- Visa Info Card -->
-                    <div class="bg-brand-50 border border-brand-200 rounded-2xl p-5">
-                        <h3 class="font-bold text-brand-900 text-base mb-2 flex items-center gap-2">
-                            <span>📄</span> 1. La Visa Electrónica (eVisa) para Cuba
-                        </h3>
-                        <p class="text-xs text-brand-800 leading-relaxed mb-3">
-                            Para viajar a Cuba necesitas una visa (tarjeta de turista). Actualmente se puede gestionar mediante el consulado oficial (vía postal / Money Order) o de forma directa al comprar tu boleto en aerolíneas y agencias autorizadas en el aeropuerto.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <a href="https://evisacuba.cu" target="_blank" class="text-xs bg-white text-brand-700 hover:bg-brand-100 font-semibold px-3 py-2 rounded-xl border border-brand-300 transition flex items-center gap-1">
-                                🌐 Visitar Sitio Oficial eVisa-Cuba
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- D'Viajeros Simulator Card -->
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
-                        <h3 class="font-bold text-slate-900 text-base mb-2 flex items-center gap-2">
-                            <span>📱</span> 2. El Formulario Obligatorio D'Viajeros (Simulador Educativo)
-                        </h3>
-                        <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                            Es obligatorio para todos los viajeros completar este formulario digital dentro de las <b>72 horas previas a tu vuelo</b> a Cuba. Al terminar, obtendrás un código QR que debes presentar impreso o en tu teléfono.
-                        </p>
-                        
-                        <!-- Mini interactive simulator -->
-                        <div id="dviajeros-simulator" class="bg-white p-4 rounded-2xl border border-slate-200 space-y-3">
-                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider text-brand-700">Simulador de Práctica May Roga (No oficial)</h4>
-                            <div id="sim-step-1" class="space-y-3">
-                                <p class="text-xs text-slate-700">¿Qué datos te pedirá el sitio oficial dviajeros.mitrans.gob.cu?</p>
-                                <ul class="text-xs text-slate-600 space-y-1 list-disc list-inside">
-                                    <li>Datos personales (Pasaporte, nacionalidad).</li>
-                                    <li>Información del vuelo (Número de vuelo, aerolínea, fecha de llegada).</li>
-                                    <li>Declaración de aduanas (Equipaje acompañado / no acompañado y dinero).</li>
-                                    <li>Declaración de sanidad.</li>
-                                </ul>
-                                <button onclick="runDviajerosSimulation()" class="mt-2 text-xs bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2 rounded-xl transition">
-                                    ▶️ Probar Pasos de Simulación
-                                </button>
-                            </div>
-                            <div id="sim-step-2" class="hidden space-y-2 bg-emerald-50 p-3 rounded-xl border border-emerald-200">
-                                <p class="text-xs font-bold text-emerald-800">✅ ¡Simulación completada con éxito!</p>
-                                <p class="text-xs text-emerald-700">Recuerda que este formulario es gratuito en el sitio oficial y se llena 48-72h antes de volar.</p>
-                                <button onclick="resetDviajerosSimulation()" class="text-xs text-brand-700 underline font-semibold">Repetir práctica</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex justify-between items-center mt-8 pt-4 border-t border-slate-100">
-                    <button onclick="goToStep('item-checker')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2">
-                        ← Anterior
-                    </button>
-                    <button onclick="goToStep('summary-guide')" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-3.5 rounded-2xl shadow-md transition flex items-center gap-2">
-                        <span>Siguiente: Ver mi Guía PDF Resumen</span>
-                        <span>➔</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 6: GENERADOR DE GUÍA PDF / IMPRESIÓN -->
-        <section id="step-summary-guide" class="space-y-6 hidden animate-fade-in py-4">
-            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm">
-                <div class="flex items-center justify-between mb-6 no-print">
-                    <div>
-                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Paso Final</span>
-                        <h2 class="text-2xl font-bold text-slate-900 mt-1">Tu Guía Personalizada de Viaje</h2>
-                    </div>
-                    <span class="text-3xl">📋</span>
-                </div>
-                <p class="text-sm text-slate-600 mb-6 no-print">
-                    Este es el resumen completo de tu preparación. Puedes guardarlo, imprimirlo o llevarlo contigo en tu teléfono.
-                </p>
-
-                <!-- Printable Container -->
-                <div id="printable-guide" class="bg-slate-50 border border-slate-300 rounded-2xl p-6 space-y-6 text-slate-800">
-                    <div class="border-b border-slate-200 pb-4 flex justify-between items-start">
-                        <div>
-                            <h3 class="font-bold text-xl text-slate-900">Guía de Preparación de Viaje</h3>
-                            <p class="text-xs text-brand-700 font-semibold mt-0.5">Asistente Educativo Independiente — May Roga LLC</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-xs bg-brand-100 text-brand-800 px-2.5 py-1 rounded-full font-medium">Verificado</span>
-                            <p class="text-xs text-slate-500 mt-1" id="print-date-label"></p>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 text-xs bg-white p-4 rounded-xl border border-slate-200">
-                        <div>
-                            <span class="text-slate-500 block">Origen:</span>
-                            <strong id="summary-origin-val" class="text-slate-800 text-sm">-</strong>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block">Destino:</span>
-                            <strong id="summary-destination-val" class="text-slate-800 text-sm">-</strong>
-                        </div>
-                        <div class="mt-2">
-                            <span class="text-slate-500 block">Fecha de Salida:</span>
-                            <strong id="summary-date-val" class="text-slate-800 text-sm">-</strong>
-                        </div>
-                        <div class="mt-2">
-                            <span class="text-slate-500 block">Pasajeros:</span>
-                            <strong id="summary-passengers-val" class="text-slate-800 text-sm">-</strong>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="font-bold text-sm text-slate-900 mb-2">Artículos y Consultas Realizadas:</h4>
-                        <div id="summary-items-list" class="space-y-2 text-xs">
-                            <p class="text-slate-500 italic">No has consultado artículos específicos aún.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-brand-50 border border-brand-200 rounded-xl p-4 text-xs space-y-2">
-                        <h4 class="font-bold text-brand-900">Pasos Pendientes Recomendados antes de Viajar:</h4>
-                        <ul class="list-disc list-inside text-brand-800 space-y-1">
-                            <li>Verificar vigencia del pasaporte (mínimo 6 meses recomendados).</li>
-                            <li>Completar formulario D'Viajeros (48-72h antes del vuelo).</li>
-                            <li>Confirmar peso y medidas de tu equipaje con tu aerolínea específica.</li>
-                            <li>Revisar tu eVisa o tarjeta de turista.</li>
-                        </ul>
-                    </div>
-
-                    <div class="text-[10px] text-slate-400 border-t border-slate-200 pt-3 text-center">
-                        May Roga LLC — Guía informativa y educativa sin carácter oficial gubernamental ni de aerolínea.
-                    </div>
-                </div>
-
-                <!-- Action buttons -->
-                <div class="flex flex-wrap gap-3 justify-between items-center mt-8 pt-4 border-t border-slate-100 no-print">
-                    <button onclick="goToStep('cuba-module')" class="text-slate-600 hover:text-slate-900 font-semibold px-4 py-2">
-                        ← Anterior
-                    </button>
-                    <div class="flex gap-3">
-                        <button onclick="window.print()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition flex items-center gap-2">
-                            <span>🖨️ Imprimir / Guardar PDF</span>
-                        </button>
-                        <button onclick="resetTrip()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3.5 rounded-2xl shadow-md transition">
-                            ✨ Nuevo Viaje
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- SETTINGS MODAL FOR GEMINI API KEY -->
-    <div id="settings-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
-            <div class="flex justify-between items-center">
-                <h3 class="font-bold text-lg text-slate-900">Configuración de API Gemini</h3>
-                <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-slate-600 text-xl font-bold">×</button>
-            </div>
-            <p class="text-xs text-slate-600 leading-relaxed">
-                Opcional: Si deseas utilizar consultas avanzadas con IA para artículos especiales, ingresa tu clave <code class="bg-slate-100 px-1.5 py-0.5 rounded text-slate-800 font-mono">GEMINI_API_KEY</code>. Si no la ingresas, el buscador inteligente utilizará nuestra base de reglas preconfiguradas segura.
-            </p>
-            <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1">Gemini API Key</label>
-                <input type="password" id="gemini-api-key-input" placeholder="AIzaSy..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-500 text-sm outline-none">
-            </div>
-            <div class="flex justify-end gap-2 pt-2">
-                <button onclick="closeSettingsModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">Cancelar</button>
-                <button onclick="saveApiKey()" class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2 rounded-xl text-xs font-bold shadow-sm">Guardar Clave</button>
-            </div>
+  if(missing.length){
+    $("dviajeros-result").innerHTML=`
+      <div class="card2 p-5 result-check">
+        <div class="font-black">Todavía falta practicar algunos campos</div>
+        <div class="small mt-2">
+          Completa: ${escapeHtml(missing.join(", "))}.
         </div>
+      </div>
+    `;
+    return;
+  }
+
+  $("dviajeros-result").innerHTML=`
+    <div class="card2 p-5 result-good">
+      <div class="font-black">✓ Práctica completada</div>
+      <div class="small mt-3">
+        Nombre: ${escapeHtml(name)}<br>
+        Pasajeros: ${escapeHtml(passengers)}<br>
+        Procedencia: ${escapeHtml(country)}<br>
+        Vuelo: ${escapeHtml(flight)}
+      </div>
+      <div class="mt-4">
+        <a href="https://dviajeros.mitrans.gob.cu/"
+          target="_blank"
+          rel="noopener"
+          class="primary inline-block rounded-xl px-5 py-3 font-black">
+          Ahora abrir D’Viajeros oficial
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+/* =========================================================
+   RESUMEN
+========================================================= */
+
+function formatDate(value){
+  if(!value) return "No indicada";
+
+  const parts=value.split("-");
+  if(parts.length!==3) return escapeHtml(value);
+
+  return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+function renderSummaryGuide(){
+
+  const items=tripState.consultedItems || [];
+
+  let itemsHtml="";
+
+  if(items.length){
+    itemsHtml=items.map((item,index)=>`
+      <div class="card2 p-4">
+        <div class="font-bold">${index+1}. ${escapeHtml(item.item)}</div>
+        <div class="small mt-2">
+          <strong>${escapeHtml(item.status)}</strong>
+        </div>
+        <div class="small mt-2">${escapeHtml(item.recommendation)}</div>
+      </div>
+    `).join("");
+  }else{
+    itemsHtml=`
+      <div class="card2 p-4">
+        <div class="font-bold">No has consultado artículos todavía.</div>
+        <div class="small mt-1">
+          Puedes volver al paso de artículos si quieres revisar algo.
+        </div>
+      </div>
+    `;
+  }
+
+  const routeStops =
+    tripState.hasStops==="stops"
+    ? `Con conexión${tripState.stopLocation ? " · "+escapeHtml(tripState.stopLocation) : ""}`
+    : "Directo";
+
+  $("summary-content").innerHTML=`
+    <div class="grid md:grid-cols-2 gap-4">
+
+      <div class="card2 p-5">
+        <div class="text-xs text-neutral-500">ORIGEN</div>
+        <div class="font-black text-lg mt-1">${escapeHtml(tripState.origin || "No indicado")}</div>
+      </div>
+
+      <div class="card2 p-5">
+        <div class="text-xs text-neutral-500">DESTINO</div>
+        <div class="font-black text-lg mt-1">${escapeHtml(tripState.destination || "No indicado")}</div>
+      </div>
+
+      <div class="card2 p-5">
+        <div class="text-xs text-neutral-500">FECHA</div>
+        <div class="font-black text-lg mt-1">${formatDate(tripState.date)}</div>
+      </div>
+
+      <div class="card2 p-5">
+        <div class="text-xs text-neutral-500">PASAJEROS</div>
+        <div class="font-black text-lg mt-1">${escapeHtml(tripState.passengers)}</div>
+      </div>
+
+      <div class="card2 p-5 md:col-span-2">
+        <div class="text-xs text-neutral-500">TIPO DE VUELO PRACTICADO</div>
+        <div class="font-black text-lg mt-1">${routeStops}</div>
+      </div>
+
     </div>
 
-    <script>
-        // Application State
-        let tripState = {
-            origin: '',
-            destination: '',
-            date: '',
-            passengers: '1',
-            hasStops: 'direct',
-            stopLocation: '',
-            consultedItems: []
-        };
+    <div class="mt-7">
+      <div class="font-black text-lg mb-3">📦 Artículos consultados</div>
+      <div class="space-y-3">
+        ${itemsHtml}
+      </div>
+    </div>
 
-        // Saved API Key from localStorage or environment
-        let geminiApiKey = localStorage.getItem('may_roga_gemini_key') || '';
+    ${
+      isCuba()
+      ? `
+      <div class="mt-7 card2 p-5">
+        <div class="font-black text-lg">🇨🇺 Enlaces oficiales para Cuba</div>
+        <div class="grid md:grid-cols-3 gap-3 mt-4">
+          <a class="link-card" href="https://www.aduana.gob.cu/" target="_blank" rel="noopener">
+            <div class="font-black">Aduana</div>
+          </a>
+          <a class="link-card" href="https://dviajeros.mitrans.gob.cu/" target="_blank" rel="noopener">
+            <div class="font-black">D’Viajeros</div>
+          </a>
+          <a class="link-card" href="https://evisacuba.cu/" target="_blank" rel="noopener">
+            <div class="font-black">eVisa Cuba</div>
+          </a>
+        </div>
+      </div>
+      `
+      : ""
+    }
 
-        function openSettingsModal() {
-            document.getElementById('gemini-api-key-input').value = geminiApiKey;
-            document.getElementById('settings-modal').classList.remove('hidden');
-        }
+    <div class="mt-7 text-xs text-neutral-500 leading-relaxed">
+      Generado por la guía independiente de preparación de May Roga LLC.
+      Este resumen no es un documento oficial y no sustituye las instrucciones
+      de las autoridades, aerolíneas o proveedores.
+    </div>
+  `;
+}
 
-        function closeSettingsModal() {
-            document.getElementById('settings-modal').classList.add('hidden');
-        }
+/* =========================================================
+   REINICIAR
+========================================================= */
 
-        function saveApiKey() {
-            geminiApiKey = document.getElementById('gemini-api-key-input').value.trim();
-            localStorage.setItem('may_roga_gemini_key', geminiApiKey);
-            closeSettingsModal();
-            alertCustom('Clave API guardada correctamente.');
-        }
+function resetTrip(){
 
-        function alertCustom(msg) {
-            // Simple non-blocking alert substitute
-            console.log(msg);
-        }
+  tripState={
+    origin:"",
+    destination:"",
+    date:"",
+    passengers:"1",
+    hasStops:"direct",
+    stopLocation:"",
+    consultedItems:[]
+  };
 
-        function goToStep(stepId) {
-            const steps = ['welcome', 'trip-info', 'flight-understanding', 'luggage-translator', 'item-checker', 'cuba-module', 'summary-guide'];
-            steps.forEach(s => {
-                const el = document.getElementById(`step-${s}`);
-                if (el) el.classList.add('hidden');
-            });
+  $("origin").value="";
+  $("destination").value="";
+  $("travel-date").value="";
+  $("passengers").value="1";
+  $("stop-location").value="";
+  $("item-search").value="";
 
-            const target = document.getElementById(`step-${stepId}`);
-            if (target) {
-                target.classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
+  $("item-result").innerHTML="";
+  $("dviajeros-result").innerHTML="";
+  $("dviajeros-sim").classList.add("hidden");
 
-            if (stepId === 'flight-understanding') {
-                renderFlightExplanation();
-            } else if (stepId === 'summary-guide') {
-                renderSummaryGuide();
-            }
-        }
+  setStops("direct");
 
-        function quickSelectDestination(dest) {
-            document.getElementById('trip-destination').value = dest === 'Cuba' ? 'La Habana (HAV), Cuba' : (dest === 'Mexico' ? 'Cancún (CUN), México' : 'Santo Domingo (SDQ), República Dominicana');
-            document.getElementById('trip-origin').value = 'Miami (MIA)';
-            goToStep('trip-info');
-        }
+  goToStep(1);
+}
 
-        function toggleStopDetails() {
-            const val = document.getElementById('trip-has-stops').value;
-            const box = document.getElementById('stop-details-box');
-            if (val === 'stops') {
-                box.classList.remove('hidden');
-            } else {
-                box.classList.add('hidden');
-            }
-        }
+/* =========================================================
+   INICIALIZACION
+========================================================= */
 
-        function saveTripInfoAndNext() {
-            tripState.origin = document.getElementById('trip-origin').value || 'Miami (MIA)';
-            tripState.destination = document.getElementById('trip-destination').value || 'La Habana, Cuba';
-            tripState.date = document.getElementById('trip-date').value || 'Próximamente';
-            tripState.passengers = document.getElementById('trip-passengers').value;
-            tripState.hasStops = document.getElementById('trip-has-stops').value;
-            tripState.stopLocation = document.getElementById('trip-stop-location').value;
+document.addEventListener("DOMContentLoaded",()=>{
 
-            goToStep('flight-understanding');
-        }
+  setStops("direct");
 
-        function renderFlightExplanation() {
-            const container = document.getElementById('flight-explanation-content');
-            let html = '';
+  const destination=$("destination");
 
-            if (tripState.hasStops === 'direct') {
-                html = `
-                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-5">
-                        <h3 class="font-bold text-emerald-900 text-base mb-2">✈️ Vuelo Directo desde ${tripState.origin} hasta ${tripState.destination}</h3>
-                        <p class="text-xs text-emerald-800 leading-relaxed">
-                            ¡Excelente noticia! Al ser un vuelo directo, te ahorras complicaciones de conexiones. Solo debes presentarte en el aeropuerto 3 horas antes (vuelos internacionales), documentar tu maleta si aplica, pasar seguridad y abordar tranquilamente.
-                        </p>
-                    </div>
-                `;
-            } else {
-                const stopName = tripState.stopLocation || 'tu ciudad de escala';
-                html = `
-                    <div class="bg-sky-50 border border-sky-200 rounded-2xl p-5 space-y-3">
-                        <h3 class="font-bold text-sky-900 text-base">🔄 Vuelo con escalas (Escala principal en ${stopName})</h3>
-                        <p class="text-xs text-sky-800 leading-relaxed">
-                            Tienes una escala registrada en <b>${stopName}</b>. Aquí te explicamos paso a paso qué ocurrirá:
-                        </p>
-                        <ul class="text-xs text-sky-900 space-y-2 list-disc list-inside">
-                            <li><b>Al aterrizar:</b> Sigue los letreros de "Conexiones / Connections" o sal al área de puertas si tu aerolínea te entregó ambos pases de abordar.</li>
-                            <li><b>Equipaje:</b> Si tu boleto es una conexión única, tu maleta viaja directo al destino final. No tienes que recogerla.</li>
-                            <li><b>Migración:</b> Dependiendo del país de escala, es posible que pases un control rápido o revisión de pasaporte. Ten tus documentos a la mano.</li>
-                        </ul>
-                    </div>
-                `;
-            }
+  if(destination){
+    destination.addEventListener("change",()=>{
+      tripState.destination=destination.value;
+    });
+  }
 
-            container.innerHTML = html;
-        }
+  const itemInput=$("item-search");
 
-        function checkItemQuick(itemName) {
-            document.getElementById('item-search-input').value = itemName;
-            performItemCheck();
-        }
+  if(itemInput){
+    itemInput.addEventListener("keydown",(event)=>{
+      if(event.key==="Enter"){
+        event.preventDefault();
+        performItemCheck();
+      }
+    });
+  }
 
-        async function performItemCheck() {
-            const query = document.getElementById('item-search-input').value.trim();
-            if (!query) return;
+});
+</script>
 
-            const container = document.getElementById('item-result-container');
-            container.classList.remove('hidden');
-            container.innerHTML = `<p class="text-xs text-slate-500 animate-pulse">Analizando artículo y reglas oficiales...</p>`;
-
-            // Check if item is already in consulted list
-            if (!tripState.consultedItems.includes(query)) {
-                tripState.consultedItems.push(query);
-            }
-
-            // If Gemini API Key is provided, call Gemini API
-            if (geminiApiKey) {
-                try {
-                    const resultText = await callGeminiApiForArticle(query);
-                    container.innerHTML = resultText;
-                    return;
-                } catch (e) {
-                    console.log("Fallback to local rules due to API error", e);
-                }
-            }
-
-            // Fallback robust local rules engine
-            const lower = query.toLowerCase();
-            let category = "PUEDES LLEVARLO";
-            let badgeColor = "bg-emerald-100 text-emerald-800 border-emerald-300";
-            let placement = "Equipaje de mano o maleta registrada";
-            let advice = "Objeto permitido bajo condiciones estándar de aviación.";
-
-            if (lower.includes('batería') || lower.includes('power bank') || lower.includes('pila')) {
-                category = "PUEDES LLEVARLO, PERO…";
-                badgeColor = "bg-amber-100 text-amber-800 border-amber-300";
-                placement = "Obligatoriamente en tu MALETA DE MANO (Artículo personal)";
-                advice = "Las baterías de litio y power banks NUNCA pueden ir en la maleta documentada (en la bodega del avión) por normas de seguridad contra incendios. Deben ir contigo en cabina.";
-            } else if (lower.includes('medicamento') || lower.includes('pastilla') || lower.includes('medicina')) {
-                category = "PUEDES LLEVARLO";
-                badgeColor = "bg-emerald-100 text-emerald-800 border-emerald-300";
-                placement = "Equipaje de mano (Recomendado) o maleta registrada";
-                advice = "Lleva tus medicinas esenciales en tu equipaje de mano junto con sus recetas médicas si son recetadas, por si tu maleta documentada sufre retrasos.";
-            } else if (lower.includes('líquido') || lower.includes('perfume') || lower.includes('crema') || lower.includes('colonia') || lower.includes('champú')) {
-                category = "PUEDES LLEVARLO, PERO…";
-                badgeColor = "bg-amber-100 text-amber-800 border-amber-300";
-                placement = "Maleta registrada (Sin límite estricto) o en mano (Frascos de máximo 100ml / 3.4 oz dentro de una bolsa Ziploc transparente)";
-                advice = "Para llevar líquidos en cabina, cada frasco no debe superar los 100ml y todos deben caber cómodamente en una sola bolsa plástica transparente resellable.";
-            } else if (lower.includes('laptop') || lower.includes('computadora') || lower.includes('tablet') || lower.includes('cámara')) {
-                category = "PUEDES LLEVARLO";
-                badgeColor = "bg-emerald-100 text-emerald-800 border-emerald-300";
-                placement = "Obligatoriamente en tu equipaje de mano o artículo personal";
-                advice = "Los equipos electrónicos con baterías integradas deben viajar contigo en cabina. En los puntos de seguridad deberás sacarlos de tu bolso para la inspección de rayos X.";
-            }
-
-            container.innerHTML = `
-                <div class="flex items-center justify-between">
-                    <h4 class="font-bold text-slate-900 text-sm">Resultado para: "${query}"</h4>
-                    <span class="text-xs font-bold px-3 py-1 rounded-full border ${badgeColor}">${category}</span>
-                </div>
-                <div class="space-y-2 text-xs text-slate-700">
-                    <p><strong>📍 Dónde colocarlo:</strong> ${placement}</p>
-                    <p><strong>💡 Recomendación May Roga:</strong> ${advice}</p>
-                </div>
-            `;
-        }
-
-        async function callGeminiApiForArticle(articleName) {
-            const systemPrompt = "Act as May Roga's friendly travel assistant. Provide a clear, human, structured evaluation for whether a traveler can bring the requested item on a flight (especially to Latin America/Cuba). Return concise HTML format with category (PUEDES LLEVARLO, PUEDES LLEVARLO PERO..., NO PUEDES LLEVARLO), placement, and advice.";
-            const userQuery = `¿Puedo llevar "${articleName}" en mi vuelo? Explícame dónde colocarlo y qué regla aplica.`;
-            
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${geminiApiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
-            };
-
-            const response = await fetch(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            const result = await response.json();
-            const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (text) {
-                return `
-                    <div class="flex items-center justify-between">
-                        <h4 class="font-bold text-slate-900 text-sm">Análisis IA para: "${articleName}"</h4>
-                        <span class="text-xs font-bold px-3 py-1 rounded-full bg-brand-100 text-brand-800 border border-brand-300">CONSULTA VERIFICADA</span>
-                    </div>
-                    <div class="text-xs text-slate-700 leading-relaxed mt-2">
-                        ${text.replace(/\n/g, '<br>')}
-                    </div>
-                `;
-            }
-            throw new Error("Empty response from Gemini");
-        }
-
-        function runDviajerosSimulation() {
-            document.getElementById('sim-step-1').classList.add('hidden');
-            document.getElementById('sim-step-2').classList.remove('hidden');
-        }
-
-        function resetDviajerosSimulation() {
-            document.getElementById('sim-step-2').classList.add('hidden');
-            document.getElementById('sim-step-1').classList.remove('hidden');
-        }
-
-        function renderSummaryGuide() {
-            document.getElementById('print-date-label').innerText = new Date().toLocaleDateString();
-            document.getElementById('summary-origin-val').innerText = tripState.origin || 'No especificado';
-            document.getElementById('summary-destination-val').innerText = tripState.destination || 'No especificado';
-            document.getElementById('summary-date-val').innerText = tripState.date || 'Próximamente';
-            document.getElementById('summary-passengers-val').innerText = tripState.passengers === 'family' ? 'Familia con niños' : `${tripState.passengers} Pasajero(s)`;
-
-            const listContainer = document.getElementById('summary-items-list');
-            if (tripState.consultedItems.length === 0) {
-                listContainer.innerHTML = `<p class="text-slate-500 italic">No has consultado artículos específicos aún en el buscador inteligente.</p>`;
-            } else {
-                listContainer.innerHTML = tripState.consultedItems.map(item => `
-                    <div class="flex items-center justify-between bg-slate-50 p-2 rounded-lg border border-slate-200">
-                        <span class="font-medium text-slate-800">• ${item}</span>
-                        <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">Revisado</span>
-                    </div>
-                `).join('');
-            }
-        }
-
-        function resetTrip() {
-            tripState = { origin: '', destination: '', date: '', passengers: '1', hasStops: 'direct', stopLocation: '', consultedItems: [] };
-            document.getElementById('trip-origin').value = '';
-            document.getElementById('trip-destination').value = '';
-            document.getElementById('trip-date').value = '';
-            document.getElementById('trip-has-stops').value = 'direct';
-            toggleStopDetails();
-            goToStep('welcome');
-        }
-    </script>
 </body>
 </html>
