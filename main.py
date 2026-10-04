@@ -38,4 +38,5 @@ class TripAnalysisRequest(BaseModel):
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
     # Devuelve la interfaz principal integrada
-    return """
+    return
+    
