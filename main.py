@@ -6,7 +6,7 @@ import os
 app = FastAPI()
 
 # Configuración de Jinja2 (asegúrate de tener una carpeta llamada 'templates' que contenga tu index.html)
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory=".")
 
 def load_database():
     categories = {
