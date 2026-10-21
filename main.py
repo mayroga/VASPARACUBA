@@ -5,8 +5,8 @@ import os
 
 app = FastAPI()
 
-# Configuración apuntando a la carpeta 'templates'
 templates = Jinja2Templates(directory="templates")
+DATA_FILE = "cards_bilingual.json"
 
 def load_database():
     categories = {
@@ -16,64 +16,32 @@ def load_database():
         "Human Needs & Positive Perspectives": []
     }
     
-    if not os.path.exists("database.json"):
+    if not os.path.exists(DATA_FILE):
         return categories
 
     try:
-        with open("database.json", "r", encoding="utf-8") as f:
-            text = f.read()
-    except Exception:
-        return categories
-
-    # Intento 1: Leer como un JSON estándar único
-    try:
-        data = json.loads(text)
-        if isinstance(data, dict):
-            if "categories" in data:
+        with open(DATA_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            if isinstance(data, dict) and "categories" in data:
                 return data["categories"]
-            elif "batch" in data and "categories" in data:
-                for cat, items in data["categories"].items():
-                    if cat in categories and isinstance(items, list):
-                        categories[cat].extend(items)
-                return categories
-    except json.JSONDecodeError:
-        pass
-
-    # Intento 2: Si hay múltiples objetos JSON concatenados o bloques por lotes
-    decoder = json.JSONDecoder()
-    pos = 0
-    text_len = len(text)
-    while pos < text_len:
-        while pos < text_len and text[pos].isspace():
-            pos += 1
-        if pos >= text_len:
-            break
-        try:
-            obj, idx = decoder.raw_decode(text, pos)
-            pos = idx
-            if isinstance(obj, dict):
-                cats = obj.get("categories", obj)
-                if isinstance(cats, dict):
-                    for cat, items in cats.items():
-                        if cat not in categories:
-                            categories[cat] = []
-                        if isinstance(items, list):
-                            categories[cat].extend(items)
-        except json.JSONDecodeError:
-            pos += 1  # Salta caracteres inválidos para continuar
-            
+    except Exception as e:
+        print(f"Error loading JSON: {e}")
+        
     return categories
 
-# Cargar la base de datos al iniciar la aplicación
 DATABASE = load_database()
 
 @app.get("/")
 def home(request: Request):
-    return templates.TemplateResponse(request, "index.html")
+    return templates.TemplateResponse("index.html", {"request": request})
     
 @app.get("/api/status")
 def status():
-    return {"message": "API Activa", "database_loaded": bool(DATABASE)}
+    return {
+        "message": "API Activa", 
+        "database_loaded": bool(DATABASE),
+        "total_categories": list(DATABASE.keys())
+    }
 
 @app.post("/api/next-card")
 async def next_card(request: Request):
@@ -94,6 +62,7 @@ async def next_card(request: Request):
     for category in categories_list:
         items = DATABASE.get(category, [])
         idx = indices.get(category, 0)
+        
         if items and idx < len(items):
             card = items[idx]
             next_indices = indices.copy()
