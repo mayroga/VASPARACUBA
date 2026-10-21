@@ -175,18 +175,24 @@ function stopExerciseVoice(){
 if('speechSynthesis'in window)window.speechSynthesis.cancel();
 }
 
+
 function speakCurrentExercise(){
 if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
+
 const title=(currentExercise.title||{})[currentLang]||'';
 const instructions=(currentExercise.instructions||{})[currentLang]||'';
-const safety=(safetyNotes||{})[currentLang]||t().safety;
-if(!instructions.trim()&&!title.trim())return;
+
+if(!title.trim()&&!instructions.trim())return;
+
 stopExerciseVoice();
-const message=[title,instructions,safety].filter(Boolean).join('. ');
+
+const message=[title,instructions].filter(Boolean).join('. ');
 const utterance=new SpeechSynthesisUtterance(message);
+
 utterance.lang=currentLang==='es'?'es-ES':'en-US';
 utterance.rate=0.92;
 utterance.pitch=1;
+
 window.speechSynthesis.speak(utterance);
 }
 
