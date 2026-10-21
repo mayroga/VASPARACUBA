@@ -1,8 +1,11 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.templating import Jinja2Templates
 import json
+import os
 
 app = FastAPI()
+
+# Configuración de Jinja2 (asegúrate de tener una carpeta llamada 'templates' que contenga tu index.html)
 templates = Jinja2Templates(directory="templates")
 
 def load_database():
@@ -13,32 +16,37 @@ def load_database():
         "Human Needs & Positive Perspectives": []
     }
     
+    if not os.path.exists("database.json"):
+        return categories
+
     try:
         with open("database.json", "r", encoding="utf-8") as f:
             text = f.read()
-    except FileNotFoundError:
+    except Exception:
         return categories
 
     # Intento 1: Leer como un JSON estándar único
     try:
         data = json.loads(text)
-        if "categories" in data:
-            return data["categories"]
-        elif isinstance(data, dict) and "batch" in data and "categories" in data:
-            for cat, items in data["categories"].items():
-                if cat in categories:
-                    categories[cat].extend(items)
-            return categories
+        if isinstance(data, dict):
+            if "categories" in data:
+                return data["categories"]
+            elif "batch" in data and "categories" in data:
+                for cat, items in data["categories"].items():
+                    if cat in categories and isinstance(items, list):
+                        categories[cat].extend(items)
+                return categories
     except json.JSONDecodeError:
         pass
 
-    # Intento 2: Si hay múltiples objetos JSON concatenados
+    # Intento 2: Si hay múltiples objetos JSON concatenados o bloques por lotes
     decoder = json.JSONDecoder()
     pos = 0
-    while pos < len(text):
-        while pos < len(text) and text[pos].isspace():
+    text_len = len(text)
+    while pos < text_len:
+        while pos < text_len and text[pos].isspace():
             pos += 1
-        if pos >= len(text):
+        if pos >= text_len:
             break
         try:
             obj, idx = decoder.raw_decode(text, pos)
@@ -52,12 +60,53 @@ def load_database():
                         if isinstance(items, list):
                             categories[cat].extend(items)
         except json.JSONDecodeError:
-            pos += 1
+            pos += 1  # Salta caracteres inválidos para continuar
             
     return categories
 
+# Cargar la base de datos al iniciar la aplicación
 DATABASE = load_database()
 
 @app.get("/")
 def home(request: Request):
+    # Renderiza tu archivo index.html ubicado en la carpeta 'templates'
+    return templates.TemplateResponse("index.html", {"request": request})
+
+@app.get("/api/status")
+def status():
     return {"message": "API Activa", "database_loaded": bool(DATABASE)}
+
+@app.post("/api/next-card")
+async def next_card(request: Request):
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+        
+    indices = body.get("indices", {
+        "Riddles & Discoveries": 0,
+        "Real-Life Situations": 0,
+        "Everyday Math & Problem Solving": 0,
+        "Human Needs & Positive Perspectives": 0
+    })
+    
+    categories_list = list(DATABASE.keys())
+    
+    # Buscar la siguiente tarjeta disponible rotando por categorías
+    for category in categories_list:
+        items = DATABASE.get(category, [])
+        idx = indices.get(category, 0)
+        if items and idx < len(items):
+            card = items[idx]
+            next_indices = indices.copy()
+            next_indices[category] = idx + 1
+            
+            return {
+                "category": category,
+                "id": card.get("id"),
+                "en": card.get("en"),
+                "es": card.get("es"),
+                "next_indices": next_indices
+            }
+            
+    raise HTTPException(status_code=404, detail="No more cards available")
