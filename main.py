@@ -1,12 +1,14 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request
 from fastapi.templating import Jinja2Templates
 import json
 import os
 
 app = FastAPI()
 
-templates = Jinja2Templates(directory="templates")
-DATA_FILE = "cards_bilingual.json"
+# Resolver rutas absolutas para evitar errores de despliegue (Internal Server Error)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
+DATA_FILE = os.path.join(BASE_DIR, "cards_bilingual.json")
 
 def load_database():
     categories = {
@@ -17,6 +19,7 @@ def load_database():
     }
     
     if not os.path.exists(DATA_FILE):
+        print(f"ADVERTENCIA: No se encontró el archivo en {DATA_FILE}")
         return categories
 
     try:
@@ -25,7 +28,7 @@ def load_database():
             if isinstance(data, dict) and "categories" in data:
                 return data["categories"]
     except Exception as e:
-        print(f"Error loading JSON: {e}")
+        print(f"Error al leer el JSON: {e}")
         
     return categories
 
