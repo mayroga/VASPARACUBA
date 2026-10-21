@@ -69,9 +69,8 @@ DATABASE = load_database()
 
 @app.get("/")
 def home(request: Request):
-    # Renderiza templates/index.html correctamente
-    return templates.TemplateResponse("index.html", {"request": request})
-
+    return templates.TemplateResponse(request, "index.html")
+    
 @app.get("/api/status")
 def status():
     return {"message": "API Activa", "database_loaded": bool(DATABASE)}
