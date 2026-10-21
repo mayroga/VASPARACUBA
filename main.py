@@ -5,8 +5,8 @@ import os
 
 app = FastAPI()
 
-# Configuración de Jinja2 (asegúrate de tener una carpeta llamada 'templates' que contenga tu index.html)
-templates = Jinja2Templates(directory=".")
+# Configuración apuntando a la carpeta 'templates'
+templates = Jinja2Templates(directory="templates")
 
 def load_database():
     categories = {
@@ -69,7 +69,7 @@ DATABASE = load_database()
 
 @app.get("/")
 def home(request: Request):
-    # Renderiza tu archivo index.html ubicado en la carpeta 'templates'
+    # Renderiza templates/index.html correctamente
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/api/status")
