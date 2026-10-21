@@ -1,9 +1,9 @@
 services:
   - type: web
     name: qu-quieres-llevar
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    runtime: docker   # <- CAMBIO CLAVE: Le indica a Render que use el Dockerfile
+    region: oregon     # (Opcional) Puedes cambiar la región o quitar esta línea
+    plan: free         # (Opcional) Elige tu plan (free, starter, etc.)
     envVars:
       - key: GEMINI_API_KEY
         sync: false
