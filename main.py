@@ -36,16 +36,13 @@ DATABASE = load_database()
 
 @app.get("/")
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-    
-@app.get("/api/status")
-def status():
-    return {
-        "message": "API Activa", 
-        "database_loaded": bool(DATABASE),
-        "total_categories": list(DATABASE.keys())
-    }
-
+    try:
+        # Versión estándar para FastAPI moderno
+        return templates.TemplateResponse("index.html", {"request": request})
+    except TypeError:
+        # Versión de respaldo para servidores con versiones antiguas de Starlette
+        return templates.TemplateResponse(request, "index.html")
+        
 @app.post("/api/next-card")
 async def next_card(request: Request):
     try:
