@@ -45,6 +45,14 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 .countdown{font-size:2rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
 .safety{font-size:.76rem!important;color:var(--muted)!important}
 .mini-progress{font-size:.78rem;color:var(--muted);text-align:center}
+
+/* Donation box */
+.donation-section{background:#fef08a;color:#422006;border:2px solid #eab308;border-radius:12px;padding:18px;text-align:center;display:flex;flex-direction:column;gap:10px}
+.donation-section h2{font-size:1.2rem;color:#713f12;margin:0}
+.donation-section p{color:#713f12;font-size:.92rem;line-height:1.6}
+.donation-button{display:block;background:#854d0e;color:#fff;padding:13px 16px;border-radius:9px;text-decoration:none;font-weight:800;font-size:1rem;transition:background .2s}
+.donation-button:hover{background:#713f12}
+.donation-note{font-size:.74rem!important;color:#713f12!important;line-height:1.5}
 @media(max-width:430px){body{padding:9px}.container{padding:17px;gap:17px}header h1{font-size:1.25rem}.question-text{font-size:1.08rem}.option-btn{padding:12px;font-size:.92rem}.icon-btn{padding:7px 9px}}
 </style>
 </head>
@@ -107,6 +115,28 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <p id="end-p">A small discovery. A short reset. Now return to your day whenever you're ready.</p>
 <button class="action-btn" onclick="resetToHome()" id="home-btn">Return Home</button>
 </section>
+
+<!-- DONATION BOX: WE SELL TIME -->
+<section id="donation-section" class="donation-section" aria-label="Support our team">
+<h2>💛 APOYA A NUESTRO EQUIPO / SUPPORT OUR TEAM</h2>
+<p id="donation-message">
+Si esta experiencia te aporta valor, puedes apoyar a nuestro equipo con una contribución voluntaria.
+<br>
+If this experience brings you value, you can support our team with a voluntary contribution.
+</p>
+<a class="donation-button"
+href="https://buy.stripe.com/4gM00i67Z79N28D0b17Vm0v"
+target="_blank"
+rel="noopener noreferrer">
+💛 DONAR / MAKE A DONATION
+</a>
+<p class="donation-note">
+Tu apoyo es voluntario y no es necesario para utilizar la experiencia.
+<br>
+Your support is voluntary and is not required to use the experience.
+</p>
+</section>
+
 </main>
 
 <script>
@@ -174,7 +204,6 @@ updateVoiceButton();
 function stopExerciseVoice(){
 if('speechSynthesis'in window)window.speechSynthesis.cancel();
 }
-
 
 function speakCurrentExercise(){
 if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
