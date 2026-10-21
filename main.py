@@ -1,4 +1,9 @@
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
 import json
+
+app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 def load_database():
     categories = {
@@ -27,7 +32,7 @@ def load_database():
     except json.JSONDecodeError:
         pass
 
-    # Intento 2: Si hay múltiples objetos JSON concatenados, los lee todos secuencialmente
+    # Intento 2: Si hay múltiples objetos JSON concatenados
     decoder = json.JSONDecoder()
     pos = 0
     while pos < len(text):
@@ -47,6 +52,12 @@ def load_database():
                         if isinstance(items, list):
                             categories[cat].extend(items)
         except json.JSONDecodeError:
-            pos += 1  # Salta caracteres inválidos para continuar el análisis
+            pos += 1
             
     return categories
+
+DATABASE = load_database()
+
+@app.get("/")
+def home(request: Request):
+    return {"message": "API Activa", "database_loaded": bool(DATABASE)}
