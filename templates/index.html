@@ -1,260 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WE SELL TIME · 5 Minutes Experience</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent: #38bdf8;
-            --accent-success: #22c55e;
-            --accent-error: #ef4444;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-        .container { width: 100%; max-width: 600px; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; gap: 24px; position: relative; }
-        header { text-align: center; border-bottom: 1px solid var(--border-color); padding-bottom: 16px; position: relative; }
-        header h1 { font-size: 1.5rem; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; }
-        header p { font-size: 0.9rem; color: var(--text-muted); margin-top: 4px; }
-        .top-controls { position: absolute; top: 0; right: 0; display: flex; gap: 8px; }
-        .icon-btn { background: rgba(56, 189, 248, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 6px 12px; border-radius: 8px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
-        .icon-btn:hover { background: var(--accent); color: var(--bg-color); }
-        .timer-bar-container { width: 100%; background-color: var(--border-color); height: 6px; border-radius: 3px; overflow: hidden; }
-        .timer-bar { width: 100%; height: 100%; background-color: var(--accent); transition: width 1s linear; }
-        .badge-row { display: flex; justify-content: space-between; align-items: center; }
-        .badge { font-size: 0.75rem; text-transform: uppercase; padding: 4px 10px; border-radius: 12px; background-color: rgba(56, 189, 248, 0.1); color: var(--accent); border: 1px solid var(--accent); letter-spacing: 1px; }
-        .question-text { font-size: 1.25rem; line-height: 1.6; font-weight: 500; }
-        .options-grid { display: flex; flex-direction: column; gap: 12px; }
-        .option-btn { background-color: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); color: var(--text-main); padding: 14px 18px; border-radius: 8px; font-size: 1rem; text-align: left; cursor: pointer; transition: all 0.2s ease; }
-        .option-btn:hover { background-color: rgba(56, 189, 248, 0.1); border-color: var(--accent); }
-        .feedback-card { display: none; background-color: rgba(255, 255, 255, 0.02); border-left: 4px solid var(--accent); padding: 16px; border-radius: 4px; font-size: 0.95rem; line-height: 1.5; }
-        .feedback-card.correct { border-left-color: var(--accent-success); }
-        .feedback-card.incorrect { border-left-color: var(--accent-error); }
-        .action-btn { background-color: var(--accent); color: var(--bg-color); border: none; padding: 14px; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; width: 100%; text-align: center; }
-        .hidden { display: none !important; }
-        .completion-screen { text-align: center; display: flex; flex-direction: column; gap: 16px; }
-        .completion-screen h2 { font-size: 1.8rem; color: var(--accent); }
-        .completion-screen p { color: var(--text-muted); line-height: 1.6; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0f172a">
+<title>WE SELL TIME · The Five-Minute Experience</title>
+<style>
+:root{--bg:#0f172a;--panel:#1e293b;--accent:#38bdf8;--good:#22c55e;--bad:#ef4444;--text:#f8fafc;--muted:#94a3b8;--border:#334155}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
+.container{width:100%;max-width:620px;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:clamp(18px,4vw,32px);box-shadow:0 20px 25px #0005;display:flex;flex-direction:column;gap:22px;position:relative}
+header{text-align:center;border-bottom:1px solid var(--border);padding:4px 50px 16px;position:relative}
+header h1{font-size:1.45rem;letter-spacing:2px;color:var(--accent)}
+header p{font-size:.85rem;color:var(--muted);margin-top:5px}
+.top-controls{position:absolute;right:0;top:0}
+.icon-btn{background:#38bdf81a;border:1px solid var(--accent);color:var(--accent);padding:7px 11px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
+.timer-wrap{display:flex;flex-direction:column;gap:7px}
+.timer-labels{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
+.timer-track{height:6px;background:var(--border);border-radius:8px;overflow:hidden}
+.timer-bar{height:100%;width:100%;background:var(--accent);transition:width 1s linear}
+.badge-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.badge{font-size:.7rem;text-transform:uppercase;padding:5px 10px;border-radius:20px;background:#38bdf81a;color:var(--accent);border:1px solid var(--accent);letter-spacing:.6px}
+.stage-label{color:var(--muted);font-size:.78rem}
+.question-text{font-size:1.2rem;line-height:1.55;font-weight:600}
+.options-grid{display:flex;flex-direction:column;gap:10px}
+.option-btn{background:#ffffff08;border:1px solid var(--border);color:var(--text);padding:13px 15px;border-radius:9px;font-size:.96rem;text-align:left;cursor:pointer;line-height:1.4;transition:.15s}
+.option-btn:hover:not(:disabled){background:#38bdf81a;border-color:var(--accent)}
+.option-btn:disabled{cursor:default;opacity:.85}
+.feedback{display:none;background:#ffffff06;border-left:4px solid var(--accent);padding:14px;border-radius:5px;font-size:.92rem;line-height:1.5}
+.feedback.correct{border-left-color:var(--good)}
+.feedback.incorrect{border-left-color:var(--bad)}
+.feedback p{margin-top:7px}
+.takeaway{color:var(--accent);font-style:italic}
+.action-btn{background:var(--accent);color:#082f49;border:0;padding:14px;border-radius:9px;font-weight:800;font-size:1rem;cursor:pointer;width:100%}
+.action-btn:disabled{opacity:.5;cursor:wait}
+.secondary-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:11px;border-radius:8px;cursor:pointer;width:100%}
+.hidden{display:none!important}
+.screen{display:flex;flex-direction:column;gap:16px;text-align:center}
+.screen h2{font-size:1.55rem;color:var(--accent)}
+.screen p{color:var(--muted);line-height:1.6}
+.screen-icon{font-size:2rem}
+.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:20px;border-radius:12px;display:flex;flex-direction:column;gap:13px}
+.exercise-card h3{font-size:1.2rem}
+.countdown{font-size:2rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.safety{font-size:.76rem!important;color:var(--muted)!important}
+.mini-progress{font-size:.78rem;color:var(--muted);text-align:center}
+@media(max-width:430px){body{padding:9px}.container{padding:17px;gap:17px}header h1{font-size:1.25rem}.question-text{font-size:1.08rem}.option-btn{padding:12px;font-size:.92rem}}
+</style>
 </head>
 <body>
+<main class="container">
+<header>
+<h1>WE SELL TIME</h1>
+<p id="sub-title">5 MINUTES. A DIFFERENT PERSPECTIVE.</p>
+<div class="top-controls"><button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">ES</button></div>
+</header>
 
-<div class="container">
-    <header>
-        <h1>WE SELL TIME</h1>
-        <p id="sub-title">5 MINUTES. A DIFFERENT PERSPECTIVE.</p>
-        <div class="top-controls">
-            <button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">ES</button>
-        </div>
-    </header>
+<section id="start-view" class="screen">
+<div class="screen-icon">⌛</div>
+<h2 id="welcome-h2">Ready for your five-minute break?</h2>
+<p id="welcome-p">A few surprising questions, a simple reset, and a fresh perspective. No pressure.</p>
+<button class="action-btn" onclick="startSession()" id="start-btn">Start Experience</button>
+<p class="safety" id="start-note">Choose only comfortable movements. You can skip any exercise.</p>
+</section>
 
-    <div id="start-view" class="completion-screen">
-        <h2 id="welcome-h2">Ready for your 5-minute break?</h2>
-        <p id="welcome-p">Engage in an orderly sequence across our four core libraries.</p>
-        <button class="action-btn" onclick="startSession()" id="start-btn">Start Experience</button>
-    </div>
-
-    <div id="session-view" class="hidden" style="display: flex; flex-direction: column; gap: 20px;">
-        <div class="timer-bar-container"><div id="timer-bar" class="timer-bar"></div></div>
-        <div class="badge-row">
-            <div id="category-badge" class="badge">Category</div>
-            <button class="icon-btn" onclick="speakCurrentCard()" title="Listen">🔊 Listen</button>
-        </div>
-        <div id="prompt-text" class="question-text">Loading content...</div>
-        <div id="options-container" class="options-grid"></div>
-        <div id="feedback-card" class="feedback-card">
-            <strong id="feedback-status"></strong>
-            <p id="feedback-explanation" style="margin-top: 6px;"></p>
-            <p id="feedback-takeaway" style="margin-top: 8px; color: var(--accent); font-style: italic;"></p>
-        </div>
-        <button id="next-btn" class="action-btn hidden" onclick="loadNextCard()">Continue</button>
-    </div>
-
-    <div id="end-view" class="completion-screen hidden">
-        <h2 id="end-h2">Time Complete</h2>
-        <p id="end-p">You have taken 5 minutes to think and reflect.</p>
-        <button class="action-btn" onclick="resetToHome()" id="home-btn">Return Home</button>
-    </div>
+<section id="session-view" class="hidden" style="display:flex;flex-direction:column;gap:18px">
+<div class="timer-wrap">
+<div class="timer-labels"><span id="session-label">Your five minutes</span><span id="time-left">5:00</span></div>
+<div class="timer-track"><div id="timer-bar" class="timer-bar"></div></div>
 </div>
+<div class="badge-row">
+<span id="category-badge" class="badge">Discovery</span>
+<button class="icon-btn" onclick="speakCurrentCard()" id="listen-btn">🔊 Listen</button>
+</div>
+<div id="stage-label" class="stage-label">Curiosity · Your choice · The surprise · The discovery</div>
+<div id="prompt-text" class="question-text">Loading...</div>
+<div id="options-container" class="options-grid"></div>
+<div id="feedback-card" class="feedback">
+<strong id="feedback-status"></strong>
+<p id="feedback-explanation"></p>
+<p id="feedback-takeaway" class="takeaway"></p>
+</div>
+<p id="question-progress" class="mini-progress"></p>
+<button id="next-btn" class="action-btn hidden" onclick="advanceExperience()">Continue</button>
+</section>
+
+<section id="reset-view" class="screen hidden">
+<div class="screen-icon">◌</div>
+<h2 id="reset-heading">Easy Reset</h2>
+<p id="reset-intro">Take a short, comfortable pause. No need to do anything that feels uncomfortable.</p>
+<div class="exercise-card">
+<span class="badge" id="exercise-type">GENTLE PAUSE</span>
+<h3 id="exercise-title">Natural breathing</h3>
+<p id="exercise-instructions"></p>
+<div class="countdown" id="exercise-countdown">0:45</div>
+<p class="safety" id="safety-note"></p>
+</div>
+<button class="secondary-btn" id="skip-reset-btn" onclick="finishReset(true)">Skip pause</button>
+</section>
+
+<section id="end-view" class="screen hidden">
+<div class="screen-icon">✦</div>
+<h2 id="end-h2">Time well spent.</h2>
+<p id="end-p">A small discovery. A short reset. Now return to your day whenever you're ready.</p>
+<button class="action-btn" onclick="resetToHome()" id="home-btn">Return Home</button>
+</section>
+</main>
 
 <script>
-    let remainingTime = 300;
-    let timerInterval = null;
-    let currentIndices = {
-        "Riddles & Discoveries": 0,
-        "Real-Life Situations": 0,
-        "Everyday Math & Problem Solving": 0,
-        "Human Needs & Positive Perspectives": 0
-    };
-    let currentCardData = null;
-    let currentLang = 'en';
+let remainingTime=300,sessionTimer=null,exerciseTimer=null,exerciseRemaining=45;
+let questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0;
+let currentCardData=null,currentExercise=null,currentLang='en';
+let answered=false,selectedAnswer=null,answerWasCorrect=null,sessionSeconds=300;
 
-    const translations = {
-        en: {
-            subTitle: "5 MINUTES. A DIFFERENT PERSPECTIVE.",
-            langBtn: "ES",
-            welcomeH2: "Ready for your 5-minute break?",
-            welcomeP: "Engage in an orderly sequence across our four core libraries.",
-            startBtn: "Start Experience",
-            endH2: "Time Complete",
-            endP: "You have taken 5 minutes to think and reflect. Carry this perspective with you today.",
-            homeBtn: "Return Home",
-            continueBtn: "Continue",
-            correct: "Correct",
-            incorrect: "Incorrect. Correct answer: "
-        },
-        es: {
-            subTitle: "5 MINUTOS. UNA PERSPECTIVA DIFERENTE.",
-            langBtn: "EN",
-            welcomeH2: "¿Listo para tu pausa de 5 minutos?",
-            welcomeP: "Participa en una secuencia ordenada a través de nuestras cuatro bibliotecas principales.",
-            startBtn: "Comenzar Experiencia",
-            endH2: "Tiempo Completado",
-            endP: "Te has tomado 5 minutos para pensar y reflexionar. Lleva esta perspectiva contigo hoy.",
-            homeBtn: "Volver al Inicio",
-            continueBtn: "Continuar",
-            correct: "Correcto",
-            incorrect: "Incorrecto. Respuesta correcta: "
-        }
-    };
+const $=id=>document.getElementById(id);
 
-    function toggleLanguage() {
-        currentLang = currentLang === 'en' ? 'es' : 'en';
-        updateUIStaticTexts();
-        if (currentCardData) renderCard();
-    }
+const translations={
+en:{
+subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',
+welcomeH2:'Ready for your five-minute break?',
+welcomeP:'A few surprising questions, a simple reset, and a fresh perspective. No pressure.',
+startBtn:'Start Experience',startNote:'Choose only comfortable movements. You can skip any exercise.',
+sessionLabel:'Your five minutes',listen:'🔊 Listen',continueBtn:'Continue',
+takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',
+key:'Key idea: ',resetHeading:'Easy Reset',
+resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',
+skip:'Skip pause',endH2:'Time well spent.',
+endP:'A small discovery. A short reset. Now return to your day whenever you’re ready.',
+homeBtn:'Return Home',safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
+curiosity:'Curiosity',choice:'Your choice',surprise:'The surprise',discovery:'The discovery',
+question:'Question',finished:'You have completed this experience.'
+},
+es:{
+subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',
+welcomeH2:'¿Listo para una pausa de cinco minutos?',
+welcomeP:'Algunas preguntas sorprendentes, una pausa sencilla y una perspectiva diferente. Sin presión.',
+startBtn:'Comenzar experiencia',startNote:'Elige solo movimientos cómodos. Puedes omitir cualquier ejercicio.',
+sessionLabel:'Tus cinco minutos',listen:'🔊 Escuchar',continueBtn:'Continuar',
+takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',
+key:'Idea clave: ',resetHeading:'Pausa sencilla',
+resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',
+skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',
+endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',
+homeBtn:'Volver al inicio',safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
+curiosity:'Curiosidad',choice:'Tu decisión',surprise:'La sorpresa',discovery:'El descubrimiento',
+question:'Pregunta',finished:'Has completado esta experiencia.'
+}
+};
 
-    function updateUIStaticTexts() {
-        const t = translations[currentLang];
-        document.getElementById('sub-title').innerText = t.subTitle;
-        document.getElementById('lang-btn').innerText = t.langBtn;
-        document.getElementById('welcome-h2').innerText = t.welcomeH2;
-        document.getElementById('welcome-p').innerText = t.welcomeP;
-        document.getElementById('start-btn').innerText = t.startBtn;
-        document.getElementById('end-h2').innerText = t.endH2;
-        document.getElementById('end-p').innerText = t.endP;
-        document.getElementById('home-btn').innerText = t.homeBtn;
-        document.getElementById('next-btn').innerText = t.continueBtn;
-    }
+function t(){return translations[currentLang]}
 
-    function startSession() {
-        document.getElementById('start-view').classList.add('hidden');
-        document.getElementById('session-view').classList.remove('hidden');
-        document.getElementById('end-view').classList.add('hidden');
-        
-        remainingTime = 300;
-        updateTimerBar();
+function toggleLanguage(){
+currentLang=currentLang==='en'?'es':'en';
+document.documentElement.lang=currentLang;
+updateStaticTexts();
+if(currentCardData&&!$('session-view').classList.contains('hidden')){
+const hadAnswered=answered,wasCorrect=answerWasCorrect;
+renderCard();
+if(hadAnswered){
+answered=true;
+answerWasCorrect=wasCorrect;
+document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+showFeedback();
+}
+}
+if(currentExercise&&!$('reset-view').classList.contains('hidden'))renderExercise();
+}
 
-        timerInterval = setInterval(() => {
-            remainingTime--;
-            updateTimerBar();
-            if (remainingTime <= 0) endSession();
-        }, 1000);
+function updateStaticTexts(){
+const x=t();
+$('sub-title').innerText=x.subTitle;
+$('lang-btn').innerText=x.langBtn;
+$('welcome-h2').innerText=x.welcomeH2;
+$('welcome-p').innerText=x.welcomeP;
+$('start-btn').innerText=x.startBtn;
+$('start-note').innerText=x.startNote;
+$('session-label').innerText=x.sessionLabel;
+$('listen-btn').innerText=x.listen;
+$('next-btn').innerText=x.continueBtn;
+$('reset-heading').innerText=x.resetHeading;
+$('reset-intro').innerText=x.resetIntro;
+$('skip-reset-btn').innerText=x.skip;
+$('end-h2').innerText=x.endH2;
+$('end-p').innerText=x.endP;
+$('home-btn').innerText=x.homeBtn;
+}
 
-        loadNextCard();
-    }
+async function startSession(){
+const btn=$('start-btn');
+btn.disabled=true;
+try{
+const res=await fetch('/api/session');
+if(!res.ok)throw new Error('Session could not load');
+const data=await res.json();
+questions=data.questions||[];
+exercises=data.exercises||[];
+safetyNotes=data.safety_notes||{};
+sessionSeconds=Number(data.session_seconds)||300;
+if(!questions.length)throw new Error('No questions found');
+}catch(e){
+console.error(e);
+alert(currentLang==='es'?'No se pudo cargar el contenido. Comprueba el archivo JSON y vuelve a intentarlo.':'Content could not load. Check the JSON file and try again.');
+btn.disabled=false;
+return;
+}
+btn.disabled=false;
+questionIndex=0;
+exerciseIndex=0;
+currentCardData=questions[0];
+answered=false;
+selectedAnswer=null;
+answerWasCorrect=null;
+remainingTime=sessionSeconds;
+clearInterval(sessionTimer);
+clearInterval(exerciseTimer);
+$('start-view').classList.add('hidden');
+$('end-view').classList.add('hidden');
+$('reset-view').classList.add('hidden');
+$('session-view').classList.remove('hidden');
+updateTimer();
+sessionTimer=setInterval(()=>{
+remainingTime--;
+updateTimer();
+if(remainingTime<=0)endSession();
+},1000);
+renderCard();
+}
 
-    function updateTimerBar() {
-        document.getElementById('timer-bar').style.width = (remainingTime / 300) * 100 + '%';
-    }
+function updateTimer(){
+$('time-left').innerText=`${Math.floor(Math.max(0,remainingTime)/60)}:${String(Math.max(0,remainingTime)%60).padStart(2,'0')}`;
+$('timer-bar').style.width=`${Math.max(0,remainingTime/sessionSeconds)*100}%`;
+}
 
-    async function loadNextCard() {
-        document.getElementById('feedback-card').style.display = 'none';
-        document.getElementById('next-btn').classList.add('hidden');
-        document.getElementById('options-container').innerHTML = '';
+function renderCard(){
+if(!currentCardData||!currentCardData[currentLang])return;
+const card=currentCardData[currentLang],x=t();
+$('category-badge').innerText=currentCardData.topic||(currentLang==='es'?'Descubrimientos':'Discoveries');
+$('stage-label').innerText=`${x.curiosity} · ${x.choice} · ${x.surprise} · ${x.discovery}`;
+$('prompt-text').innerText=card.prompt||'';
+$('options-container').innerHTML='';
+$('feedback-card').style.display='none';
+$('feedback-card').className='feedback';
+$('next-btn').classList.add('hidden');
+card.options.forEach(opt=>{
+const b=document.createElement('button');
+b.className='option-btn';
+b.innerText=opt;
+b.onclick=()=>selectOption(opt);
+$('options-container').appendChild(b);
+});
+$('question-progress').innerText=`${x.question} ${questionIndex+1} / ${questions.length}`;
+answered=false;
+selectedAnswer=null;
+answerWasCorrect=null;
+}
 
-        try {
-            const response = await fetch('/api/next-card', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ indices: currentIndices })
-            });
+function selectOption(opt){
+if(answered||!currentCardData)return;
+answered=true;
+selectedAnswer=opt;
+answerWasCorrect=opt===currentCardData[currentLang].correct_answer;
+document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
+showFeedback();
+}
 
-            if (!response.ok) { endSession(); return; }
+function showFeedback(){
+const card=currentCardData[currentLang],x=t(),correct=answerWasCorrect===true;
+$('feedback-card').style.display='block';
+$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;
+$('feedback-status').innerText=correct?x.correct:`${x.incorrect}${card.correct_answer}`;
+$('feedback-explanation').innerText=card.explanation||'';
+$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
+$('next-btn').classList.remove('hidden');
+const willReset=((questionIndex+1)%3===0)&&remainingTime>70;
+$('next-btn').innerText=willReset?x.takeReset:x.continueBtn;
+}
 
-            currentCardData = await response.json();
-            if (currentCardData.finished) {
-                endSession();
-                return;
-            }
-            currentIndices = currentCardData.next_indices;
-            renderCard();
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    }
+function advanceExperience(){
+if(!answered)return;
+if(((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length){
+showReset();
+return;
+}
+goNextQuestion();
+}
 
-    function renderCard() {
-        if (!currentCardData || !currentCardData[currentLang]) return;
-        const card = currentCardData[currentLang];
-        document.getElementById('category-badge').innerText = currentCardData.category || '';
-        document.getElementById('prompt-text').innerText = card.prompt || '';
+function goNextQuestion(){
+questionIndex++;
+if(questionIndex>=questions.length||remainingTime<=0){
+endSession();
+return;
+}
+currentCardData=questions[questionIndex];
+answered=false;
+selectedAnswer=null;
+answerWasCorrect=null;
+renderCard();
+}
 
-        const optionsContainer = document.getElementById('options-container');
-        optionsContainer.innerHTML = '';
-        if (card.options && Array.isArray(card.options)) {
-            card.options.forEach((opt) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = opt;
-                btn.onclick = () => selectOption(opt);
-                optionsContainer.appendChild(btn);
-            });
-        }
-    }
+function showReset(){
+if(!exercises.length){goNextQuestion();return;}
+clearInterval(exerciseTimer);
+currentExercise=exercises[exerciseIndex%exercises.length];
+exerciseIndex++;
+exerciseRemaining=Math.max(40,Math.min(60,Number(currentExercise.duration_seconds)||45));
+$('session-view').classList.add('hidden');
+$('reset-view').classList.remove('hidden');
+renderExercise();
+exerciseTimer=setInterval(()=>{
+exerciseRemaining--;
+renderCountdown();
+if(exerciseRemaining<=0)finishReset(false);
+},1000);
+}
 
-    function selectOption(selectedOpt) {
-        const card = currentCardData[currentLang];
-        document.querySelectorAll('.option-btn').forEach(btn => btn.disabled = true);
-        const isCorrect = selectedOpt === card.correct_answer;
-        const feedbackCard = document.getElementById('feedback-card');
-        const t = translations[currentLang];
-        
-        feedbackCard.style.display = 'block';
-        feedbackCard.className = `feedback-card ${isCorrect ? 'correct' : 'incorrect'}`;
-        document.getElementById('feedback-status').innerText = isCorrect ? t.correct : `${t.incorrect}${card.correct_answer}`;
-        document.getElementById('feedback-explanation').innerText = card.explanation;
-        document.getElementById('feedback-takeaway').innerText = `Key Takeaway: ${card.takeaway}`;
-        document.getElementById('next-btn').classList.remove('hidden');
-    }
+function renderExercise(){
+if(!currentExercise)return;
+const x=t(),lang=currentLang;
+$('reset-heading').innerText=x.resetHeading;
+$('reset-intro').innerText=x.resetIntro;
+$('exercise-title').innerText=(currentExercise.title||{})[lang]||'';
+$('exercise-instructions').innerText=(currentExercise.instructions||{})[lang]||'';
+$('exercise-type').innerText=(currentExercise.type||'easy reset').replaceAll('_',' ').toUpperCase();
+$('safety-note').innerText=(safetyNotes||{})[lang]||x.safety;
+$('skip-reset-btn').innerText=x.skip;
+renderCountdown();
+}
 
-    function speakCurrentCard() {
-        if (!currentCardData || !currentCardData[currentLang]) return;
-        const card = currentCardData[currentLang];
-        const textToSpeak = `${card.prompt}. Options are: ${card.options.join(', ')}`;
-        
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = currentLang === 'es' ? 'es-ES' : 'en-US';
-            utterance.rate = 1.0;
-            window.speechSynthesis.speak(utterance);
-        }
-    }
-    
-    function endSession() {
-        clearInterval(timerInterval);
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-        document.getElementById('session-view').classList.add('hidden');
-        document.getElementById('end-view').classList.remove('hidden');
-    }
+function renderCountdown(){
+$('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`;
+}
 
-    function resetToHome() {
-        document.getElementById('end-view').classList.add('hidden');
-        document.getElementById('start-view').classList.add('hidden');
-        document.getElementById('start-view').classList.remove('hidden');
-        currentIndices = {
-            "Riddles & Discoveries": 0,
-            "Real-Life Situations": 0,
-            "Everyday Math & Problem Solving": 0,
-            "Human Needs & Positive Perspectives": 0
-        };
-    }
+function finishReset(skipped){
+clearInterval(exerciseTimer);
+exerciseTimer=null;
+currentExercise=null;
+if(remainingTime<=0){endSession();return;}
+$('reset-view').classList.add('hidden');
+$('session-view').classList.remove('hidden');
+goNextQuestion();
+}
+
+function speakCurrentCard(){
+if(!currentCardData||!currentCardData[currentLang]||!('speechSynthesis'in window))return;
+const c=currentCardData[currentLang];
+const u=new SpeechSynthesisUtterance(`${c.prompt}. ${currentLang==='es'?'Opciones':'Options'}: ${c.options.join(', ')}`);
+u.lang=currentLang==='es'?'es-ES':'en-US';
+u.rate=1;
+window.speechSynthesis.cancel();
+window.speechSynthesis.speak(u);
+}
+
+function endSession(){
+clearInterval(sessionTimer);
+clearInterval(exerciseTimer);
+sessionTimer=exerciseTimer=null;
+if('speechSynthesis'in window)window.speechSynthesis.cancel();
+$('session-view').classList.add('hidden');
+$('reset-view').classList.add('hidden');
+$('end-view').classList.remove('hidden');
+$('end-h2').innerText=t().endH2;
+$('end-p').innerText=remainingTime<=0?t().endP:t().finished;
+}
+
+function resetToHome(){
+clearInterval(sessionTimer);
+clearInterval(exerciseTimer);
+sessionTimer=exerciseTimer=null;
+currentCardData=null;
+currentExercise=null;
+questions=[];
+exercises=[];
+$('end-view').classList.add('hidden');
+$('session-view').classList.add('hidden');
+$('reset-view').classList.add('hidden');
+$('start-view').classList.remove('hidden');
+remainingTime=300;
+updateStaticTexts();
+}
+
+updateStaticTexts();
 </script>
 </body>
 </html>
