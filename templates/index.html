@@ -185,20 +185,23 @@
         }
     }
 
-    function renderCard() {
+function renderCard() {
+        if (!currentCardData || !currentCardData[currentLang]) return;
         const card = currentCardData[currentLang];
-        document.getElementById('category-badge').innerText = currentCardData.category;
-        document.getElementById('prompt-text').innerText = card.prompt;
+        document.getElementById('category-badge').innerText = currentCardData.category || '';
+        document.getElementById('prompt-text').innerText = card.prompt || '';
 
         const optionsContainer = document.getElementById('options-container');
         optionsContainer.innerHTML = '';
-        card.options.forEach((opt) => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerText = opt;
-            btn.onclick = () => selectOption(opt);
-            optionsContainer.appendChild(btn);
-        });
+        if (card.options && Array.isArray(card.options)) {
+            card.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => selectOption(opt);
+                optionsContainer.appendChild(btn);
+            });
+        }
     }
 
     function selectOption(selectedOpt) {
@@ -216,8 +219,8 @@
         document.getElementById('next-btn').classList.remove('hidden');
     }
 
-    function speakCurrentCard() {
-        if (!currentCardData) return;
+function speakCurrentCard() {
+        if (!currentCardData || !currentCardData[currentLang]) return;
         const card = currentCardData[currentLang];
         const textToSpeak = `${card.prompt}. Options are: ${card.options.join(', ')}`;
         
@@ -229,7 +232,7 @@
             window.speechSynthesis.speak(utterance);
         }
     }
-
+    
     function endSession() {
         clearInterval(timerInterval);
         if ('speechSynthesis' in window) window.speechSynthesis.cancel();
