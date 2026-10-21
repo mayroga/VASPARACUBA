@@ -92,7 +92,6 @@ async def next_card(request: Request):
     
     categories_list = list(DATABASE.keys())
     
-    # Buscar la siguiente tarjeta disponible rotando por categorías
     for category in categories_list:
         items = DATABASE.get(category, [])
         idx = indices.get(category, 0)
@@ -109,4 +108,4 @@ async def next_card(request: Request):
                 "next_indices": next_indices
             }
             
-    raise HTTPException(status_code=404, detail="No more cards available")
+    return {"message": "Completed", "finished": True}
