@@ -5,13 +5,12 @@ import os
 
 app = FastAPI()
 
-# Resolver rutas absolutas para evitar errores de despliegue (Internal Server Error)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 DATA_FILE = os.path.join(BASE_DIR, "cards_bilingual.json")
 
 def load_database():
-    categories = {
+    default_categories = {
         "Riddles & Discoveries": [],
         "Real-Life Situations": [],
         "Everyday Math & Problem Solving": [],
@@ -19,30 +18,40 @@ def load_database():
     }
     
     if not os.path.exists(DATA_FILE):
-        print(f"ADVERTENCIA: No se encontró el archivo en {DATA_FILE}")
-        return categories
+        print(f"ERROR CRÍTICO: No se encuentra {DATA_FILE}")
+        return default_categories
 
     try:
         with open(DATA_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
-            if isinstance(data, dict) and "categories" in data:
-                return data["categories"]
+            if isinstance(data, dict):
+                if "categories" in data:
+                    return data["categories"]
+                return data
     except Exception as e:
-        print(f"Error al leer el JSON: {e}")
+        print(f"ERROR al decodificar JSON: {e}")
         
-    return categories
+    return default_categories
 
 DATABASE = load_database()
 
 @app.get("/")
 def home(request: Request):
     try:
-        # Versión estándar para FastAPI moderno
         return templates.TemplateResponse("index.html", {"request": request})
     except TypeError:
-        # Versión de respaldo para servidores con versiones antiguas de Starlette
         return templates.TemplateResponse(request, "index.html")
-        
+    
+@app.get("/api/status")
+def status():
+    total_items = sum(len(v) for v in DATABASE.values())
+    return {
+        "message": "API Activa", 
+        "database_loaded": total_items > 0,
+        "total_cards_loaded": total_items,
+        "categories": list(DATABASE.keys())
+    }
+
 @app.post("/api/next-card")
 async def next_card(request: Request):
     try:
