@@ -170,8 +170,12 @@ function stopVoice(){if('speechSynthesis'in window)window.speechSynthesis.cancel
 function speak(text,onEnd){
 if(!exerciseVoiceEnabled||!('speechSynthesis'in window)||!text)return;
 const id=voiceRunId,u=new SpeechSynthesisUtterance(text);
-u.lang=currentLang==='es'?'es-ES':'en-US';u.rate=.91;u.pitch=1;
+u.lang=currentLang==='es'?'es-ES':'en-US';
+u.rate=.76;
+u.pitch=.92;
+u.volume=.85;
 u.onend=()=>{if(id===voiceRunId&&onEnd)onEnd()};
+u.onerror=()=>{if(id===voiceRunId&&onEnd)onEnd()};
 try{speechSynthesis.speak(u)}catch(e){console.warn('Voice unavailable',e)}
 }
 function updateVoiceButton(){
