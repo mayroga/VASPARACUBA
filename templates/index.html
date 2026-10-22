@@ -318,6 +318,7 @@ updateVoiceButton();renderCountdown();updateBreathVisual('ready');speakCurrentEx
 function renderCountdown(){
 $('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`;
 }
+
 function speakCurrentExercise(){
 if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
 stopExerciseVoice();
@@ -338,15 +339,57 @@ circle.classList.add('exhale');label.innerText=x.exhale;$('breath-phase').innerT
 label.innerText=x.ready;$('breath-phase').innerText=x.ready;
 }
 }
+const BREATHING_VOICE_ARSENALS={
+en:[
+{intro:"I am here with you. I will guide you gently. There is no need to rush.",inhale:["Breathe in gently, at your own pace.","Let the air come in softly.","Allow a calm breath to enter."],exhale:["Breathe out slowly and easily.","Gently release the air.","Let the breath flow out without effort."],rest:["Take your time. I am here with you.","You are doing well. Stay comfortable.","Follow your own natural rhythm."]},
+{intro:"You are not alone in this moment. Let the circle guide you, and keep your breathing comfortable.",inhale:["Invite the air in, softly.","Breathe in without forcing it.","Let your next breath arrive naturally."],exhale:["Release the air without hurry.","Let your breath leave gently.","Soften your body as you breathe out."] ,rest:["There is no perfect way to do this.","Stay relaxed. There is no hurry.","I will stay with you as you continue."]},
+{intro:"Welcome to this quiet moment. I will accompany you step by step. Your comfort comes first.",inhale:["Draw in an easy, gentle breath.","Let yourself breathe in comfortably.","Receive the air slowly and naturally."],exhale:["Allow the air to leave your lungs gently.","Breathe out in a relaxed way.","Let the air go, without effort."],rest:["You can go at your own pace.","Let your shoulders soften. Take your time.","Stay with this quiet moment. I am guiding you."]}
+],
+es:[
+{intro:"Estoy aquí contigo. Voy a guiarte con suavidad. No tienes que apresurarte.",inhale:["Inspira suavemente, a tu propio ritmo.","Deja entrar el aire con calma.","Permite que entre una respiración tranquila."],exhale:["Suelta el aire despacio y sin esfuerzo.","Deja salir el aire suavemente.","Permite que el aire salga con tranquilidad."],rest:["Tómate tu tiempo. Estoy aquí contigo.","Lo estás haciendo bien. Busca comodidad.","Sigue tu propio ritmo natural."]},
+{intro:"No estás solo en este momento. Deja que el círculo te acompañe y respira de forma cómoda.",inhale:["Deja entrar el aire con suavidad.","Inspira sin forzar la respiración.","Permite que llegue la siguiente inspiración de forma natural."],exhale:["Suelta el aire sin ninguna prisa.","Deja que el aire salga tranquilamente.","Relaja el cuerpo mientras sueltas el aire."],rest:["No existe una forma perfecta de hacerlo.","Mantén la calma. No hay prisa.","Te acompaño mientras continúas."]},
+{intro:"Bienvenido a este momento tranquilo. Voy a acompañarte paso a paso. Lo más importante es tu comodidad.",inhale:["Recibe el aire con una inspiración suave.","Inspira de una manera que te resulte cómoda.","Deja entrar el aire lentamente y con naturalidad."],exhale:["Permite que el aire salga suavemente.","Exhala de forma relajada.","Deja salir el aire sin esfuerzo."],rest:["Puedes seguir a tu propio ritmo.","Relaja los hombros y tómate tu tiempo.","Quédate en este momento tranquilo. Te estoy guiando."]}
+]
+};
 function startBreathingGuidance(){
 if(!currentExercise||exerciseRemaining<=0)return;
 stopBreathing();
-const run=exerciseRunId,x=t();
-let cueInIndex=0,cueOutIndex=0;
+const run=exerciseRunId;
+const lang=currentLang==='es'?'es':'en';
+const arsenals=BREATHING_VOICE_ARSENALS[lang];
+const arsenal=arsenals[Math.floor(Math.random()*arsenals.length)];
+let cueInIndex=0,cueOutIndex=0,restIndex=0;
+let lastIn='',lastOut='',lastRest='';
+let lastCueTime=0;
 const pattern=currentExercise.breathing_pattern||{};
-const inhaleSeconds=Math.max(2,Math.min(6,Number(pattern.inhale_seconds)||3));
-const exhaleSeconds=Math.max(2,Math.min(8,Number(pattern.exhale_seconds)||4));
-let nextPhase='inhale',phaseEnd=Date.now();
+const inhaleSeconds=Math.max(3,Math.min(6,Number(pattern.inhale_seconds)||4));
+const exhaleSeconds=Math.max(4,Math.min(8,Number(pattern.exhale_seconds)||6));
+let nextPhase='ready',phaseEnd=Date.now()+1500;
+const used=new Set();
+function uniquePhrase(list,last){
+const available=list.filter(p=>!used.has(p)&&p!==last);
+if(!available.length){list.forEach(p=>used.delete(p));}
+const choices=list.filter(p=>!used.has(p)&&p!==last);
+const phrase=(choices.length?choices:list)[Math.floor(Math.random()*(choices.length||list.length))];
+used.add(phrase);
+return phrase;
+}
+function sayCue(phase){
+if(!exerciseVoiceEnabled||Date.now()-lastCueTime<7000)return;
+let phrase='';
+if(phase==='inhale'){
+phrase=uniquePhrase(arsenal.inhale,lastIn);lastIn=phrase;
+}else if(phase==='exhale'){
+phrase=uniquePhrase(arsenal.exhale,lastOut);lastOut=phrase;
+}else{
+phrase=uniquePhrase(arsenal.rest,lastRest);lastRest=phrase;
+}
+if(phrase){lastCueTime=Date.now();speak(phrase)}
+}
+speak(arsenal.intro,()=>{
+if(!currentExercise||exerciseRemaining<=0||run!==exerciseRunId)return;
+updateBreathVisual('ready');
+});
 function step(){
 if(!currentExercise||exerciseRemaining<=0||run!==exerciseRunId)return;
 const now=Date.now();
@@ -355,12 +398,11 @@ nextPhase=nextPhase==='inhale'?'exhale':'inhale';
 const duration=nextPhase==='inhale'?inhaleSeconds:exhaleSeconds;
 phaseEnd=now+duration*1000;
 updateBreathVisual(nextPhase);
-if(exerciseVoiceEnabled){
-const phrases=nextPhase==='inhale'?x.cueIn:x.cueOut;
-let phrase='';
-if(nextPhase==='inhale'&&cueInIndex<phrases.length)phrase=phrases[cueInIndex++];
-if(nextPhase==='exhale'&&cueOutIndex<phrases.length)phrase=phrases[cueOutIndex++];
-if(phrase)speak(phrase);
+sayCue(nextPhase);
+}
+}
+updateBreathVisual('ready');
+breathTimer=setInterval(step,250);
 }
 }
 }
