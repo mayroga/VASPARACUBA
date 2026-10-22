@@ -14,7 +14,7 @@ header{text-align:center;border-bottom:1px solid var(--border);padding:4px 50px 
 header h1{font-size:1.45rem;letter-spacing:2px;color:var(--accent)}
 header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 .top-controls{position:absolute;right:0;top:0;display:flex;gap:5px}
-.icon-btn{background:#38bdf81a;border:1px solid var(--accent);color:var(--accent);padding:7px 11px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
+.icon-btn{background:#38bdf81a;border:1px solid var(--accent);color:var(--accent);padding:8px 11px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
 .timer-wrap{display:flex;flex-direction:column;gap:7px}
 .timer-labels{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
 .timer-track{height:6px;background:var(--border);border-radius:8px;overflow:hidden}
@@ -40,40 +40,26 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 .screen h2{font-size:1.55rem;color:var(--accent)}
 .screen p{color:var(--muted);line-height:1.6}
 .screen-icon{font-size:2rem}
-.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:20px;border-radius:12px;display:flex;flex-direction:column;gap:13px}
+.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:20px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:13px}
 .exercise-card h3{font-size:1.2rem}
 .countdown{font-size:2rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
 .safety{font-size:.76rem!important;color:var(--muted)!important}
 .mini-progress{font-size:.78rem;color:var(--muted);text-align:center}
-
-/* Donation box */
+.breathing-stage{width:100%;display:flex;flex-direction:column;align-items:center;gap:14px;padding:8px 0}
+.breathing-circle{width:176px;height:176px;border:2px solid #38bdf8;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#38bdf82b,#38bdf806 70%);box-shadow:0 0 24px #38bdf81a;transform:scale(.88);transition:transform 3s ease-in-out,background 3s ease-in-out,border-color .5s;will-change:transform}
+.breathing-circle.inhale{transform:scale(1);background:radial-gradient(circle,#38bdf84a,#38bdf810 70%)}
+.breathing-circle.exhale{transform:scale(.82);background:radial-gradient(circle,#38bdf815,#38bdf805 70%)}
+.breathing-circle span{font-size:1rem;font-weight:800;color:var(--accent);text-align:center;padding:10px}
+.breath-phase{font-size:1rem;font-weight:700;color:var(--accent);min-height:24px}
+.breath-help{font-size:.8rem;color:var(--muted);text-align:center;max-width:310px;line-height:1.5}
 .donation-section{background:#fef08a;color:#422006;border:2px solid #eab308;border-radius:12px;padding:18px;text-align:center;display:flex;flex-direction:column;gap:10px}
 .donation-section h2{font-size:1.2rem;color:#713f12;margin:0}
 .donation-section p{color:#713f12;font-size:.92rem;line-height:1.6}
 .donation-button{display:block;background:#854d0e;color:#fff;padding:13px 16px;border-radius:9px;text-decoration:none;font-weight:800;font-size:1rem;transition:background .2s}
 .donation-button:hover{background:#713f12}
 .donation-note{font-size:.74rem!important;color:#713f12!important;line-height:1.5}
-
-/* Added experiences: original visual system retained */
-.extra-panel{display:flex;flex-direction:column;gap:14px;text-align:left}
-.extra-panel h2,.extra-panel h3{color:var(--accent);text-align:center}
-.extra-panel p{color:var(--muted);line-height:1.5;text-align:center}
-.extra-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.extra-card{background:#ffffff08;border:1px solid var(--border);border-radius:10px;padding:13px;color:var(--text);text-align:left;cursor:pointer;min-height:72px}
-.extra-card strong{display:block;color:var(--accent);margin-bottom:5px}
-.extra-card small{color:var(--muted);line-height:1.4}
-.extra-choice{display:block;width:100%;margin-top:8px;padding:12px;border-radius:8px;background:#ffffff08;border:1px solid var(--border);color:var(--text);text-align:left;cursor:pointer;line-height:1.4}
-.extra-choice:disabled{opacity:.8;cursor:default}
-.extra-score{color:var(--accent)!important;font-weight:800}
-.nexus-shell{position:relative;display:flex;flex-direction:column;gap:12px}
-#nexus-canvas{width:100%;height:min(58vh,430px);min-height:260px;display:block;border-radius:12px;background:#020617;border:1px solid var(--border);touch-action:pan-y}
-.nexus-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.nexus-controls button,.nexus-worlds button{padding:10px;border-radius:8px;border:1px solid var(--accent);background:#38bdf81a;color:var(--accent);font-weight:700;cursor:pointer}
-.nexus-worlds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.nexus-status{font-size:.8rem;color:var(--muted);text-align:center}
-@media(max-width:430px){.extra-grid{grid-template-columns:1fr}.nexus-worlds{grid-template-columns:repeat(2,minmax(0,1fr))}}
-
-@media(max-width:430px){body{padding:9px}.container{padding:17px;gap:17px}header h1{font-size:1.25rem}.question-text{font-size:1.08rem}.option-btn{padding:12px;font-size:.92rem}.icon-btn{padding:7px 9px}}
+@media(max-width:430px){body{padding:9px}.container{padding:17px;gap:17px}header h1{font-size:1.25rem}.question-text{font-size:1.08rem}.option-btn{padding:12px;font-size:.92rem}.icon-btn{padding:7px 9px}.breathing-circle{width:155px;height:155px}}
+@media(prefers-reduced-motion:reduce){.breathing-circle,.timer-bar{transition:none}}
 </style>
 </head>
 <body>
@@ -81,9 +67,7 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <header>
 <h1>WE SELL TIME</h1>
 <p id="sub-title">5 MINUTES. A DIFFERENT PERSPECTIVE.</p>
-<div class="top-controls">
-<button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">ES</button>
-</div>
+<div class="top-controls"><button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">ES</button></div>
 </header>
 
 <section id="start-view" class="screen">
@@ -91,8 +75,6 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <h2 id="welcome-h2">Ready for your five-minute break?</h2>
 <p id="welcome-p">A few surprising questions, a simple reset, and a fresh perspective. No pressure.</p>
 <button class="action-btn" onclick="startSession()" id="start-btn">Start Experience</button>
-<button class="secondary-btn" id="more-experiences-btn" onclick="openExtraExperiences()">Explore 10 More Experiences</button>
-<button class="secondary-btn" id="nexus-open-btn" onclick="openNexus()">Enter NEXUS VR</button>
 <p class="safety" id="start-note">Choose only comfortable movements. You can skip any exercise.</p>
 </section>
 
@@ -101,9 +83,7 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <div class="timer-labels"><span id="session-label">Your five minutes</span><span id="time-left">5:00</span></div>
 <div class="timer-track"><div id="timer-bar" class="timer-bar"></div></div>
 </div>
-<div class="badge-row">
-<span id="category-badge" class="badge">Discovery</span>
-</div>
+<div class="badge-row"><span id="category-badge" class="badge">Discovery</span></div>
 <div id="stage-label" class="stage-label">Curiosity · Your choice · The surprise · The discovery</div>
 <div id="prompt-text" class="question-text">Loading...</div>
 <div id="options-container" class="options-grid"></div>
@@ -124,6 +104,11 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <span class="badge" id="exercise-type">GENTLE PAUSE</span>
 <h3 id="exercise-title">Natural breathing</h3>
 <p id="exercise-instructions"></p>
+<div class="breathing-stage" aria-live="polite">
+<div id="breathing-circle" class="breathing-circle"><span id="breathing-circle-label">Ready</span></div>
+<div id="breath-phase" class="breath-phase">Breathe comfortably</div>
+<p id="breath-help" class="breath-help">Follow the circle only if it feels comfortable. You can breathe naturally.</p>
+</div>
 <div class="countdown" id="exercise-countdown">0:45</div>
 <p class="safety" id="safety-note"></p>
 </div>
@@ -138,420 +123,330 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <button class="action-btn" onclick="resetToHome()" id="home-btn">Return Home</button>
 </section>
 
-<!-- DONATION BOX: WE SELL TIME -->
-
-<section id="extra-view" class="screen hidden">
-<div class="screen-icon">✦</div><h2 id="extra-title">Ten More Experiences</h2>
-<p id="extra-intro">Choose a short practical challenge. Games award points for good decisions.</p>
-<div id="extra-menu" class="extra-grid"></div>
-<div id="extra-game" class="extra-panel hidden">
-<h3 id="extra-game-title"></h3><p id="extra-game-prompt"></p><div id="extra-game-options"></div>
-<p id="extra-game-feedback"></p><p id="extra-score" class="extra-score">Points: 0</p>
-<button class="action-btn" id="extra-next" onclick="nextExtraQuestion()">Next challenge</button>
-</div>
-<button class="secondary-btn" onclick="closeExtraExperiences()" id="extra-back">Return</button>
-</section>
-<section id="nexus-view" class="screen hidden">
-<div class="screen-icon">◉</div><h2>NEXUS VR</h2><p id="nexus-desc">Explore four animated worlds. Drag to look around; use the controls to pause, reset or enter immersive view.</p>
-<div class="nexus-shell"><canvas id="nexus-canvas" aria-label="NEXUS VR animated world"></canvas>
-<div class="nexus-worlds"><button onclick="setNexusWorld('cosmos')">Cosmos</button><button onclick="setNexusWorld('cyberpunk')">Cyberpunk</button><button onclick="setNexusWorld('ocean')">Ocean</button><button onclick="setNexusWorld('forest')">Forest</button></div>
-<div class="nexus-controls"><button id="nexus-play" onclick="toggleNexus()">Pause</button><button onclick="resetNexus()">Reset world</button><button onclick="toggleNexusVR()">VR view</button><button onclick="toggleNexusFullscreen()">Full screen</button><button onclick="toggleNexusHud()">Hide controls</button><button onclick="closeNexus()">Return</button></div><p id="nexus-status" class="nexus-status">NEXUS ready · Drag to explore</p></div>
-</section>
-
-<section id="donation-section" class="donation-section" aria-label="Support our team">
+<section id="donation-section" class="donation-section hidden" aria-label="Support our team">
 <h2>💛 SUPPORT OUR TEAM / APOYA A NUESTRO EQUIPO</h2>
-<p id="donation-message">
-If this experience brings you value, you can support our team with a voluntary contribution.
-<br>
-Si esta experiencia te aporta valor, puedes apoyar a nuestro equipo con una contribución voluntaria.
-</p>
-<a class="donation-button"
-href="https://buy.stripe.com/4gM00i67Z79N28D0b17Vm0v"
-target="_blank"
-rel="noopener noreferrer">
-💛 PLEASE-SUPPORT / POR FAVOR APOYA
-</a>
-<p class="donation-note">
-Tu apoyo es voluntario y no es necesario para utilizar la experiencia.
-<br>
-Your support is voluntary and is not required to use the experience.
-</p>
+<p id="donation-message">If this experience brings you value, you can support our team with a voluntary contribution.<br>Si esta experiencia te aporta valor, puedes apoyar a nuestro equipo con una contribución voluntaria.</p>
+<a class="donation-button" href="https://buy.stripe.com/4gM00i67Z79N28D0b17Vm0v" target="_blank" rel="noopener noreferrer">💛 PLEASE-SUPPORT / POR FAVOR APOYA</a>
+<p class="donation-note">Tu apoyo es voluntario y no es necesario para utilizar la experiencia.<br>Your support is voluntary and is not required to use the experience.</p>
 </section>
-
 </main>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-let remainingTime=300,sessionTimer=null,exerciseTimer=null,exerciseRemaining=45;
-let questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0;
+let remainingTime=300,sessionTimer=null,exerciseTimer=null,donationTimer=null,breathTimer=null,voiceCueTimer=null;
+let exerciseRemaining=45,questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0;
 let currentCardData=null,currentExercise=null,currentLang='en';
 let answered=false,selectedAnswer=null,answerWasCorrect=null,sessionSeconds=300;
-let exerciseVoiceEnabled=true;
+let exerciseVoiceEnabled=true,breathPhase='inhale',phaseStartedAt=0,exerciseRunId=0,voiceRunId=0;
+let donationMode='start',donationStartTimer=null,donationLastVisible=false;
+
+const EXERCISE_PROGRESS_KEY='wst_exercise_progress_v1';
+
+function getSavedExerciseIndex(){
+    try{
+        const savedId=localStorage.getItem(EXERCISE_PROGRESS_KEY);
+        if(!savedId||!Array.isArray(exercises))return 0;
+        const index=exercises.findIndex(item=>item.id===savedId);
+        return index>=0?index:0;
+    }catch(error){
+        console.warn('Exercise progress unavailable',error);
+        return 0;
+    }
+}
+
+function saveNextExercise(){
+    if(!Array.isArray(exercises)||!exercises.length)return;
+    const currentIndex=exercises.findIndex(item=>item.id===currentExercise?.id);
+    if(currentIndex<0)return;
+    const nextIndex=(currentIndex+1)%exercises.length;
+    try{
+        localStorage.setItem(EXERCISE_PROGRESS_KEY,exercises[nextIndex].id);
+    }catch(error){
+        console.warn('Could not save exercise progress',error);
+    }
+}
 
 const $=id=>document.getElementById(id);
-
 const translations={
 en:{
-subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',
-welcomeH2:'Ready for your five-minute break?',
-welcomeP:'A few surprising questions, a simple reset, and a fresh perspective. No pressure.',
-startBtn:'Start Experience',startNote:'Choose only comfortable movements. You can skip any exercise.',
-sessionLabel:'Your five minutes',continueBtn:'Continue',
-voiceOn:'🔊 Voice on',voiceOff:'🔇 Voice off',
-takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',
-key:'Key idea: ',resetHeading:'Easy Reset',
-resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',
-skip:'Skip pause',endH2:'Time well spent.',
-endP:'A small discovery. A short reset. Now return to your day whenever you’re ready.',
-homeBtn:'Return Home',safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
-curiosity:'Curiosity',choice:'Your choice',surprise:'The surprise',discovery:'The discovery',
-question:'Question',finished:'You have completed this experience.'
-},
+welcomeH2:'What can five minutes give you?',
+welcomeP:'Five focused minutes, one clear purpose: discover an idea, practice a decision, or take a useful pause. Your time should give something back.',
+startBtn:'Begin My Five Minutes',
+endH2:'Your five minutes had a purpose.',
+endP:'Take one useful idea, one clearer perspective, or a moment to reset back into your day. Your time matters.'
+},  
 es:{
-subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',
-welcomeH2:'¿Listo para una pausa de cinco minutos?',
-welcomeP:'Algunas preguntas sorprendentes, una pausa sencilla y una perspectiva diferente. Sin presión.',
-startBtn:'Comenzar experiencia',startNote:'Elige solo movimientos cómodos. Puedes omitir cualquier ejercicio.',
-sessionLabel:'Tus cinco minutos',continueBtn:'Continuar',
-voiceOn:'🔊 Voz activada',voiceOff:'🔇 Voz silenciada',
-takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',
-key:'Idea clave: ',resetHeading:'Pausa sencilla',
-resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',
-skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',
-endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',
-homeBtn:'Volver al inicio',safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
-curiosity:'Curiosidad',choice:'Tu decisión',surprise:'La sorpresa',discovery:'El descubrimiento',
-question:'Pregunta',finished:'Has completado esta experiencia.'
-}
+welcomeH2:'¿Qué pueden darte cinco minutos?',
+welcomeP:'Cinco minutos con un propósito: descubrir una idea, practicar una decisión o hacer una pausa útil. Tu tiempo debe aportarte algo.',
+startBtn:'Comenzar mis cinco minutos',
+endH2:'Tus cinco minutos tuvieron un propósito.',
+endP:'Llévate una idea útil, una perspectiva más clara o un momento para hacer una pausa. Tu tiempo importa.'
+}  
 };
-
 function t(){return translations[currentLang]}
-
+function stopVoice(){if('speechSynthesis'in window)window.speechSynthesis.cancel();voiceRunId++}
+function speak(text,onEnd){
+if(!exerciseVoiceEnabled||!('speechSynthesis'in window)||!text)return;
+const id=voiceRunId,u=new SpeechSynthesisUtterance(text);
+u.lang=currentLang==='es'?'es-ES':'en-US';
+u.rate=.76;
+u.pitch=.92;
+u.volume=.85;
+u.onend=()=>{if(id===voiceRunId&&onEnd)onEnd()};
+u.onerror=()=>{if(id===voiceRunId&&onEnd)onEnd()};
+try{speechSynthesis.speak(u)}catch(e){console.warn('Voice unavailable',e)}
+}
 function updateVoiceButton(){
-const x=t();
-$('voice-toggle-btn').innerText=exerciseVoiceEnabled?x.voiceOn:x.voiceOff;
+const x=t();$('voice-toggle-btn').innerText=exerciseVoiceEnabled?x.voiceOn:x.voiceOff;
 $('voice-toggle-btn').setAttribute('aria-pressed',String(exerciseVoiceEnabled));
 }
-
 function toggleExerciseVoice(){
 exerciseVoiceEnabled=!exerciseVoiceEnabled;
-if(!exerciseVoiceEnabled){
-stopExerciseVoice();
-}else if(currentExercise&&!$('reset-view').classList.contains('hidden')){
-speakCurrentExercise();
-}
+if(!exerciseVoiceEnabled)stopVoice();
+else if(currentExercise&&!$('reset-view').classList.contains('hidden'))speakCurrentExercise();
 updateVoiceButton();
 }
-
-function stopExerciseVoice(){
-if('speechSynthesis'in window)window.speechSynthesis.cancel();
+function stopBreathing(){
+clearInterval(breathTimer);clearInterval(voiceCueTimer);breathTimer=voiceCueTimer=null;
 }
-
-function speakCurrentExercise(){
-if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
-
-const title=(currentExercise.title||{})[currentLang]||'';
-const instructions=(currentExercise.instructions||{})[currentLang]||'';
-
-if(!title.trim()&&!instructions.trim())return;
-
-stopExerciseVoice();
-
-const message=[title,instructions].filter(Boolean).join('. ');
-const utterance=new SpeechSynthesisUtterance(message);
-
-utterance.lang=currentLang==='es'?'es-ES':'en-US';
-utterance.rate=0.92;
-utterance.pitch=1;
-
-window.speechSynthesis.speak(utterance);
-}
-
+function stopExerciseVoice(){stopVoice();stopBreathing()}
 function toggleLanguage(){
-currentLang=currentLang==='en'?'es':'en';
-document.documentElement.lang=currentLang;
-updateStaticTexts();
+currentLang=currentLang==='en'?'es':'en';document.documentElement.lang=currentLang;updateStaticTexts();
 if(currentCardData&&!$('session-view').classList.contains('hidden')){
-const hadAnswered=answered,wasCorrect=answerWasCorrect;
-renderCard();
-if(hadAnswered){
-answered=true;
-answerWasCorrect=wasCorrect;
-document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-showFeedback();
+const hadAnswered=answered,wasCorrect=answerWasCorrect;renderCard();
+if(hadAnswered){answered=true;answerWasCorrect=wasCorrect;document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback()}
 }
+if(currentExercise&&!$('reset-view').classList.contains('hidden'))renderExercise();
 }
-if(currentExercise&&!$('reset-view').classList.contains('hidden')){
-renderExercise();
-}
-}
-
 function updateStaticTexts(){
 const x=t();
-$('sub-title').innerText=x.subTitle;
-$('lang-btn').innerText=x.langBtn;
-$('welcome-h2').innerText=x.welcomeH2;
-$('welcome-p').innerText=x.welcomeP;
-$('start-btn').innerText=x.startBtn;
-$('start-note').innerText=x.startNote;
-$('session-label').innerText=x.sessionLabel;
-$('next-btn').innerText=x.continueBtn;
-$('reset-heading').innerText=x.resetHeading;
-$('reset-intro').innerText=x.resetIntro;
-$('skip-reset-btn').innerText=x.skip;
-$('end-h2').innerText=x.endH2;
-$('end-p').innerText=x.endP;
-$('home-btn').innerText=x.homeBtn;
-updateVoiceButton();
+$('sub-title').innerText=x.subTitle;$('lang-btn').innerText=x.langBtn;$('welcome-h2').innerText=x.welcomeH2;$('welcome-p').innerText=x.welcomeP;
+$('start-btn').innerText=x.startBtn;$('start-note').innerText=x.startNote;$('session-label').innerText=x.sessionLabel;$('next-btn').innerText=x.continueBtn;
+$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;$('skip-reset-btn').innerText=x.skip;
+$('end-h2').innerText=x.endH2;$('end-p').innerText=x.endP;$('home-btn').innerText=x.homeBtn;updateVoiceButton();
 }
-
+function setDonationVisible(show){
+const box=$('donation-section');
+box.classList.toggle('hidden',!show);
+if(show)box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function startInitialDonationWindow(){
+clearTimeout(donationStartTimer);donationMode='start';setDonationVisible(true);
+donationStartTimer=setTimeout(()=>{
+if(donationMode==='start')setDonationVisible(false);
+},30000);
+}
+function updateDonationForSession(){
+const shouldShow=remainingTime>0&&remainingTime<=40;
+if(shouldShow!==donationLastVisible){
+donationLastVisible=shouldShow;
+setDonationVisible(shouldShow);
+}
+}
 async function startSession(){
-const btn=$('start-btn');
-btn.disabled=true;
+const btn=$('start-btn');btn.disabled=true;
 try{
 const res=await fetch('/api/session');
 if(!res.ok)throw new Error('Session could not load');
 const data=await res.json();
-questions=data.questions||[];
-exercises=data.exercises||[];
-safetyNotes=data.safety_notes||{};
+questions=data.questions||[];exercises=data.exercises||[];safetyNotes=data.safety_notes||{};
 sessionSeconds=Number(data.session_seconds)||300;
 if(!questions.length)throw new Error('No questions found');
 }catch(e){
 console.error(e);
 alert(currentLang==='es'?'No se pudo cargar el contenido. Comprueba el archivo JSON y vuelve a intentarlo.':'Content could not load. Check the JSON file and try again.');
-btn.disabled=false;
-return;
+btn.disabled=false;return;
 }
-btn.disabled=false;
-stopExerciseVoice();
+btn.disabled=false;clearTimeout(donationStartTimer);donationMode='session';donationLastVisible=false;setDonationVisible(false);
+stopExerciseVoice();clearInterval(sessionTimer);clearInterval(exerciseTimer);
 questionIndex=0;
-exerciseIndex=0;
+exerciseIndex=getSavedExerciseIndex();
 currentCardData=questions[0];
-currentExercise=null;
-answered=false;
-selectedAnswer=null;
-answerWasCorrect=null;
-remainingTime=sessionSeconds;
-clearInterval(sessionTimer);
-clearInterval(exerciseTimer);
-$('start-view').classList.add('hidden');
-$('end-view').classList.add('hidden');
-$('reset-view').classList.add('hidden');
-$('session-view').classList.remove('hidden');
-updateTimer();
+remainingTime=sessionSeconds;$('start-view').classList.add('hidden');$('end-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('session-view').classList.remove('hidden');
+updateTimer();renderCard();
 sessionTimer=setInterval(()=>{
-remainingTime--;
-updateTimer();
+remainingTime=Math.max(0,remainingTime-1);updateTimer();updateDonationForSession();
 if(remainingTime<=0)endSession();
 },1000);
-renderCard();
 }
-
 function updateTimer(){
-$('time-left').innerText=`${Math.floor(Math.max(0,remainingTime)/60)}:${String(Math.max(0,remainingTime)%60).padStart(2,'0')}`;
-$('timer-bar').style.width=`${Math.max(0,remainingTime/sessionSeconds)*100}%`;
+const r=Math.max(0,remainingTime);
+$('time-left').innerText=`${Math.floor(r/60)}:${String(r%60).padStart(2,'0')}`;
+$('timer-bar').style.width=`${Math.max(0,r/sessionSeconds)*100}%`;
 }
-
 function renderCard(){
 if(!currentCardData||!currentCardData[currentLang])return;
 const card=currentCardData[currentLang],x=t();
 $('category-badge').innerText=currentCardData.topic||(currentLang==='es'?'Descubrimientos':'Discoveries');
 $('stage-label').innerText=`${x.curiosity} · ${x.choice} · ${x.surprise} · ${x.discovery}`;
-$('prompt-text').innerText=card.prompt||'';
-$('options-container').innerHTML='';
-$('feedback-card').style.display='none';
-$('feedback-card').className='feedback';
-$('next-btn').classList.add('hidden');
-card.options.forEach(opt=>{
-const b=document.createElement('button');
-b.className='option-btn';
-b.innerText=opt;
-b.onclick=()=>selectOption(opt);
-$('options-container').appendChild(b);
+$('prompt-text').innerText=card.prompt||'';$('options-container').innerHTML='';
+$('feedback-card').style.display='none';$('feedback-card').className='feedback';$('next-btn').classList.add('hidden');
+(card.options||[]).forEach(opt=>{
+const b=document.createElement('button');b.className='option-btn';b.innerText=opt;b.onclick=()=>selectOption(opt);$('options-container').appendChild(b);
 });
 $('question-progress').innerText=`${x.question} ${questionIndex+1} / ${questions.length}`;
-answered=false;
-selectedAnswer=null;
-answerWasCorrect=null;
+answered=false;selectedAnswer=null;answerWasCorrect=null;
 }
-
 function selectOption(opt){
 if(answered||!currentCardData)return;
-answered=true;
-selectedAnswer=opt;
-answerWasCorrect=opt===currentCardData[currentLang].correct_answer;
-document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-showFeedback();
+answered=true;selectedAnswer=opt;answerWasCorrect=opt===currentCardData[currentLang].correct_answer;
+document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback();
 }
-
 function showFeedback(){
 const card=currentCardData[currentLang],x=t(),correct=answerWasCorrect===true;
-$('feedback-card').style.display='block';
-$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;
+$('feedback-card').style.display='block';$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;
 $('feedback-status').innerText=correct?x.correct:`${x.incorrect}${card.correct_answer}`;
-$('feedback-explanation').innerText=card.explanation||'';
-$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
+$('feedback-explanation').innerText=card.explanation||'';$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
 $('next-btn').classList.remove('hidden');
-const willReset=((questionIndex+1)%3===0)&&remainingTime>70;
+const willReset=((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length>0;
 $('next-btn').innerText=willReset?x.takeReset:x.continueBtn;
 }
-
 function advanceExperience(){
 if(!answered)return;
-if(((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length){
-showReset();
-return;
-}
+if(((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length){showReset();return}
 goNextQuestion();
 }
-
 function goNextQuestion(){
 questionIndex++;
-if(questionIndex>=questions.length||remainingTime<=0){
-endSession();
-return;
+if(questionIndex>=questions.length||remainingTime<=0){endSession();return}
+currentCardData=questions[questionIndex];answered=false;selectedAnswer=null;answerWasCorrect=null;renderCard();
 }
-currentCardData=questions[questionIndex];
-answered=false;
-selectedAnswer=null;
-answerWasCorrect=null;
-renderCard();
-}
-
 function showReset(){
-if(!exercises.length){goNextQuestion();return;}
-clearInterval(exerciseTimer);
-stopExerciseVoice();
-currentExercise=exercises[exerciseIndex%exercises.length];
-exerciseIndex++;
-exerciseRemaining=Math.max(40,Math.min(60,Number(currentExercise.duration_seconds)||45));
-$('session-view').classList.add('hidden');
-$('reset-view').classList.remove('hidden');
-renderExercise();
+if(!exercises.length){goNextQuestion();return}
+clearInterval(exerciseTimer);stopExerciseVoice();
+exerciseIndex=getSavedExerciseIndex();
+currentExercise=exercises[exerciseIndex];
+exerciseRemaining=Math.max(10,Math.min(300,Number(currentExercise.duration_seconds)||45));
+$('session-view').classList.add('hidden');$('reset-view').classList.remove('hidden');
+renderExercise();const run=++exerciseRunId;
 exerciseTimer=setInterval(()=>{
-exerciseRemaining--;
-renderCountdown();
+if(run!==exerciseRunId)return;
+exerciseRemaining=Math.max(0,exerciseRemaining-1);renderCountdown();
 if(exerciseRemaining<=0)finishReset(false);
 },1000);
 }
-
 function renderExercise(){
 if(!currentExercise)return;
 const x=t(),lang=currentLang;
-$('reset-heading').innerText=x.resetHeading;
-$('reset-intro').innerText=x.resetIntro;
+$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;
 $('exercise-title').innerText=(currentExercise.title||{})[lang]||'';
 $('exercise-instructions').innerText=(currentExercise.instructions||{})[lang]||'';
 $('exercise-type').innerText=(currentExercise.type||'easy reset').replaceAll('_',' ').toUpperCase();
 $('safety-note').innerText=(safetyNotes||{})[lang]||x.safety;
-$('skip-reset-btn').innerText=x.skip;
-updateVoiceButton();
-renderCountdown();
-speakCurrentExercise();
+$('skip-reset-btn').innerText=x.skip;$('breath-help').innerText=x.breathHelp;
+updateVoiceButton();renderCountdown();updateBreathVisual('ready');speakCurrentExercise();
 }
-
 function renderCountdown(){
 $('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`;
 }
-
+function speakCurrentExercise(){
+if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
+stopExerciseVoice();
+const title=(currentExercise.title||{})[currentLang]||'';
+const instructions=(currentExercise.instructions||{})[currentLang]||'';
+const intro=[title,instructions].filter(Boolean).join('. ');
+speak(intro,()=>{if(currentExercise&&exerciseRemaining>0)startBreathingGuidance()});
+}
+function updateBreathVisual(phase){
+const x=t(),circle=$('breathing-circle'),label=$('breathing-circle-label');
+breathPhase=phase;
+circle.classList.remove('inhale','exhale');
+if(phase==='inhale'){
+circle.classList.add('inhale');label.innerText=x.inhale;$('breath-phase').innerText=x.inhale;
+}else if(phase==='exhale'){
+circle.classList.add('exhale');label.innerText=x.exhale;$('breath-phase').innerText=x.exhale;
+}else{
+label.innerText=x.ready;$('breath-phase').innerText=x.ready;
+}
+}
+const BREATHING_VOICE_ARSENALS={
+en:[
+{intro:"I am here with you. I will guide you gently. There is no need to rush.",inhale:["Breathe in gently, at your own pace.","Let the air come in softly.","Allow a calm breath to enter."],exhale:["Breathe out slowly and easily.","Gently release the air.","Let the breath flow out without effort."],rest:["Take your time. I am here with you.","You are doing well. Stay comfortable.","Follow your own natural rhythm."]},
+{intro:"You are not alone in this moment. Let the circle guide you, and keep your breathing comfortable.",inhale:["Invite the air in, softly.","Breathe in without forcing it.","Let your next breath arrive naturally."],exhale:["Release the air without hurry.","Let your breath leave gently.","Soften your body as you breathe out."],rest:["There is no perfect way to do this.","Stay relaxed. There is no hurry.","I will stay with you as you continue."]},
+{intro:"Welcome to this quiet moment. I will accompany you step by step. Your comfort comes first.",inhale:["Draw in an easy, gentle breath.","Let yourself breathe in comfortably.","Receive the air slowly and naturally."],exhale:["Allow the air to leave your lungs gently.","Breathe out in a relaxed way.","Let the air go, without effort."],rest:["You can go at your own pace.","Let your shoulders soften. Take your time.","Stay with this quiet moment. I am guiding you."]}
+],
+es:[
+{intro:"Estoy aquí contigo. Voy a guiarte con suavidad. No tienes que apresurarte.",inhale:["Inspira suavemente, a tu propio ritmo.","Deja entrar el aire con calma.","Permite que entre una respiración tranquila."],exhale:["Suelta el aire despacio y sin esfuerzo.","Deja salir el aire suavemente.","Permite que el aire salga con tranquilidad."],rest:["Tómate tu tiempo. Estoy aquí contigo.","Lo estás haciendo bien. Busca comodidad.","Sigue tu propio ritmo natural."]},
+{intro:"No estás solo en este momento. Deja que el círculo te acompañe y respira de forma cómoda.",inhale:["Deja entrar el aire con suavidad.","Inspira sin forzar la respiración.","Permite que llegue la siguiente inspiración de forma natural."],exhale:["Suelta el aire sin ninguna prisa.","Deja que el aire salga tranquilamente.","Relaja el cuerpo mientras sueltas el aire."],rest:["No existe una forma perfecta de hacerlo.","Mantén la calma. No hay prisa.","Te acompaño mientras continúas."]},
+{intro:"Bienvenido a este momento tranquilo. Voy a acompañarte paso a paso. Lo más importante es tu comodidad.",inhale:["Recibe el aire con una inspiración suave.","Inspira de una manera que te resulte cómoda.","Deja entrar el aire lentamente y con naturalidad."],exhale:["Permite que el aire salga suavemente.","Exhala de forma relajada.","Deja salir el aire sin esfuerzo."],rest:["Puedes seguir a tu propio ritmo.","Relaja los hombros y tómate tu tiempo.","Quédate en este momento tranquilo. Te estoy guiando."]}
+]
+};
+function startBreathingGuidance(){
+if(!currentExercise||exerciseRemaining<=0)return;
+stopBreathing();
+const run=exerciseRunId;
+const lang=currentLang==='es'?'es':'en';
+const arsenals=BREATHING_VOICE_ARSENALS[lang];
+const arsenal=arsenals[Math.floor(Math.random()*arsenals.length)];
+let lastIn='',lastOut='',lastRest='',lastCueTime=0,guidanceIntroDone=false;
+const pattern=currentExercise.breathing_pattern||{};
+const inhaleSeconds=Math.max(3,Math.min(6,Number(pattern.inhale_seconds)||4));
+const exhaleSeconds=Math.max(4,Math.min(8,Number(pattern.exhale_seconds)||6));
+let nextPhase='ready',phaseEnd=Date.now()+1500;
+const used=new Set();
+function uniquePhrase(list,last){
+let choices=list.filter(p=>!used.has(p)&&p!==last);
+if(!choices.length){
+list.forEach(p=>used.delete(p));
+choices=list.filter(p=>p!==last);
+}
+if(!choices.length)choices=list;
+const phrase=choices[Math.floor(Math.random()*choices.length)];
+used.add(phrase);
+return phrase;
+}
+function sayCue(phase){
+if(!exerciseVoiceEnabled||!guidanceIntroDone||!('speechSynthesis'in window))return;
+if(Date.now()-lastCueTime<7000||speechSynthesis.speaking)return;
+let phrase='';
+if(phase==='inhale'){
+phrase=uniquePhrase(arsenal.inhale,lastIn);lastIn=phrase;
+}else if(phase==='exhale'){
+phrase=uniquePhrase(arsenal.exhale,lastOut);lastOut=phrase;
+}else{
+phrase=uniquePhrase(arsenal.rest,lastRest);lastRest=phrase;
+}
+if(phrase){lastCueTime=Date.now();speak(phrase)}
+}
+function step(){
+if(!currentExercise||exerciseRemaining<=0||run!==exerciseRunId)return;
+const now=Date.now();
+if(now>=phaseEnd){
+nextPhase=nextPhase==='inhale'?'exhale':'inhale';
+const duration=nextPhase==='inhale'?inhaleSeconds:exhaleSeconds;
+phaseEnd=now+duration*1000;
+updateBreathVisual(nextPhase);
+sayCue(nextPhase);
+}
+}
+updateBreathVisual('ready');
+if(exerciseVoiceEnabled){
+speak(arsenal.intro,()=>{if(run===exerciseRunId)guidanceIntroDone=true});
+}else{
+guidanceIntroDone=true;
+}
+step();
+breathTimer=setInterval(step,250);
+}
 function finishReset(skipped){
-clearInterval(exerciseTimer);
-exerciseTimer=null;
-stopExerciseVoice();
-currentExercise=null;
-if(remainingTime<=0){endSession();return;}
-$('reset-view').classList.add('hidden');
-$('session-view').classList.remove('hidden');
-goNextQuestion();
+clearInterval(exerciseTimer);exerciseTimer=null;exerciseRunId++;stopExerciseVoice();currentExercise=null;
+if(remainingTime<=0){endSession();return}
+$('reset-view').classList.add('hidden');$('session-view').classList.remove('hidden');goNextQuestion();
 }
-
 function endSession(){
-clearInterval(sessionTimer);
-clearInterval(exerciseTimer);
-sessionTimer=exerciseTimer=null;
-stopExerciseVoice();
-currentExercise=null;
-$('session-view').classList.add('hidden');
-$('reset-view').classList.add('hidden');
-$('end-view').classList.remove('hidden');
-$('end-h2').innerText=t().endH2;
-$('end-p').innerText=remainingTime<=0?t().endP:t().finished;
+clearInterval(sessionTimer);clearInterval(exerciseTimer);clearTimeout(donationStartTimer);
+sessionTimer=exerciseTimer=null;donationMode='end';donationLastVisible=false;
+stopExerciseVoice();currentExercise=null;currentCardData=null;
+$('session-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('end-view').classList.remove('hidden');setDonationVisible(false);
+$('end-h2').innerText=t().endH2;$('end-p').innerText=t().endP;
 }
-
 function resetToHome(){
-clearInterval(sessionTimer);
-clearInterval(exerciseTimer);
-sessionTimer=exerciseTimer=null;
-stopExerciseVoice();
-currentCardData=null;
-currentExercise=null;
-questions=[];
-exercises=[];
-$('end-view').classList.add('hidden');
-$('session-view').classList.add('hidden');
-$('reset-view').classList.add('hidden');
-$('start-view').classList.remove('hidden');
-remainingTime=300;
-updateStaticTexts();
+clearInterval(sessionTimer);clearInterval(exerciseTimer);clearTimeout(donationStartTimer);sessionTimer=exerciseTimer=null;
+stopExerciseVoice();currentCardData=null;currentExercise=null;questions=[];exercises=[];
+$('end-view').classList.add('hidden');$('session-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('start-view').classList.remove('hidden');
+remainingTime=300;donationLastVisible=false;updateStaticTexts();startInitialDonationWindow();
 }
-
-
-// Additional experiences are isolated from the original five-minute question flow.
-const EXTRA_EXPERIENCES=[
-{id:'organize',en:'Organize the Day',es:'Organiza el día',descEn:'Prioritize under pressure',descEs:'Prioriza bajo presión',game:false,items:[
-{en:'Three tasks arrive at once: a safety issue, a customer complaint, and a routine report. What comes first?',es:'Llegan tres tareas a la vez: un riesgo de seguridad, una queja de cliente y un informe rutinario. ¿Qué va primero?',opts:[['Handle the safety issue','Atender el riesgo de seguridad',true],['Finish the routine report','Terminar el informe rutinario',false],['Ignore all three','Ignorar las tres',false]],whyEn:'Immediate safety risks take priority; then communicate and organize the remaining tasks.',whyEs:'Los riesgos inmediatos para la seguridad van primero; después comunica y organiza las demás tareas.'}]},
-{id:'safety',en:'Safety Decision Game',es:'Juego de decisiones de seguridad',descEn:'Earn safety points',descEs:'Gana puntos de seguridad',game:true,items:[
-{en:'You see a wet floor in a busy walkway. What is the best first action?',es:'Ves el suelo mojado en un pasillo concurrido. ¿Cuál es la mejor primera acción?',opts:[['Warn people and secure the area, then report it','Avisar y asegurar el área, y después reportarlo',true],['Walk away and hope someone sees it','Irte y esperar que alguien lo vea',false],['Cover it with paper and say nothing','Cubrirlo con papel y no decir nada',false]],whyEn:'Protect people immediately, then follow the reporting procedure.',whyEs:'Protege a las personas de inmediato y sigue el procedimiento de reporte.'},
-{en:'A package looks damaged and its contents are unknown. What should you do?',es:'Un paquete parece dañado y no conoces su contenido. ¿Qué debes hacer?',opts:[['Stop handling it, isolate it safely and notify the responsible person','Dejar de manipularlo, aislarlo con seguridad y avisar al responsable',true],['Open it quickly','Abrirlo rápidamente',false],['Send it onward without recording anything','Enviar el paquete sin registrar nada',false]],whyEn:'Do not guess. Follow the site procedure and report the condition.',whyEs:'No adivines. Sigue el procedimiento del lugar y reporta el estado.'}]},
-{id:'leadership',en:'Leadership Challenge',es:'Reto de liderazgo',descEn:'Earn leadership points',descEs:'Gana puntos de liderazgo',game:true,items:[
-{en:'A team member makes a mistake during a busy shift. What is the strongest response?',es:'Un miembro del equipo comete un error durante un turno ocupado. ¿Cuál es la mejor respuesta?',opts:[['Correct the immediate issue calmly, then coach privately','Corregir el problema con calma y luego orientar en privado',true],['Shame them in front of everyone','Avergonzarlo delante de todos',false],['Hide the mistake','Ocultar el error',false]],whyEn:'Protect the operation, preserve dignity and prevent recurrence through coaching.',whyEs:'Protege la operación, respeta a la persona y evita que se repita mediante orientación.'},
-{en:'Two team members disagree and work is slowing down. What should a leader do first?',es:'Dos compañeros discrepan y el trabajo se retrasa. ¿Qué debe hacer primero un líder?',opts:[['Hear both briefly, clarify the goal and agree on next steps','Escuchar a ambos, aclarar el objetivo y acordar los siguientes pasos',true],['Choose a side without listening','Elegir un lado sin escuchar',false],['Let the conflict grow','Dejar que el conflicto aumente',false]],whyEn:'Listen fairly, refocus on the shared goal and define a clear action.',whyEs:'Escucha con imparcialidad, vuelve al objetivo común y define una acción clara.'}]},
-{id:'business',en:'Business in One Minute',es:'Negocios en un minuto',descEn:'Make practical decisions',descEs:'Toma decisiones prácticas',game:false,items:[{en:'Sales rise but profit falls. What should you check first?',es:'Las ventas suben, pero las ganancias bajan. ¿Qué debes revisar primero?',opts:[['Costs, discounts and product margins','Costos, descuentos y márgenes',true],['Only the number of customers','Solo el número de clientes',false],['Nothing; higher sales always mean higher profit','Nada; vender más siempre significa ganar más',false]],whyEn:'Revenue is not profit. Check costs and margin by product or service.',whyEs:'Los ingresos no son ganancias. Revisa los costos y el margen de cada producto o servicio.'}]},
-{id:'communication',en:'Clear Communication',es:'Comunicación clara',descEn:'Short, precise responses',descEs:'Respuestas breves y precisas',game:false,items:[{en:'You cannot meet a deadline. What is the best message?',es:'No puedes cumplir una fecha límite. ¿Cuál es el mejor mensaje?',opts:[['State the risk early, explain briefly and offer a realistic new time','Avisar pronto, explicar brevemente y proponer una hora realista',true],['Wait until the deadline passes','Esperar a que venza el plazo',false],['Promise a time you cannot meet','Prometer una hora que no puedes cumplir',false]],whyEn:'Early, specific communication gives others time to adjust.',whyEs:'Comunicarlo pronto y con precisión permite que los demás se adapten.'}]},
-{id:'risk',en:'Spot the Risk',es:'Detecta el riesgo',descEn:'Think before acting',descEs:'Piensa antes de actuar',game:false,items:[{en:'A procedure is unclear and the action may affect customer safety. What is best?',es:'Un procedimiento no está claro y la acción puede afectar la seguridad del cliente. ¿Qué es mejor?',opts:[['Pause and confirm the approved procedure with a supervisor','Pausar y confirmar el procedimiento aprobado con un supervisor',true],['Guess based on memory','Adivinar de memoria',false],['Ask an untrained bystander to decide','Pedir que decida alguien sin preparación',false]],whyEn:'Verify the procedure before taking a safety-sensitive action.',whyEs:'Verifica el procedimiento antes de actuar en un asunto de seguridad.'}]},
-{id:'negotiation',en:'Fair Negotiation',es:'Negociación justa',descEn:'Protect value and trust',descEs:'Protege el valor y la confianza',game:false,items:[{en:'A client asks for a discount that makes the job unprofitable. What do you do?',es:'Un cliente pide un descuento que elimina la ganancia. ¿Qué haces?',opts:[['Explain the limit and offer a smaller scope or alternative','Explicar el límite y ofrecer menos alcance o una alternativa',true],['Accept without checking the numbers','Aceptar sin revisar los números',false],['End the conversation rudely','Terminar la conversación de mala manera',false]],whyEn:'Be transparent and look for an option that works for both sides.',whyEs:'Sé transparente y busca una opción que funcione para ambas partes.'}]},
-{id:'customer',en:'Customer Recovery',es:'Recuperar la confianza del cliente',descEn:'Respond with ownership',descEs:'Responde con responsabilidad',game:false,items:[{en:'A customer is upset about a delay. What is the best first response?',es:'Un cliente está molesto por una demora. ¿Cuál es la mejor primera respuesta?',opts:[['Acknowledge the delay, check the facts and give the next update time','Reconocer la demora, verificar los hechos e indicar cuándo habrá noticias',true],['Argue that it is not your fault','Discutir que no es tu culpa',false],['Guarantee an unverified outcome','Garantizar un resultado sin verificar',false]],whyEn:'Acknowledge, verify and set a realistic expectation.',whyEs:'Reconoce el problema, verifica y establece una expectativa realista.'}]},
-{id:'observation',en:'Observation Test',es:'Prueba de observación',descEn:'Notice what changed',descEs:'Observa qué cambió',game:false,items:[{en:'A checklist is signed, but one required step was skipped. What matters most?',es:'Una lista está firmada, pero se omitió un paso obligatorio. ¿Qué importa más?',opts:[['Correct the record honestly and complete the required step if safe and permitted','Corregir el registro honestamente y completar el paso si es seguro y está permitido',true],['Leave it because the form is signed','Dejarlo así porque está firmado',false],['Copy another person’s signature','Copiar la firma de otra persona',false]],whyEn:'Records must reflect what actually happened; never falsify a check.',whyEs:'Los registros deben reflejar lo ocurrido; nunca falsifiques una verificación.'}]},
-{id:'decision',en:'What Would You Do?',es:'¿Qué harías?',descEn:'Choose the next right step',descEs:'Elige el siguiente paso correcto',game:false,items:[{en:'You are asked to do something outside your authority. What is best?',es:'Te piden hacer algo fuera de tu autoridad. ¿Qué es lo mejor?',opts:[['Explain the limit and contact the authorized person','Explicar el límite y contactar a la persona autorizada',true],['Do it to avoid asking questions','Hacerlo para evitar preguntas',false],['Pretend it was approved','Fingir que fue aprobado',false]],whyEn:'Know your authority, be transparent and escalate when needed.',whyEs:'Conoce tu autoridad, actúa con transparencia y escala cuando sea necesario.'}]}
-];
-let extraCurrent=null,extraQuestionIndex=0,extraPoints=0,extraAnswered=false;
-function openExtraExperiences(){hideMainViews();$('extra-view').classList.remove('hidden');renderExtraMenu()}
-function closeExtraExperiences(){ $('extra-view').classList.add('hidden');$('start-view').classList.remove('hidden') }
-function hideMainViews(){['start-view','session-view','reset-view','end-view','extra-view','nexus-view'].forEach(id=>$(id).classList.add('hidden'))}
-function renderExtraMenu(){const es=currentLang==='es';$('extra-title').innerText=es?'Diez experiencias adicionales':'Ten More Experiences';$('extra-intro').innerText=es?'Elige un reto práctico. Los juegos otorgan puntos por buenas decisiones.':'Choose a short practical challenge. Games award points for good decisions.';const menu=$('extra-menu');menu.innerHTML='';EXTRA_EXPERIENCES.forEach((e,i)=>{const b=document.createElement('button');b.className='extra-card';b.innerHTML=`<strong>${i+1}. ${es?e.es:e.en}</strong><small>${es?e.descEs:e.descEn}${e.game?(es?' · JUEGO CON PUNTOS':' · POINTS GAME'):''}</small>`;b.onclick=()=>startExtra(e.id);menu.appendChild(b)});$('extra-game').classList.add('hidden');$('extra-menu').classList.remove('hidden');$('extra-back').innerText=es?'Volver':'Return'}
-function startExtra(id){extraCurrent=EXTRA_EXPERIENCES.find(e=>e.id===id);extraQuestionIndex=0;extraPoints=0;extraAnswered=false;$('extra-menu').classList.add('hidden');$('extra-game').classList.remove('hidden');renderExtraQuestion()}
-function renderExtraQuestion(){if(!extraCurrent)return;const item=extraCurrent.items[extraQuestionIndex%extraCurrent.items.length],es=currentLang==='es';$('extra-game-title').innerText=(es?extraCurrent.es:extraCurrent.en)+` · ${extraQuestionIndex+1}/${extraCurrent.items.length}`;$('extra-game-prompt').innerText=es?item.es:item.en;$('extra-game-options').innerHTML='';$('extra-game-feedback').innerText='';$('extra-score').innerText=(es?'Puntos':'Points')+': '+extraPoints;$('extra-next').classList.add('hidden');extraAnswered=false;item.opts.forEach(o=>{const b=document.createElement('button');b.className='extra-choice';b.innerText=es?o[1]:o[0];b.onclick=()=>answerExtra(o,b);$('extra-game-options').appendChild(b)})}
-function answerExtra(option,button){if(extraAnswered)return;extraAnswered=true;const es=currentLang==='es',item=extraCurrent.items[extraQuestionIndex%extraCurrent.items.length];document.querySelectorAll('#extra-game-options button').forEach(b=>b.disabled=true);if(option[2]){extraPoints+=extraCurrent.game?10:0;$('extra-game-feedback').innerText=(es?'Correcto. ':'Correct. ')+(es?item.whyEs:item.whyEn);button.style.borderColor='var(--good)'}else{$('extra-game-feedback').innerText=(es?'Mejor opción: ':'Best choice: ')+(es?item.opts.find(o=>o[2])[1]:item.opts.find(o=>o[2])[0])+'. '+(es?item.whyEs:item.whyEn);button.style.borderColor='var(--bad)'}$('extra-score').innerText=(es?'Puntos':'Points')+': '+extraPoints;$('extra-next').innerText=es?'Siguiente':'Next challenge';$('extra-next').classList.remove('hidden')}
-function nextExtraQuestion(){if(!extraCurrent)return;if(!extraAnswered){return}extraQuestionIndex++;if(extraQuestionIndex>=extraCurrent.items.length){const es=currentLang==='es';$('extra-game-title').innerText=es?'Reto completado':'Challenge complete';$('extra-game-prompt').innerText=es?'Terminaste esta experiencia. Puedes repetirla o elegir otra.':'You completed this experience. Repeat it or choose another.';$('extra-game-options').innerHTML='';$('extra-game-feedback').innerText='';$('extra-next').innerText=es?'Repetir':'Play again';$('extra-next').onclick=()=>startExtra(extraCurrent.id);$('extra-next').classList.remove('hidden');const oldBack=$('extra-back');oldBack.onclick=()=>{oldBack.onclick=null;renderExtraMenu()};return}renderExtraQuestion()}
-// Keep language switching functional in the added screens.
-const originalToggleLanguage=toggleLanguage;
-toggleLanguage=function(){originalToggleLanguage();if(!$('extra-view').classList.contains('hidden')){if(extraCurrent)renderExtraQuestion();else renderExtraMenu()}if(!$('nexus-view').classList.contains('hidden'))updateNexusLanguage()};
-
-// NEXUS VR: an immersive animated 3D scene with four selectable worlds.
-let nexusScene=null,nexusCamera=null,nexusRenderer=null,nexusObjects=[],nexusFrame=null,nexusRunning=true,nexusWorld='cosmos',nexusVR=false,nexusHudHidden=false,nexusDrag=null,nexusYaw=0,nexusPitch=0,nexusAudio=null;
-function openNexus(){hideMainViews();$('nexus-view').classList.remove('hidden');initNexus();if(nexusRenderer)nexusRenderer.setSize($('nexus-canvas').clientWidth,$('nexus-canvas').clientHeight,false)}
-function closeNexus(){stopNexus();$('nexus-view').classList.add('hidden');$('start-view').classList.remove('hidden')}
-function updateNexusLanguage(){const es=currentLang==='es';$('nexus-desc').innerText=es?'Explora cuatro mundos animados. Arrastra para mirar; usa los controles para pausar, reiniciar o entrar en vista inmersiva.':'Explore four animated worlds. Drag to look around; use the controls to pause, reset or enter immersive view.'}
-function initNexus(){if(nexusRenderer){nexusRenderer.setSize($('nexus-canvas').clientWidth,$('nexus-canvas').clientHeight,false);if(nexusCamera){nexusCamera.aspect=$('nexus-canvas').clientWidth/Math.max(1,$('nexus-canvas').clientHeight);nexusCamera.updateProjectionMatrix()}if(!nexusFrame){nexusRunning=true;nexusAnimate()}return}if(!window.THREE){$('nexus-status').innerText='3D engine unavailable. Check internet access and reload.';return}const canvas=$('nexus-canvas');nexusRenderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});nexusRenderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));nexusScene=new THREE.Scene();nexusCamera=new THREE.PerspectiveCamera(70,canvas.clientWidth/canvas.clientHeight,.1,1000);nexusCamera.position.set(0,2,10);nexusScene.add(new THREE.HemisphereLight(0x9bdcff,0x111827,2));const light=new THREE.PointLight(0x38bdf8,18,100);light.position.set(0,8,4);nexusScene.add(light);canvas.addEventListener('pointerdown',e=>{nexusDrag={x:e.clientX,y:e.clientY};canvas.setPointerCapture?.(e.pointerId)});canvas.addEventListener('pointermove',e=>{if(!nexusDrag)return;nexusYaw-=(e.clientX-nexusDrag.x)*.004;nexusPitch=Math.max(-1.1,Math.min(1.1,nexusPitch+(e.clientY-nexusDrag.y)*.003));nexusDrag={x:e.clientX,y:e.clientY}});canvas.addEventListener('pointerup',()=>nexusDrag=null);canvas.addEventListener('pointercancel',()=>nexusDrag=null);setNexusWorld('cosmos');nexusAnimate();window.addEventListener('resize',resizeNexus)}
-function clearNexusObjects(){if(!nexusScene)return;nexusObjects.forEach(o=>{nexusScene.remove(o);o.traverse?.(child=>{child.geometry?.dispose?.();if(child.material){if(Array.isArray(child.material))child.material.forEach(m=>m.dispose?.());else child.material.dispose?.()}})});nexusObjects=[]}
-function addNexus(obj){nexusScene.add(obj);nexusObjects.push(obj);return obj}
-function setNexusWorld(world){nexusWorld=world;if(!nexusScene){initNexus();if(!nexusScene)return}clearNexusObjects();const THREE_=window.THREE;const mat=(color,emissive=color)=>new THREE_.MeshStandardMaterial({color,emissive,emissiveIntensity:.35,roughness:.7});const floor=addNexus(new THREE_.Mesh(new THREE_.PlaneGeometry(180,180),mat(world==='ocean'?0x064e72:world==='forest'?0x123524:world==='cyberpunk'?0x16112d:0x080b26)));floor.rotation.x=-Math.PI/2;floor.position.y=-1.2;
-if(world==='cosmos'){nexusScene.background=new THREE_.Color(0x020617);const stars=new THREE_.Group();for(let i=0;i<420;i++){const m=new THREE_.Mesh(new THREE_.SphereGeometry(.035+Math.random()*.04,6,6),new THREE_.MeshBasicMaterial({color:[0x7dd3fc,0xc4b5fd,0xffffff][i%3]}));m.position.set((Math.random()-.5)*100,(Math.random()-.5)*65,(Math.random()-.5)*100);stars.add(m)}addNexus(stars);const planet=addNexus(new THREE_.Mesh(new THREE_.SphereGeometry(2.1,32,32),new THREE_.MeshStandardMaterial({color:0x4338ca,emissive:0x312e81,emissiveIntensity:.8,roughness:1})));planet.position.set(-4,2,-10);const ring=addNexus(new THREE_.Mesh(new THREE_.TorusGeometry(3,.07,8,100),new THREE_.MeshBasicMaterial({color:0x67e8f9})));ring.position.copy(planet.position);ring.rotation.x=1.1}
-if(world==='cyberpunk'){nexusScene.background=new THREE_.Color(0x08031b);for(let i=0;i<36;i++){const h=1+Math.random()*8;const b=addNexus(new THREE_.Mesh(new THREE_.BoxGeometry(1.1,h,1.1),new THREE_.MeshStandardMaterial({color:i%2?0x312e81:0x164e63,emissive:i%2?0x7c3aed:0x06b6d4,emissiveIntensity:.5})));b.position.set((i%6-3)*2.1,h/2-1.2,-5-Math.floor(i/6)*4)}for(let i=0;i<8;i++){const beam=addNexus(new THREE_.Mesh(new THREE_.BoxGeometry(.08,.08,35),new THREE_.MeshBasicMaterial({color:i%2?0xf472b6:0x22d3ee})));beam.position.set(-7+i*2,-.4,-15)}}
-if(world==='ocean'){nexusScene.background=new THREE_.Color(0x042f4a);for(let i=0;i<20;i++){const ring=addNexus(new THREE_.Mesh(new THREE_.TorusGeometry(1+i*.42,.035,6,80),new THREE_.MeshBasicMaterial({color:i%2?0x22d3ee:0x38bdf8,transparent:true,opacity:.45})));ring.rotation.x=Math.PI/2;ring.position.set(Math.sin(i)*4,-.7,-5-i*1.8)}for(let i=0;i<35;i++){const fish=addNexus(new THREE_.Mesh(new THREE_.ConeGeometry(.22,.7,5),new THREE_.MeshStandardMaterial({color:i%2?0x67e8f9:0x2dd4bf,emissive:0x0e7490,emissiveIntensity:.4})));fish.rotation.z=-Math.PI/2;fish.position.set((Math.random()-.5)*24,(Math.random()-.5)*8,-Math.random()*35)}}
-if(world==='forest'){nexusScene.background=new THREE_.Color(0x052e16);for(let i=0;i<70;i++){const x=(Math.random()-.5)*36,z=-Math.random()*40;const trunk=addNexus(new THREE_.Mesh(new THREE.CylinderGeometry(.12,.2,2,6),mat(0x78350f)));trunk.position.set(x,-.1,z);const leaves=addNexus(new THREE_.Mesh(new THREE_.ConeGeometry(1.1,3,7),new THREE_.MeshStandardMaterial({color:[0x166534,0x15803d,0x14532d][i%3],roughness:1})));leaves.position.set(x,1.8,z)}}
-nexusCamera.position.set(0,1.3,world==='cosmos'?10:7);nexusYaw=0;nexusPitch=0;$('nexus-status').innerText='NEXUS · '+world.toUpperCase()+' · Drag to explore';}
-function nexusAnimate(){if(!nexusRenderer||!nexusScene)return;nexusFrame=requestAnimationFrame(nexusAnimate);if(nexusRunning){nexusCamera.rotation.order='YXZ';nexusCamera.rotation.y=nexusYaw;nexusCamera.rotation.x=nexusPitch;nexusObjects.forEach((o,i)=>{if(nexusWorld==='cosmos'&&o.geometry?.type==='SphereGeometry')o.rotation.y+=.001;if(nexusWorld==='ocean'&&o.geometry?.type==='TorusGeometry')o.position.y=-.7+Math.sin(Date.now()*.001+i)*.12;if(nexusWorld==='cyberpunk'&&o.geometry?.type==='BoxGeometry'&&i%4===0)o.position.y+=Math.sin(Date.now()*.001+i)*.001});}nexusRenderer.render(nexusScene,nexusCamera)}
-function resizeNexus(){if(!nexusRenderer||!nexusCamera)return;const c=$('nexus-canvas');const w=Math.max(1,c.clientWidth),h=Math.max(1,c.clientHeight);nexusRenderer.setSize(w,h,false);nexusCamera.aspect=w/h;nexusCamera.updateProjectionMatrix()}
-function stopNexus(){nexusRunning=false;if(nexusAudio){try{nexusAudio.close()}catch(e){}nexusAudio=null}if(nexusFrame)cancelAnimationFrame(nexusFrame);nexusFrame=null}
-function toggleNexus(){nexusRunning=!nexusRunning;$('nexus-play').innerText=nexusRunning?'Pause':'Play';$('nexus-status').innerText=nexusRunning?'NEXUS running · '+nexusWorld.toUpperCase():'NEXUS paused'}
-function resetNexus(){nexusYaw=0;nexusPitch=0;setNexusWorld(nexusWorld);nexusRunning=true;$('nexus-play').innerText='Pause'}
-function toggleNexusVR(){nexusVR=!nexusVR;const c=$('nexus-canvas');c.style.filter=nexusVR?'drop-shadow(-5px 0 0 #38bdf8) drop-shadow(5px 0 0 #f472b6)':'';$('nexus-status').innerText=nexusVR?'Immersive split-color view · For headset-like effect':'Standard view · '+nexusWorld.toUpperCase()}
-function toggleNexusFullscreen(){const el=$('nexus-canvas');if(document.fullscreenElement)document.exitFullscreen?.();else el.requestFullscreen?.()}
-function toggleNexusHud(){nexusHudHidden=!nexusHudHidden;document.querySelectorAll('.nexus-worlds,.nexus-controls').forEach(el=>el.classList.toggle('hidden',nexusHudHidden));}
-
 updateStaticTexts();
+startInitialDonationWindow();
 </script>
 </body>
 </html>
