@@ -138,6 +138,33 @@ let currentCardData=null,currentExercise=null,currentLang='en';
 let answered=false,selectedAnswer=null,answerWasCorrect=null,sessionSeconds=300;
 let exerciseVoiceEnabled=true,breathPhase='inhale',phaseStartedAt=0,exerciseRunId=0,voiceRunId=0;
 let donationMode='start',donationStartTimer=null,donationLastVisible=false;
+
+const EXERCISE_PROGRESS_KEY='wst_exercise_progress_v1';
+
+function getSavedExerciseIndex(){
+    try{
+        const savedId=localStorage.getItem(EXERCISE_PROGRESS_KEY);
+        if(!savedId||!Array.isArray(exercises))return 0;
+        const index=exercises.findIndex(item=>item.id===savedId);
+        return index>=0?index:0;
+    }catch(error){
+        console.warn('Exercise progress unavailable',error);
+        return 0;
+    }
+}
+
+function saveNextExercise(){
+    if(!Array.isArray(exercises)||!exercises.length)return;
+    const currentIndex=exercises.findIndex(item=>item.id===currentExercise?.id);
+    if(currentIndex<0)return;
+    const nextIndex=(currentIndex+1)%exercises.length;
+    try{
+        localStorage.setItem(EXERCISE_PROGRESS_KEY,exercises[nextIndex].id);
+    }catch(error){
+        console.warn('Could not save exercise progress',error);
+    }
+}
+
 const $=id=>document.getElementById(id);
 const translations={
 en:{
@@ -241,7 +268,9 @@ btn.disabled=false;return;
 }
 btn.disabled=false;clearTimeout(donationStartTimer);donationMode='session';donationLastVisible=false;setDonationVisible(false);
 stopExerciseVoice();clearInterval(sessionTimer);clearInterval(exerciseTimer);
-questionIndex=0;exerciseIndex=0;currentCardData=questions[0];currentExercise=null;answered=false;selectedAnswer=null;answerWasCorrect=null;
+questionIndex=0;
+exerciseIndex=getSavedExerciseIndex();
+currentCardData=questions[0];
 remainingTime=sessionSeconds;$('start-view').classList.add('hidden');$('end-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('session-view').classList.remove('hidden');
 updateTimer();renderCard();
 sessionTimer=setInterval(()=>{
@@ -294,7 +323,8 @@ currentCardData=questions[questionIndex];answered=false;selectedAnswer=null;answ
 function showReset(){
 if(!exercises.length){goNextQuestion();return}
 clearInterval(exerciseTimer);stopExerciseVoice();
-currentExercise=exercises[exerciseIndex%exercises.length];exerciseIndex++;
+exerciseIndex=getSavedExerciseIndex();
+currentExercise=exercises[exerciseIndex];
 exerciseRemaining=Math.max(10,Math.min(300,Number(currentExercise.duration_seconds)||45));
 $('session-view').classList.add('hidden');$('reset-view').classList.remove('hidden');
 renderExercise();const run=++exerciseRunId;
