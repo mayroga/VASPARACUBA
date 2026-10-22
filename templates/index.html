@@ -10,789 +10,302 @@
 :root{--bg:#0f172a;--panel:#1e293b;--accent:#38bdf8;--good:#22c55e;--bad:#ef4444;--text:#f8fafc;--muted:#94a3b8;--border:#334155}
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
 body{background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:12px}
-button,select{font:inherit}
-button{cursor:pointer}
-button:disabled{opacity:.55;cursor:not-allowed}
-.container{width:100%;max-width:760px;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:clamp(16px,4vw,30px);box-shadow:0 20px 25px #0005;display:flex;flex-direction:column;gap:20px}
+button,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.55;cursor:not-allowed}
+.container{width:100%;max-width:760px;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:clamp(14px,4vw,30px);box-shadow:0 20px 25px #0005;display:flex;flex-direction:column;gap:20px}
 header{text-align:center;border-bottom:1px solid var(--border);padding:4px 52px 16px;position:relative}
-header h1{font-size:1.45rem;letter-spacing:2px;color:var(--accent)}
-header p{font-size:.85rem;color:var(--muted);margin-top:5px}
+header h1{font-size:1.45rem;letter-spacing:2px;color:var(--accent)}header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 .top-controls{position:absolute;right:0;top:0}
 .icon-btn{background:#38bdf81a;border:1px solid var(--accent);color:var(--accent);padding:8px 11px;border-radius:8px;font-size:.82rem;font-weight:700}
-.screen{display:flex;flex-direction:column;gap:15px;text-align:center}
-.screen h2{font-size:1.45rem;color:var(--accent)}
-.screen p{color:var(--muted);line-height:1.6}
-.screen-icon{font-size:2rem}
-.hidden{display:none!important}
+.screen{display:flex;flex-direction:column;gap:15px;text-align:center}.screen h2{font-size:1.4rem;color:var(--accent)}.screen p{color:var(--muted);line-height:1.6}.screen-icon{font-size:2rem}.hidden{display:none!important}
 .action-btn{background:var(--accent);color:#082f49;border:0;padding:14px;border-radius:9px;font-weight:800;font-size:1rem;width:100%}
 .secondary-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:11px;border-radius:8px;width:100%}
-.button-row{display:flex;gap:9px;flex-wrap:wrap}
-.button-row>*{flex:1;min-width:120px}
-.timer-wrap{display:flex;flex-direction:column;gap:7px}
-.timer-labels{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);gap:10px}
-.timer-track{height:6px;background:var(--border);border-radius:8px;overflow:hidden}
-.timer-bar{height:100%;width:100%;background:var(--accent);transition:width 1s linear}
+.timer-wrap{display:flex;flex-direction:column;gap:7px}.timer-labels{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);gap:10px}.timer-track{height:6px;background:var(--border);border-radius:8px;overflow:hidden}.timer-bar{height:100%;width:100%;background:var(--accent);transition:width 1s linear}
 .badge{display:inline-block;font-size:.7rem;text-transform:uppercase;padding:5px 10px;border-radius:20px;background:#38bdf81a;color:var(--accent);border:1px solid var(--accent);letter-spacing:.6px}
-.badge-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.stage-label,.mini-progress{color:var(--muted);font-size:.78rem}
-.question-text{font-size:1.15rem;line-height:1.55;font-weight:650}
-.options-grid{display:flex;flex-direction:column;gap:9px}
-.option-btn{background:#ffffff08;border:1px solid var(--border);color:var(--text);padding:13px 14px;border-radius:9px;font-size:.95rem;text-align:left;line-height:1.4}
-.option-btn:hover:not(:disabled){background:#38bdf81a;border-color:var(--accent)}
-.feedback{display:none;background:#ffffff06;border-left:4px solid var(--accent);padding:14px;border-radius:5px;font-size:.92rem;line-height:1.5;text-align:left}
-.feedback.correct{border-left-color:var(--good)}
-.feedback.incorrect{border-left-color:var(--bad)}
-.feedback p{margin-top:7px}
-.takeaway{color:var(--accent);font-style:italic}
-.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:12px}
-.exercise-card h3{font-size:1.2rem}
-.countdown{font-size:2rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
-.safety{font-size:.76rem!important;color:var(--muted)!important}
-.donation-section{background:#fef08a;color:#422006;border:2px solid #eab308;border-radius:12px;padding:17px;text-align:center;display:flex;flex-direction:column;gap:10px}
-.donation-section h2{font-size:1.1rem;color:#713f12}
-.donation-section p{color:#713f12;font-size:.9rem;line-height:1.6}
-.donation-button{display:block;background:#854d0e;color:#fff;padding:13px;border-radius:9px;text-decoration:none;font-weight:800}
-.donation-note{font-size:.74rem!important}
-.experience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.experience-card{background:#ffffff06;border:1px solid var(--border);border-radius:12px;padding:15px;text-align:left;display:flex;flex-direction:column;gap:9px;min-height:145px}
-.experience-card h3{color:var(--accent);font-size:1rem}
-.experience-card p{font-size:.82rem;line-height:1.45}
-.experience-card .secondary-btn{margin-top:auto}
-.experience-card.wide{grid-column:1/-1}
-#world-view{gap:12px}
-.world-heading{text-align:left;display:flex;justify-content:space-between;gap:10px;align-items:center}
-.world-heading h2{font-size:1.15rem;color:var(--accent)}
-#world-canvas-wrap{height:clamp(280px,48vh,440px);min-height:250px;position:relative;overflow:hidden;background:#07101f;border:1px solid var(--border);border-radius:12px}
-#world-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-#world-hud{position:absolute;inset:12px auto auto 12px;max-width:80%;padding:10px 12px;background:#07101f9c;border:1px solid #ffffff24;border-radius:9px;pointer-events:none;text-align:left}
-#world-hud strong{display:block;font-size:.9rem;color:white}
-#world-hud span{display:block;color:#dbeafe;font-size:.75rem;margin-top:4px;line-height:1.4}
-.world-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;text-align:left}
-.world-control{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:.78rem}
-.world-control select{width:100%;padding:10px;background:#0f172a;color:var(--text);border:1px solid var(--border);border-radius:8px}
-.world-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.world-buttons button{min-height:40px}
-.world-note{font-size:.74rem;color:var(--muted);line-height:1.5}
+.badge-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.stage-label,.mini-progress{color:var(--muted);font-size:.78rem}.question-text{font-size:1.15rem;line-height:1.55;font-weight:650}
+.options-grid{display:flex;flex-direction:column;gap:9px}.option-btn{background:#ffffff08;border:1px solid var(--border);color:var(--text);padding:13px 14px;border-radius:9px;font-size:.95rem;text-align:left;line-height:1.4}.option-btn:hover:not(:disabled){background:#38bdf81a;border-color:var(--accent)}
+.feedback{display:none;background:#ffffff06;border-left:4px solid var(--accent);padding:14px;border-radius:5px;font-size:.92rem;line-height:1.5;text-align:left}.feedback.correct{border-left-color:var(--good)}.feedback.incorrect{border-left-color:var(--bad)}.feedback p{margin-top:7px}.takeaway{color:var(--accent);font-style:italic}
+.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:12px}.exercise-card h3{font-size:1.2rem}.countdown{font-size:2rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}.safety{font-size:.76rem!important;color:var(--muted)!important}
+.donation-section{background:#fef08a;color:#422006;border:2px solid #eab308;border-radius:12px;padding:17px;text-align:center;display:flex;flex-direction:column;gap:10px}.donation-section h2{font-size:1.1rem;color:#713f12}.donation-section p{color:#713f12;font-size:.9rem;line-height:1.6}.donation-button{display:block;background:#854d0e;color:#fff;padding:13px;border-radius:9px;text-decoration:none;font-weight:800}.donation-note{font-size:.74rem!important}
+.experience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.experience-card{background:#ffffff06;border:1px solid var(--border);border-radius:12px;padding:15px;text-align:left;display:flex;flex-direction:column;gap:9px;min-height:145px}.experience-card h3{color:var(--accent);font-size:1rem}.experience-card p{font-size:.82rem;line-height:1.45}.experience-card .secondary-btn{margin-top:auto}.experience-card.wide{grid-column:1/-1}
+#world-view{gap:12px}.world-heading{text-align:left;display:flex;justify-content:space-between;gap:10px;align-items:center}.world-heading h2{font-size:1.15rem;color:var(--accent)}
+#world-canvas-wrap{height:clamp(280px,48vh,440px);min-height:250px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,#183c68,#080d20 72%);border:1px solid #52769a;border-radius:12px;box-shadow:0 0 22px #38bdf822,inset 0 0 35px #38bdf814}
+#world-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
+#world-hud{position:absolute;inset:12px auto auto 12px;max-width:80%;padding:10px 12px;background:#07101f9c;border:1px solid #9eeaff55;border-radius:9px;pointer-events:none;text-align:left;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 5px 24px #0005}
+#world-hud strong{display:block;font-size:.9rem;color:white}#world-hud span{display:block;color:#dbeafe;font-size:.75rem;margin-top:4px;line-height:1.4}
+.world-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;text-align:left}.world-control{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:.78rem}.world-control select{width:100%;padding:10px;background:#0f172a;color:var(--text);border:1px solid var(--border);border-radius:8px}
+.world-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.world-buttons button{min-height:40px}.world-note{font-size:.74rem;color:var(--muted);line-height:1.5}
+#world-canvas-wrap:fullscreen{width:100vw;height:100vh;max-height:none;border:0;border-radius:0;background:#050819}#world-canvas-wrap:fullscreen #world-canvas{width:100%;height:100%}
 @media(max-width:470px){body{padding:7px}.container{padding:14px;gap:16px}.experience-grid{grid-template-columns:1fr}.experience-card.wide{grid-column:auto}.world-controls,.world-buttons{grid-template-columns:1fr 1fr}header h1{font-size:1.25rem}.question-text{font-size:1.05rem}}
-#world-canvas-wrap{
-background:radial-gradient(ellipse at 50% 35%,#183c68 0%,#080d20 72%);
-border:1px solid #52769a;
-box-shadow:0 0 22px #38bdf822,inset 0 0 35px #38bdf814;
-}
-#world-canvas{touch-action:pan-y}
-#world-hud{
-backdrop-filter:blur(10px);
--webkit-backdrop-filter:blur(10px);
-border-color:#9eeaff55;
-box-shadow:0 5px 24px #0005;
-}
-#world-canvas-wrap:fullscreen{
-width:100vw;height:100vh;max-height:none;
-border:0;border-radius:0;background:#050819;
-}
-#world-canvas-wrap:fullscreen #world-canvas{
-width:100%;height:100%;
-}
 </style>
 </head>
 <body>
 <main class="container">
-<header>
-<h1>WE SELL TIME</h1>
-<p id="sub-title">5 MINUTES. A DIFFERENT PERSPECTIVE.</p>
-<div class="top-controls"><button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">ES</button></div>
-</header>
+<header><h1>WE SELL TIME</h1><p id="sub-title">5 MINUTES. A DIFFERENT PERSPECTIVE.</p><div class="top-controls"><button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">ES</button></div></header>
 
 <section id="start-view" class="screen">
-<div class="screen-icon">⌛</div>
-<h2 id="welcome-h2">Choose your five-minute experience</h2>
-<p id="welcome-p">Five minutes for discovery, imagination or a different world. Choose what you feel like doing.</p>
+<div class="screen-icon">⌛</div><h2 id="welcome-h2">Choose your five-minute experience</h2><p id="welcome-p">Five minutes for discovery, imagination or a different world. Choose what you feel like doing.</p>
 <div class="experience-grid">
-<article class="experience-card">
-<h3 id="questions-title">Discoveries & riddles</h3>
-<p id="questions-desc">Surprising questions, useful ideas and small discoveries.</p>
-<button class="action-btn" onclick="startSession()" id="start-btn">Start discoveries</button>
-</article>
-<article class="experience-card">
-<h3 id="reset-title">Easy reset</h3>
-<p id="reset-desc">A short, comfortable pause with spoken guidance.</p>
-<button class="secondary-btn" onclick="startResetOnly()" id="reset-start-btn">Take a pause</button>
-</article>
-<article class="experience-card">
-<h3>VILLA RÍO Y MAR</h3>
-<p id="villa-desc">Explore a peaceful riverside mansion with a sea view.</p>
-<button class="secondary-btn" onclick="startWorld('villa')" id="villa-btn">Enter villa</button>
-</article>
-<article class="experience-card">
-<h3>METROPOLIS 360</h3>
-<p id="metro-desc">Discover a futuristic city, neon streets and rooftops.</p>
-<button class="secondary-btn" onclick="startWorld('metro')" id="metro-btn">Enter city</button>
-</article>
-<article class="experience-card wide">
-<h3>OCEANIS 360</h3>
-<p id="ocean-desc">Explore the ocean surface, coral reef and deep sea.</p>
-<button class="secondary-btn" onclick="startWorld('ocean')" id="ocean-btn">Enter ocean</button>
-</article>
-</div>
-<p class="safety" id="start-note">Choose only comfortable activities. You can stop or return at any time.</p>
+<article class="experience-card"><h3 id="questions-title">Discoveries & riddles</h3><p id="questions-desc">Surprising questions, useful ideas and small discoveries.</p><button class="action-btn" onclick="startSession()" id="start-btn">Start discoveries</button></article>
+<article class="experience-card"><h3 id="reset-title">Easy reset</h3><p id="reset-desc">A short, comfortable pause with spoken guidance.</p><button class="secondary-btn" onclick="startResetOnly()" id="reset-start-btn">Take a pause</button></article>
+<article class="experience-card"><h3>VILLA RÍO Y MAR</h3><p id="villa-desc">Explore a peaceful riverside mansion with a sea view.</p><button class="secondary-btn" onclick="startWorld('villa')" id="villa-btn">Enter villa</button></article>
+<article class="experience-card"><h3>METROPOLIS 360</h3><p id="metro-desc">Discover a futuristic city, neon streets and rooftops.</p><button class="secondary-btn" onclick="startWorld('metro')" id="metro-btn">Enter city</button></article>
+<article class="experience-card wide"><h3>OCEANIS 360</h3><p id="ocean-desc">Explore the ocean surface, coral reef and deep sea.</p><button class="secondary-btn" onclick="startWorld('ocean')" id="ocean-btn">Enter ocean</button></article>
+</div><p class="safety" id="start-note">Choose only comfortable activities. You can stop or return at any time.</p>
 </section>
 
 <section id="session-view" class="hidden">
-<div class="timer-wrap">
-<div class="timer-labels"><span id="session-label">Your five minutes</span><span id="time-left">5:00</span></div>
-<div class="timer-track"><div id="timer-bar" class="timer-bar"></div></div>
-</div>
-<div class="badge-row"><span id="category-badge" class="badge">Discovery</span></div>
-<div id="stage-label" class="stage-label">Curiosity · Your choice · The surprise · The discovery</div>
-<div id="prompt-text" class="question-text">Loading...</div>
-<div id="options-container" class="options-grid"></div>
-<div id="feedback-card" class="feedback">
-<strong id="feedback-status"></strong>
-<p id="feedback-explanation"></p>
-<p id="feedback-takeaway" class="takeaway"></p>
-</div>
-<p id="question-progress" class="mini-progress"></p>
-<button id="next-btn" class="action-btn hidden" onclick="advanceExperience()">Continue</button>
-<button class="secondary-btn" onclick="exitToHome()" id="leave-session-btn">Return to menu</button>
+<div class="timer-wrap"><div class="timer-labels"><span id="session-label">Your five minutes</span><span id="time-left">5:00</span></div><div class="timer-track"><div id="timer-bar" class="timer-bar"></div></div></div>
+<div class="badge-row"><span id="category-badge" class="badge">Discovery</span></div><div id="stage-label" class="stage-label">Curiosity · Your choice · The surprise · The discovery</div>
+<div id="prompt-text" class="question-text">Loading...</div><div id="options-container" class="options-grid"></div>
+<div id="feedback-card" class="feedback"><strong id="feedback-status"></strong><p id="feedback-explanation"></p><p id="feedback-takeaway" class="takeaway"></p></div>
+<p id="question-progress" class="mini-progress"></p><button id="next-btn" class="action-btn hidden" onclick="advanceExperience()">Continue</button><button class="secondary-btn" onclick="exitToHome()" id="leave-session-btn">Return to menu</button>
 </section>
 
 <section id="reset-view" class="screen hidden">
-<div class="screen-icon">◌</div>
-<h2 id="reset-heading">Easy Reset</h2>
-<p id="reset-intro">Take a short, comfortable pause. No need to do anything that feels uncomfortable.</p>
-<div class="exercise-card">
-<span class="badge" id="exercise-type">GENTLE PAUSE</span>
-<h3 id="exercise-title">Natural breathing</h3>
-<p id="exercise-instructions"></p>
-<div class="countdown" id="exercise-countdown">0:45</div>
-<p class="safety" id="safety-note"></p>
-</div>
-<button class="icon-btn" id="voice-toggle-btn" onclick="toggleExerciseVoice()">🔊 Voice on</button>
-<button class="secondary-btn" id="skip-reset-btn" onclick="finishReset(true)">Skip pause</button>
-<button class="secondary-btn" onclick="exitToHome()" id="leave-reset-btn">Return to menu</button>
+<div class="screen-icon">◌</div><h2 id="reset-heading">Easy Reset</h2><p id="reset-intro">Take a short, comfortable pause. No need to do anything that feels uncomfortable.</p>
+<div class="exercise-card"><span class="badge" id="exercise-type">GENTLE PAUSE</span><h3 id="exercise-title">Natural breathing</h3><p id="exercise-instructions"></p><div class="countdown" id="exercise-countdown">0:45</div><p class="safety" id="safety-note"></p></div>
+<button class="icon-btn" id="voice-toggle-btn" onclick="toggleExerciseVoice()">🔊 Voice on</button><button class="secondary-btn" id="skip-reset-btn" onclick="finishReset(true)">Skip pause</button><button class="secondary-btn" onclick="exitToHome()" id="leave-reset-btn">Return to menu</button>
 </section>
 
 <section id="world-view" class="screen hidden">
-<div class="timer-wrap">
-<div class="timer-labels"><span id="world-session-label">Your five-minute world</span><span id="world-time-left">5:00</span></div>
-<div class="timer-track"><div id="world-timer-bar" class="timer-bar"></div></div>
-</div>
+<div class="timer-wrap"><div class="timer-labels"><span id="world-session-label">Your five-minute world</span><span id="world-time-left">5:00</span></div><div class="timer-track"><div id="world-timer-bar" class="timer-bar"></div></div></div>
 <div class="world-heading"><h2 id="world-title">VILLA RÍO Y MAR</h2><span class="badge" id="world-badge">3D EXPERIENCE</span></div>
-<div id="world-canvas-wrap">
-<canvas id="world-canvas" aria-label="Interactive generated 3D environment"></canvas>
-<div id="world-hud"><strong id="hud-title">Welcome</strong><span id="hud-desc">Look around and enjoy this short visit.</span></div>
-</div>
+<div id="world-canvas-wrap"><canvas id="world-canvas" aria-label="Interactive generated 3D environment"></canvas><div id="world-hud"><strong id="hud-title">Welcome</strong><span id="hud-desc">Look around and enjoy this short visit.</span></div></div>
 <div class="world-controls">
-<label class="world-control"><span id="view-label">View</span>
-<select id="world-location" onchange="changeWorldLocation(this.value)"></select></label>
-<label class="world-control"><span id="light-label">Atmosphere</span>
-<select id="world-light" onchange="changeWorldLight(this.value)">
-<option value="day">Day</option><option value="sunset">Sunset</option><option value="night">Night</option>
-</select></label>
+<label class="world-control"><span id="view-label">View</span><select id="world-location" onchange="changeWorldLocation(this.value)"></select></label>
+<label class="world-control"><span id="light-label">Atmosphere</span><select id="world-light" onchange="changeWorldLight(this.value)"><option value="day">Day</option><option value="sunset">Sunset</option><option value="night">Night</option></select></label>
 </div>
-<div class="world-buttons">
-<button class="icon-btn" onclick="toggleWorldAudio()" id="world-audio-btn">🔇 Sound off</button>
-<button class="icon-btn" onclick="toggleWorldHud()" id="world-hud-btn">Hide info</button>
-<button class="icon-btn" onclick="toggleWorldSplit()" id="world-split-btn">VR split view</button>
-<button class="icon-btn" onclick="toggleWorldFullscreen()" id="world-full-btn">Full screen</button>
-</div>
-<p class="world-note" id="world-note">Generated 3D environment. Move your mouse or drag on the scene to look around.</p>
-<button class="secondary-btn" onclick="exitToHome()" id="leave-world-btn">Leave experience</button>
+<div class="world-buttons"><button class="icon-btn" onclick="toggleWorldAudio()" id="world-audio-btn">🔇 Sound off</button><button class="icon-btn" onclick="toggleWorldHud()" id="world-hud-btn">Hide info</button><button class="icon-btn" onclick="toggleWorldSplit()" id="world-split-btn">VR split view</button><button class="icon-btn" onclick="toggleWorldFullscreen()" id="world-full-btn">Full screen</button></div>
+<p class="world-note" id="world-note">Generated 3D environment. Move your mouse or drag on the scene to look around.</p><button class="secondary-btn" onclick="exitToHome()" id="leave-world-btn">Leave experience</button>
 </section>
 
-<section id="end-view" class="screen hidden">
-<div class="screen-icon">✦</div>
-<h2 id="end-h2">Time well spent.</h2>
-<p id="end-p">A small discovery. A short reset. Return to your day whenever you're ready.</p>
-<button class="action-btn" onclick="resetToHome()" id="home-btn">Return Home</button>
-</section>
+<section id="end-view" class="screen hidden"><div class="screen-icon">✦</div><h2 id="end-h2">Time well spent.</h2><p id="end-p">A small discovery. A short reset. Return to your day whenever you're ready.</p><button class="action-btn" onclick="resetToHome()" id="home-btn">Return Home</button></section>
 
-<section id="donation-section" class="donation-section" aria-label="Support our team">
-<h2>💛 SUPPORT OUR TEAM / APOYA A NUESTRO EQUIPO</h2>
-<p id="donation-message">If this experience brings you value, you can support our team with a voluntary contribution.<br>Si esta experiencia te aporta valor, puedes apoyar a nuestro equipo con una contribución voluntaria.</p>
-<a class="donation-button" href="https://buy.stripe.com/4gM00i67Z79N28D0b17Vm0v" target="_blank" rel="noopener noreferrer">💛 PLEASE-SUPPORT / POR FAVOR APOYA</a>
-<p class="donation-note">Tu apoyo es voluntario y no es necesario para utilizar la experiencia.<br>Your support is voluntary and is not required to use the experience.</p>
-</section>
+<section id="donation-section" class="donation-section" aria-label="Support our team"><h2>💛 SUPPORT OUR TEAM / APOYA A NUESTRO EQUIPO</h2><p id="donation-message">If this experience brings you value, you can support our team with a voluntary contribution.<br>Si esta experiencia te aporta valor, puedes apoyar a nuestro equipo con una contribución voluntaria.</p><a class="donation-button" href="https://buy.stripe.com/4gM00i67Z79N28D0b17Vm0v" target="_blank" rel="noopener noreferrer">💛 PLEASE-SUPPORT / POR FAVOR APOYA</a><p class="donation-note">Tu apoyo es voluntario y no es necesario para utilizar la experiencia.<br>Your support is voluntary and is not required to use the experience.</p></section>
 </main>
 
 <script>
-let remainingTime=300,sessionTimer=null,exerciseTimer=null,exerciseRemaining=45;
-let questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0;
-let currentCardData=null,currentExercise=null,currentLang='en';
-let answered=false,selectedAnswer=null,answerWasCorrect=null,sessionSeconds=300;
-let exerciseVoiceEnabled=true,resetOnly=false,activeMode='questions';
+'use strict';
 const $=id=>document.getElementById(id);
-
+let currentLang='en',activeMode='menu',remainingTime=300,sessionSeconds=300,sessionTimer=null,exerciseTimer=null;
+let questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0,currentCardData=null,currentExercise=null;
+let answered=false,answerWasCorrect=null,exerciseRemaining=45,exerciseVoiceEnabled=true,resetOnly=false;
+let worldState=null,worldFrame=null,worldTimer=null,worldRemaining=300,worldAudioContext=null,worldAudioNodes=[],worldAudioOn=false,worldHudOn=true,worldSplit=false;
 const translations={
-en:{
-subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',
-welcomeH2:'Choose your five-minute experience',
-welcomeP:'Five minutes for discovery, imagination or a different world. Choose what you feel like doing.',
-questionsTitle:'Discoveries & riddles',questionsDesc:'Surprising questions, useful ideas and small discoveries.',
-resetTitle:'Easy reset',resetDesc:'A short, comfortable pause with spoken guidance.',
-startBtn:'Start discoveries',resetStartBtn:'Take a pause',startNote:'Choose only comfortable activities. You can stop or return at any time.',
-villaDesc:'Explore a peaceful riverside mansion with a sea view.',metroDesc:'Discover a futuristic city, neon streets and rooftops.',oceanDesc:'Explore the ocean surface, coral reef and deep sea.',
-villaBtn:'Enter villa',metroBtn:'Enter city',oceanBtn:'Enter ocean',
-sessionLabel:'Your five minutes',continueBtn:'Continue',voiceOn:'🔊 Voice on',voiceOff:'🔇 Voice off',
-takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',key:'Key idea: ',
-resetHeading:'Easy Reset',resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',
-skip:'Skip pause',endH2:'Time well spent.',endP:'A small discovery. A short reset. Return to your day whenever you are ready.',
-homeBtn:'Return Home',safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
-curiosity:'Curiosity',choice:'Your choice',surprise:'The surprise',discovery:'The discovery',question:'Question',finished:'You have completed this experience.',
-leaveSession:'Return to menu',leaveReset:'Return to menu',worldLabel:'Your five-minute world',
-viewLabel:'View',lightLabel:'Atmosphere',day:'Day',sunset:'Sunset',night:'Night',
-soundOn:'🔊 Sound on',soundOff:'🔇 Sound off',hideInfo:'Hide info',showInfo:'Show info',splitOn:'VR split view',splitOff:'Single view',fullscreen:'Full screen',exitFullscreen:'Exit full screen',
-worldNote:'Generated 3D environment. Move your mouse or drag on the scene to look around.',
-villaHud:'A peaceful place by the water.',metroHud:'A city of light, movement and imagination.',oceanHud:'Explore a colorful world beneath the waves.',
-villaViews:['Riverside garden','Mansion terrace','Sea panorama'],metroViews:['Neon street','Rooftop','Monorail','Aerial skyline'],oceanViews:['Ocean surface','Shallow water','Coral reef','Deep sea'],
-leaveWorld:'Leave experience'
-},
-es:{
-subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',
-welcomeH2:'Elige tu experiencia de cinco minutos',
-welcomeP:'Cinco minutos para descubrir, imaginar o visitar otro mundo. Elige lo que te apetezca.',
-questionsTitle:'Descubrimientos y adivinanzas',questionsDesc:'Preguntas sorprendentes, ideas útiles y pequeños descubrimientos.',
-resetTitle:'Pausa sencilla',resetDesc:'Una pausa cómoda con instrucciones habladas.',
-startBtn:'Comenzar descubrimientos',resetStartBtn:'Tomar una pausa',startNote:'Elige una actividad cómoda. Puedes detenerte o volver cuando quieras.',
-villaDesc:'Explora una mansión tranquila junto al río, con vistas al mar.',metroDesc:'Descubre una ciudad futurista, calles de neón y azoteas.',oceanDesc:'Explora la superficie del océano, los arrecifes y las profundidades.',
-villaBtn:'Entrar en la villa',metroBtn:'Entrar en la ciudad',oceanBtn:'Entrar en el océano',
-sessionLabel:'Tus cinco minutos',continueBtn:'Continuar',voiceOn:'🔊 Voz activada',voiceOff:'🔇 Voz silenciada',
-takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',key:'Idea clave: ',
-resetHeading:'Pausa sencilla',resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',
-skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',
-homeBtn:'Volver al inicio',safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
-curiosity:'Curiosidad',choice:'Tu decisión',surprise:'La sorpresa',discovery:'El descubrimiento',question:'Pregunta',finished:'Has completado esta experiencia.',
-leaveSession:'Volver al menú',leaveReset:'Volver al menú',worldLabel:'Tus cinco minutos de mundo',
-viewLabel:'Vista',lightLabel:'Ambiente',day:'Día',sunset:'Atardecer',night:'Noche',
-soundOn:'🔊 Sonido activado',soundOff:'🔇 Sonido silenciado',hideInfo:'Ocultar información',showInfo:'Mostrar información',splitOn:'Vista VR dividida',splitOff:'Vista única',fullscreen:'Pantalla completa',exitFullscreen:'Salir de pantalla completa',
-worldNote:'Entorno 3D generado. Mueve el ratón o arrastra sobre la escena para mirar alrededor.',
-villaHud:'Un lugar tranquilo junto al agua.',metroHud:'Una ciudad de luces, movimiento e imaginación.',oceanHud:'Explora un mundo lleno de color bajo las olas.',
-villaViews:['Jardín junto al río','Terraza de la mansión','Panorama del mar'],metroViews:['Calle de neón','Azotea','Monorraíl','Vista aérea'],oceanViews:['Superficie del océano','Aguas poco profundas','Arrecife de coral','Mar profundo'],
-leaveWorld:'Salir de la experiencia'
-}
+en:{subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',welcomeH2:'Choose your five-minute experience',welcomeP:'Five minutes for discovery, imagination or a different world. Choose what you feel like doing.',questionsTitle:'Discoveries & riddles',questionsDesc:'Surprising questions, useful ideas and small discoveries.',resetTitle:'Easy reset',resetDesc:'A short, comfortable pause with spoken guidance.',startBtn:'Start discoveries',resetStartBtn:'Take a pause',startNote:'Choose only comfortable activities. You can stop or return at any time.',villaDesc:'Explore a peaceful riverside mansion with a sea view.',metroDesc:'Discover a futuristic city, neon streets and rooftops.',oceanDesc:'Explore the ocean surface, coral reef and deep sea.',villaBtn:'Enter villa',metroBtn:'Enter city',oceanBtn:'Enter ocean',sessionLabel:'Your five minutes',continueBtn:'Continue',voiceOn:'🔊 Voice on',voiceOff:'🔇 Voice off',takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',key:'Key idea: ',resetHeading:'Easy Reset',resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',skip:'Skip pause',endH2:'Time well spent.',endP:'A small discovery. A short reset. Return to your day whenever you are ready.',homeBtn:'Return Home',safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',curiosity:'Curiosity',choice:'Your choice',surprise:'The surprise',discovery:'The discovery',question:'Question',finished:'You have completed this experience.',leaveSession:'Return to menu',leaveReset:'Return to menu',worldLabel:'Your five-minute world',viewLabel:'View',lightLabel:'Atmosphere',day:'Day',sunset:'Sunset',night:'Night',soundOn:'🔊 Sound on',soundOff:'🔇 Sound off',hideInfo:'Hide info',showInfo:'Show info',splitOn:'VR split view',splitOff:'Single view',fullscreen:'Full screen',exitFullscreen:'Exit full screen',worldNote:'Generated 3D environment. Move your mouse or drag on the scene to look around.',villaHud:'A peaceful place by the water.',metroHud:'A city of light, movement and imagination.',oceanHud:'Explore a colorful world beneath the waves.',villaViews:['Riverside garden','Mansion terrace','Sea panorama'],metroViews:['Neon street','Rooftop','Monorail','Aerial skyline'],oceanViews:['Ocean surface','Shallow water','Coral reef','Deep sea'],leaveWorld:'Leave experience'},
+es:{subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',welcomeH2:'Elige tu experiencia de cinco minutos',welcomeP:'Cinco minutos para descubrir, imaginar o visitar otro mundo. Elige lo que te apetezca.',questionsTitle:'Descubrimientos y adivinanzas',questionsDesc:'Preguntas sorprendentes, ideas útiles y pequeños descubrimientos.',resetTitle:'Pausa sencilla',resetDesc:'Una pausa cómoda con instrucciones habladas.',startBtn:'Comenzar descubrimientos',resetStartBtn:'Tomar una pausa',startNote:'Elige una actividad cómoda. Puedes detenerte o volver cuando quieras.',villaDesc:'Explora una mansión tranquila junto al río, con vistas al mar.',metroDesc:'Descubre una ciudad futurista, calles de neón y azoteas.',oceanDesc:'Explora la superficie del océano, los arrecifes y las profundidades.',villaBtn:'Entrar en la villa',metroBtn:'Entrar en la ciudad',oceanBtn:'Entrar en el océano',sessionLabel:'Tus cinco minutos',continueBtn:'Continuar',voiceOn:'🔊 Voz activada',voiceOff:'🔇 Voz silenciada',takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',key:'Idea clave: ',resetHeading:'Pausa sencilla',resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',homeBtn:'Volver al inicio',safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',curiosity:'Curiosidad',choice:'Tu decisión',surprise:'La sorpresa',discovery:'El descubrimiento',question:'Pregunta',finished:'Has completado esta experiencia.',leaveSession:'Volver al menú',leaveReset:'Volver al menú',worldLabel:'Tus cinco minutos de mundo',viewLabel:'Vista',lightLabel:'Ambiente',day:'Día',sunset:'Atardecer',night:'Noche',soundOn:'🔊 Sonido activado',soundOff:'🔇 Sonido silenciado',hideInfo:'Ocultar información',showInfo:'Mostrar información',splitOn:'Vista VR dividida',splitOff:'Vista única',fullscreen:'Pantalla completa',exitFullscreen:'Salir de pantalla completa',worldNote:'Entorno 3D generado. Mueve el ratón o arrastra sobre la escena para mirar alrededor.',villaHud:'Un lugar tranquilo junto al agua.',metroHud:'Una ciudad de luces, movimiento e imaginación.',oceanHud:'Explora un mundo lleno de color bajo las olas.',villaViews:['Jardín junto al río','Terraza de la mansión','Panorama del mar'],metroViews:['Calle de neón','Azotea','Monorraíl','Vista aérea'],oceanViews:['Superficie del océano','Aguas poco profundas','Arrecife de coral','Mar profundo'],leaveWorld:'Salir de la experiencia'}
 };
-function t(){return translations[currentLang]}
-function setVisible(id,yes){$(id).classList.toggle('hidden',!yes)}
-function clearTimers(){clearInterval(sessionTimer);clearInterval(exerciseTimer);sessionTimer=exerciseTimer=null}
-function stopExerciseVoice(){if('speechSynthesis'in window)window.speechSynthesis.cancel()}
-function updateVoiceButton(){if($('voice-toggle-btn'))$('voice-toggle-btn').innerText=exerciseVoiceEnabled?t().voiceOn:t().voiceOff}
-function toggleExerciseVoice(){
-exerciseVoiceEnabled=!exerciseVoiceEnabled;
-if(!exerciseVoiceEnabled)stopExerciseVoice();else if(currentExercise)speakCurrentExercise();
-updateVoiceButton();
-}
-function speakCurrentExercise(){
-if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
-stopExerciseVoice();
-const title=(currentExercise.title||{})[currentLang]||'',instructions=(currentExercise.instructions||{})[currentLang]||'';
-if(!title&&!instructions)return;
-const u=new SpeechSynthesisUtterance([title,instructions].filter(Boolean).join('. '));
-u.lang=currentLang==='es'?'es-ES':'en-US';u.rate=.92;u.pitch=1;
-window.speechSynthesis.speak(u);
-}
-function updateStaticTexts(){
-const x=t();
-const map={
-'sub-title':'subTitle','lang-btn':'langBtn','welcome-h2':'welcomeH2','welcome-p':'welcomeP',
-'questions-title':'questionsTitle','questions-desc':'questionsDesc','reset-title':'resetTitle','reset-desc':'resetDesc',
-'start-btn':'startBtn','reset-start-btn':'resetStartBtn','start-note':'startNote',
-'villa-desc':'villaDesc','metro-desc':'metroDesc','ocean-desc':'oceanDesc','villa-btn':'villaBtn','metro-btn':'metroBtn','ocean-btn':'oceanBtn',
-'session-label':'sessionLabel','next-btn':'continueBtn','reset-heading':'resetHeading','reset-intro':'resetIntro',
-'skip-reset-btn':'skip','end-h2':'endH2','end-p':'endP','home-btn':'homeBtn','leave-session-btn':'leaveSession',
-'leave-reset-btn':'leaveReset','world-session-label':'worldLabel','view-label':'viewLabel','light-label':'lightLabel',
-'world-note':'worldNote','leave-world-btn':'leaveWorld'
-};
-Object.entries(map).forEach(([id,key])=>{if($(id))$(id).innerText=x[key]});
-updateVoiceButton();updateWorldControlsText();
-}
-function toggleLanguage(){
-currentLang=currentLang==='en'?'es':'en';
-document.documentElement.lang=currentLang;
-updateStaticTexts();
-if(currentCardData&&!$('session-view').classList.contains('hidden')){
-const wasAnswered=answered,wasCorrect=answerWasCorrect;
-renderCard();
-if(wasAnswered){answered=true;answerWasCorrect=wasCorrect;document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback()}
-}
-if(currentExercise&&!$('reset-view').classList.contains('hidden'))renderExercise();
-if(activeMode==='world'&&worldState){populateWorldLocations();updateWorldSceneText()}
-}
-
-async function startSession(){
-const btn=$('start-btn');btn.disabled=true;
-try{
-const res=await fetch('/api/session');
-if(!res.ok)throw new Error('Session could not load');
-const data=await res.json();
-questions=Array.isArray(data.questions)?data.questions:[];
-exercises=Array.isArray(data.exercises)?data.exercises:[];
-safetyNotes=data.safety_notes||{};
-sessionSeconds=Number(data.session_seconds)||300;
-if(!questions.length)throw new Error('No questions found');
-}catch(e){
-console.error(e);
-alert(currentLang==='es'?'No se pudo cargar el contenido. Comprueba cards_bilingual.json y vuelve a intentarlo.':'Content could not load. Check cards_bilingual.json and try again.');
-btn.disabled=false;return;
-}
-btn.disabled=false;stopExerciseVoice();clearTimers();stopWorld();
-activeMode='questions';resetOnly=false;questionIndex=0;exerciseIndex=0;
-currentCardData=questions[0];currentExercise=null;answered=false;selectedAnswer=null;answerWasCorrect=null;
-remainingTime=sessionSeconds;setVisible('start-view',false);setVisible('end-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('session-view',true);
-updateTimer();sessionTimer=setInterval(()=>{remainingTime--;updateTimer();if(remainingTime<=0)endSession()},1000);renderCard();
-}
-function updateTimer(){
-$('time-left').innerText=`${Math.floor(Math.max(0,remainingTime)/60)}:${String(Math.max(0,remainingTime)%60).padStart(2,'0')}`;
-$('timer-bar').style.width=`${Math.max(0,remainingTime/sessionSeconds)*100}%`;
-}
-function renderCard(){
-if(!currentCardData||!currentCardData[currentLang])return;
-const card=currentCardData[currentLang],x=t();
-$('category-badge').innerText=currentCardData.topic||(currentLang==='es'?'Descubrimientos':'Discoveries');
-$('stage-label').innerText=`${x.curiosity} · ${x.choice} · ${x.surprise} · ${x.discovery}`;
-$('prompt-text').innerText=card.prompt||'';
-$('options-container').innerHTML='';$('feedback-card').style.display='none';$('feedback-card').className='feedback';$('next-btn').classList.add('hidden');
-(Array.isArray(card.options)?card.options:[]).forEach(opt=>{
-const b=document.createElement('button');b.className='option-btn';b.innerText=opt;b.onclick=()=>selectOption(opt);$('options-container').appendChild(b);
-});
-$('question-progress').innerText=`${x.question} ${questionIndex+1} / ${questions.length}`;
-answered=false;selectedAnswer=null;answerWasCorrect=null;
-}
-function selectOption(opt){
-if(answered||!currentCardData)return;
-answered=true;selectedAnswer=opt;
-const localized=currentCardData[currentLang]||{};
-const correct=localized.correct_answer;
-answerWasCorrect=typeof correct==='number'?localized.options?.[correct]===opt:opt===correct;
-document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback();
-}
-function showFeedback(){
-const card=currentCardData[currentLang],x=t(),correct=answerWasCorrect===true;
-$('feedback-card').style.display='block';$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;
-$('feedback-status').innerText=correct?x.correct:`${x.incorrect}${card.correct_answer}`;
-$('feedback-explanation').innerText=card.explanation||'';
-$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
-$('next-btn').classList.remove('hidden');
-const willReset=((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length;
-$('next-btn').innerText=willReset?x.takeReset:x.continueBtn;
-}
-function advanceExperience(){
-if(!answered)return;
-if(((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length){showReset();return}
-goNextQuestion();
-}
-function goNextQuestion(){
-questionIndex++;
-if(questionIndex>=questions.length||remainingTime<=0){endSession();return}
-currentCardData=questions[questionIndex];answered=false;selectedAnswer=null;answerWasCorrect=null;renderCard();
-}
-function startResetOnly(){
-clearTimers();stopWorld();stopExerciseVoice();activeMode='reset';resetOnly=true;
-exercises=exercises.length?exercises:[];exerciseIndex=0;
-if(!exercises.length){
-alert(currentLang==='es'?'Los ejercicios se cargan al iniciar una sesión de descubrimientos.':'Start a discovery session first to load the exercises.');return;
-}
-remainingTime=300;sessionSeconds=300;showReset(true);
-}
-function showReset(standalone=false){
-if(!exercises.length){if(standalone)exitToHome();else goNextQuestion();return}
-clearInterval(exerciseTimer);stopExerciseVoice();
-currentExercise=exercises[exerciseIndex%exercises.length];exerciseIndex++;
-exerciseRemaining=Math.max(10,Math.min(60,Number(currentExercise.duration_seconds)||45));
-setVisible('session-view',false);setVisible('world-view',false);setVisible('reset-view',true);
-renderExercise();
-exerciseTimer=setInterval(()=>{
-exerciseRemaining--;renderCountdown();
-if(exerciseRemaining<=0){
-if(resetOnly){endSession()}else finishReset(false)
-}
-},1000);
-}
-function renderExercise(){
-if(!currentExercise)return;
-const x=t(),lang=currentLang;
-$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;
-$('exercise-title').innerText=(currentExercise.title||{})[lang]||'';
-$('exercise-instructions').innerText=(currentExercise.instructions||{})[lang]||'';
-$('exercise-type').innerText=(currentExercise.type||'easy reset').replaceAll('_',' ').toUpperCase();
-$('safety-note').innerText=(safetyNotes||{})[lang]||x.safety;
-$('skip-reset-btn').innerText=x.skip;updateVoiceButton();renderCountdown();speakCurrentExercise();
-}
-function renderCountdown(){$('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`}
-function finishReset(skipped){
-clearInterval(exerciseTimer);exerciseTimer=null;stopExerciseVoice();currentExercise=null;
-if(resetOnly){endSession();return}
-if(remainingTime<=0){endSession();return}
-setVisible('reset-view',false);setVisible('session-view',true);goNextQuestion();
-}
-function endSession(){
-clearTimers();stopExerciseVoice();currentExercise=null;setVisible('session-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('end-view',true);
-$('end-h2').innerText=t().endH2;$('end-p').innerText=t().endP;
-}
-function exitToHome(){clearTimers();stopExerciseVoice();stopWorld();activeMode='menu';currentExercise=null;currentCardData=null;setVisible('session-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('end-view',false);setVisible('start-view',true)}
-function resetToHome(){exitToHome();questions=[];exercises=[];remainingTime=300;sessionSeconds=300;updateStaticTexts()}
-
-/* GENERATED 3D WORLDS */
-let worldState=null,worldFrame=null,worldTimer=null,worldRemaining=300;
-let worldAudioContext=null,worldAudioNodes=[],worldAudioOn=false,worldHudOn=true,worldSplit=false;
+const t=()=>translations[currentLang];
 const worldDefs={
 villa:{title:'VILLA RÍO Y MAR',hud:'villaHud',views:[['garden','Riverside garden','Jardín junto al río'],['terrace','Mansion terrace','Terraza de la mansión'],['sea','Sea panorama','Panorama del mar']]},
 metro:{title:'METROPOLIS 360',hud:'metroHud',views:[['street','Neon street','Calle de neón'],['roof','Rooftop','Azotea'],['train','Monorail','Monorraíl'],['sky','Aerial skyline','Vista aérea']]},
 ocean:{title:'OCEANIS 360',hud:'oceanHud',views:[['surface','Ocean surface','Superficie del océano'],['shallow','Shallow water','Aguas poco profundas'],['reef','Coral reef','Arrecife de coral'],['abyss','Deep sea','Mar profundo']]}
 };
 const threeImport='https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-
-async function startWorld(type){
-clearTimers();stopExerciseVoice();stopWorld();
-activeMode='world';resetOnly=false;worldRemaining=300;
-setVisible('start-view',false);setVisible('session-view',false);setVisible('reset-view',false);setVisible('end-view',false);setVisible('world-view',true);
-const def=worldDefs[type];$('world-title').innerText=def.title;
-$('world-time-left').innerText='5:00';$('world-timer-bar').style.width='100%';
-$('world-light').value=type==='ocean'?'day':'day';
-populateWorldLocations(type);updateWorldControlsText();
-$('hud-title').innerText=def.title;$('hud-desc').innerText=t()[def.hud];
+function setVisible(id,yes){$(id).classList.toggle('hidden',!yes)}
+function clearTimers(){clearInterval(sessionTimer);clearInterval(exerciseTimer);sessionTimer=exerciseTimer=null}
+function stopExerciseVoice(){if('speechSynthesis'in window)window.speechSynthesis.cancel()}
+function updateVoiceButton(){$('voice-toggle-btn').innerText=exerciseVoiceEnabled?t().voiceOn:t().voiceOff}
+function toggleExerciseVoice(){exerciseVoiceEnabled=!exerciseVoiceEnabled;if(!exerciseVoiceEnabled)stopExerciseVoice();else speakCurrentExercise();updateVoiceButton()}
+function speakCurrentExercise(){if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;stopExerciseVoice();const title=(currentExercise.title||{})[currentLang]||'',instructions=(currentExercise.instructions||{})[currentLang]||'';if(!title&&!instructions)return;const u=new SpeechSynthesisUtterance([title,instructions].filter(Boolean).join('. '));u.lang=currentLang==='es'?'es-ES':'en-US';u.rate=.92;window.speechSynthesis.speak(u)}
+function updateStaticTexts(){
+const x=t(),map={'sub-title':'subTitle','lang-btn':'langBtn','welcome-h2':'welcomeH2','welcome-p':'welcomeP','questions-title':'questionsTitle','questions-desc':'questionsDesc','reset-title':'resetTitle','reset-desc':'resetDesc','start-btn':'startBtn','reset-start-btn':'resetStartBtn','start-note':'startNote','villa-desc':'villaDesc','metro-desc':'metroDesc','ocean-desc':'oceanDesc','villa-btn':'villaBtn','metro-btn':'metroBtn','ocean-btn':'oceanBtn','session-label':'sessionLabel','next-btn':'continueBtn','reset-heading':'resetHeading','reset-intro':'resetIntro','skip-reset-btn':'skip','end-h2':'endH2','end-p':'endP','home-btn':'homeBtn','leave-session-btn':'leaveSession','leave-reset-btn':'leaveReset','world-session-label':'worldLabel','view-label':'viewLabel','light-label':'lightLabel','world-note':'worldNote','leave-world-btn':'leaveWorld'};
+Object.entries(map).forEach(([id,k])=>{if($(id))$(id).innerText=x[k]});$('world-light').options[0].text=x.day;$('world-light').options[1].text=x.sunset;$('world-light').options[2].text=x.night;updateVoiceButton();updateWorldControlsText();
+}
+function toggleLanguage(){
+currentLang=currentLang==='en'?'es':'en';document.documentElement.lang=currentLang;updateStaticTexts();
+if(currentCardData&&!$('session-view').classList.contains('hidden')){const was=answered,correct=answerWasCorrect;renderCard();if(was){answered=true;answerWasCorrect=correct;document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback()}}
+if(currentExercise&&!$('reset-view').classList.contains('hidden'))renderExercise();
+if(activeMode==='world'&&worldState){populateWorldLocations();updateWorldSceneText()}
+}
+async function startSession(){
+const btn=$('start-btn');btn.disabled=true;
 try{
-const THREE=await import(threeImport);
-if(activeMode!=='world')return;
+const res=await fetch('/api/session');if(!res.ok)throw Error('Session could not load');const data=await res.json();
+questions=Array.isArray(data.questions)?data.questions:[];exercises=Array.isArray(data.exercises)?data.exercises:[];safetyNotes=data.safety_notes||{};sessionSeconds=Number(data.session_seconds)||300;
+if(!questions.length)throw Error('No questions found');
+}catch(e){console.error(e);alert(currentLang==='es'?'No se pudo cargar el contenido. Comprueba cards_bilingual.json y vuelve a intentarlo.':'Content could not load. Check cards_bilingual.json and try again.');btn.disabled=false;return}
+btn.disabled=false;clearTimers();stopExerciseVoice();stopWorld();activeMode='questions';resetOnly=false;questionIndex=0;exerciseIndex=0;currentCardData=questions[0];currentExercise=null;answered=false;answerWasCorrect=null;remainingTime=sessionSeconds;
+setVisible('start-view',false);setVisible('end-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('session-view',true);updateTimer();
+sessionTimer=setInterval(()=>{remainingTime--;updateTimer();if(remainingTime<=0)endSession()},1000);renderCard();
+}
+function updateTimer(){$('time-left').innerText=`${Math.floor(Math.max(0,remainingTime)/60)}:${String(Math.max(0,remainingTime)%60).padStart(2,'0')}`;$('timer-bar').style.width=`${Math.max(0,remainingTime/sessionSeconds)*100}%`}
+function renderCard(){
+if(!currentCardData||!currentCardData[currentLang])return;
+const card=currentCardData[currentLang],x=t();$('category-badge').innerText=currentCardData.topic||(currentLang==='es'?'Descubrimientos':'Discoveries');$('stage-label').innerText=`${x.curiosity} · ${x.choice} · ${x.surprise} · ${x.discovery}`;$('prompt-text').innerText=card.prompt||'';$('options-container').innerHTML='';$('feedback-card').style.display='none';$('feedback-card').className='feedback';$('next-btn').classList.add('hidden');
+(Array.isArray(card.options)?card.options:[]).forEach(opt=>{const b=document.createElement('button');b.className='option-btn';b.innerText=opt;b.onclick=()=>selectOption(opt);$('options-container').appendChild(b)});
+$('question-progress').innerText=`${x.question} ${questionIndex+1} / ${questions.length}`;answered=false;answerWasCorrect=null;
+}
+function selectOption(opt){
+if(answered||!currentCardData)return;answered=true;const c=currentCardData[currentLang]||{},correct=c.correct_answer;
+answerWasCorrect=typeof correct==='number'?c.options?.[correct]===opt:opt===correct;document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback();
+}
+function showFeedback(){
+const c=currentCardData[currentLang],x=t(),correct=answerWasCorrect===true;$('feedback-card').style.display='block';$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;$('feedback-status').innerText=correct?x.correct:`${x.incorrect}${typeof c.correct_answer==='number'?(c.options||[])[c.correct_answer]:c.correct_answer}`;$('feedback-explanation').innerText=c.explanation||'';$('feedback-takeaway').innerText=c.takeaway?`${x.key}${c.takeaway}`:'';$('next-btn').classList.remove('hidden');
+$('next-btn').innerText=((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length?x.takeReset:x.continueBtn;
+}
+function advanceExperience(){if(!answered)return;if(((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length){showReset();return}goNextQuestion()}
+function goNextQuestion(){questionIndex++;if(questionIndex>=questions.length||remainingTime<=0){endSession();return}currentCardData=questions[questionIndex];renderCard()}
+function startResetOnly(){
+clearTimers();stopWorld();stopExerciseVoice();activeMode='reset';resetOnly=true;
+if(!exercises.length){alert(currentLang==='es'?'Los ejercicios se cargan al iniciar una sesión de descubrimientos.':'Start a discovery session first to load the exercises.');activeMode='menu';return}
+exerciseIndex=0;remainingTime=300;sessionSeconds=300;showReset(true);
+}
+function showReset(standalone=false){
+if(!exercises.length){if(standalone)exitToHome();else goNextQuestion();return}
+clearInterval(exerciseTimer);stopExerciseVoice();currentExercise=exercises[exerciseIndex%exercises.length];exerciseIndex++;exerciseRemaining=Math.max(10,Math.min(60,Number(currentExercise.duration_seconds)||45));
+setVisible('session-view',false);setVisible('world-view',false);setVisible('reset-view',true);renderExercise();
+exerciseTimer=setInterval(()=>{exerciseRemaining--;renderCountdown();if(exerciseRemaining<=0){clearInterval(exerciseTimer);exerciseTimer=null;if(resetOnly)endSession();else finishReset(false)}},1000);
+}
+function renderExercise(){
+if(!currentExercise)return;const x=t(),lang=currentLang;$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;$('exercise-title').innerText=(currentExercise.title||{})[lang]||'';$('exercise-instructions').innerText=(currentExercise.instructions||{})[lang]||'';$('exercise-type').innerText=(currentExercise.type||'easy reset').replaceAll('_',' ').toUpperCase();$('safety-note').innerText=(safetyNotes||{})[lang]||x.safety;$('skip-reset-btn').innerText=x.skip;updateVoiceButton();renderCountdown();speakCurrentExercise();
+}
+function renderCountdown(){$('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`}
+function finishReset(){clearInterval(exerciseTimer);exerciseTimer=null;stopExerciseVoice();currentExercise=null;if(resetOnly){endSession();return}if(remainingTime<=0){endSession();return}setVisible('reset-view',false);setVisible('session-view',true);goNextQuestion()}
+function endSession(){clearTimers();stopExerciseVoice();currentExercise=null;setVisible('session-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('end-view',true);$('end-h2').innerText=t().endH2;$('end-p').innerText=t().endP}
+function exitToHome(){clearTimers();stopExerciseVoice();stopWorld();activeMode='menu';currentExercise=null;currentCardData=null;setVisible('session-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('end-view',false);setVisible('start-view',true)}
+function resetToHome(){exitToHome();questions=[];exercises=[];remainingTime=300;sessionSeconds=300;updateStaticTexts()}
 
+/* THREE-DIMENSIONAL WORLDS */
+async function startWorld(type){
+clearTimers();stopExerciseVoice();stopWorld();activeMode='world';resetOnly=false;worldRemaining=300;
+setVisible('start-view',false);setVisible('session-view',false);setVisible('reset-view',false);setVisible('end-view',false);setVisible('world-view',true);
+const def=worldDefs[type];if(!def){exitToHome();return}
+$('world-title').innerText=def.title;$('world-time-left').innerText='5:00';$('world-timer-bar').style.width='100%';$('world-light').value='day';
+populateWorldLocations(type);$('hud-title').innerText=def.title;$('hud-desc').innerText=t()[def.hud];updateWorldControlsText();
+try{
+const THREE=await import(threeImport);if(activeMode!=='world')return;
+buildWorld(THREE,type);
+worldTimer=setInterval(()=>{
+if(activeMode!=='world'){clearInterval(worldTimer);worldTimer=null;return}
+worldRemaining=Math.max(0,worldRemaining-1);$('world-time-left').innerText=`${Math.floor(worldRemaining/60)}:${String(worldRemaining%60).padStart(2,'0')}`;$('world-timer-bar').style.width=`${worldRemaining/300*100}%`;
+if(worldRemaining<=0){clearInterval(worldTimer);worldTimer=null;stopWorld();activeMode='end';setVisible('world-view',false);setVisible('end-view',true);$('end-h2').innerText=t().endH2;$('end-p').innerText=t().endP}
+},1000);
+}catch(e){console.error('3D world failed:',e);stopWorld();activeMode='menu';setVisible('world-view',false);setVisible('start-view',true);alert(currentLang==='es'?'No se pudo cargar el mundo 3D. Comprueba tu conexión y vuelve a intentarlo.':'The 3D world could not load. Check your connection and try again.')}
+}
 function buildWorld(THREE,type){
-const canvas=$('world-canvas');
-const scene=new THREE.Scene();
-scene.fog=new THREE.FogExp2(type==='ocean'?0x063c61:type==='metro'?0x10132e:0x8bc8e9,.0035);
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
-renderer.setSize(canvas.clientWidth||640,canvas.clientHeight||360,false);
-renderer.shadowMap.enabled=true;
-renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-renderer.outputColorSpace=THREE.SRGBColorSpace;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure=1.18;
-renderer.setClearColor(type==='ocean'?0x062d49:type==='metro'?0x090b25:0x8bc8e9,1);
-const camera=new THREE.PerspectiveCamera(65,1,.1,1500);
-camera.position.set(0,5,18);
-scene.add(new THREE.HemisphereLight(0xc9edff,0x201d42,1.8));
-const keyLight=new THREE.DirectionalLight(0xfff0d4,2.5);
-keyLight.position.set(20,35,15);keyLight.castShadow=true;
-keyLight.shadow.mapSize.set(1024,1024);scene.add(keyLight);
-const fillLight=new THREE.PointLight(type==='ocean'?0x22cfff:type==='metro'?0x8d4dff:0x4bcfff,35,100);
-fillLight.position.set(-12,12,8);scene.add(fillLight);
-const root=new THREE.Group();scene.add(root);
-worldState={THREE,type,scene,renderer,camera,root,keyLight,fillLight,light:'day',view:$('world-location').value||worldDefs[type].views[0][0],yaw:0,pitch:0,dragging:false,lastX:0,lastY:0,elapsed:0,objects:[],resize:null};
-const mat=(color,roughness=.7,metalness=.05,emissive=0,emissiveIntensity=.0)=>new THREE.MeshStandardMaterial({color,roughness,metalness,emissive,emissiveIntensity});
-const glow=(color,intensity=2)=>new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:intensity,roughness:.25,metalness:.15});
-const addBox=(x,y,z,sx,sy,sz,material,parent=root)=>{
-const mesh=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;
-};
-const addSphere=(x,y,z,r,material,parent=root)=>{
-const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,20,14),material);mesh.position.set(x,y,z);parent.add(mesh);return mesh;
-};
-const addCylinder=(x,y,z,rt,rb,h,material,parent=root)=>{
-const mesh=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,12),material);mesh.position.set(x,y,z);parent.add(mesh);return mesh;
-};
-const addPlane=(w,h,color,rotationX=-Math.PI/2,y=0,z=0)=>{
-const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat(color,.95));mesh.rotation.x=rotationX;mesh.position.set(0,y,z);root.add(mesh);return mesh;
-};
-const addGlowSphere=(x,y,z,r,color,intensity=2,parent=root)=>{
-const m=addSphere(x,y,z,r,glow(color,intensity),parent);
-m.userData.pulse=true;m.userData.phase=Math.random()*6;return m;
-};
-/* Shared atmospheric stars and floating light particles */
-const starMat=new THREE.PointsMaterial({color:0xd9f4ff,size:.18,transparent:true,opacity:.9,sizeAttenuation:true});
-const starPositions=[];
-for(let i=0;i<950;i++)starPositions.push((Math.random()-.5)*260,Math.random()*115-5,-Math.random()*220-15);
-const starGeo=new THREE.BufferGeometry();
-starGeo.setAttribute('position',new THREE.Float32BufferAttribute(starPositions,3));
-const starField=new THREE.Points(starGeo,starMat);scene.add(starField);
-worldState.starField=starField;
-const dustMat=new THREE.PointsMaterial({color:type==='ocean'?0x6be9ff:0xffc9ff,size:.12,transparent:true,opacity:.65});
-const dustPos=[];
-for(let i=0;i<220;i++)dustPos.push((Math.random()-.5)*100,Math.random()*48-8,(Math.random()-.5)*100);
-const dustGeo=new THREE.BufferGeometry();dustGeo.setAttribute('position',new THREE.Float32BufferAttribute(dustPos,3));
-const dust=new THREE.Points(dustGeo,dustMat);scene.add(dust);worldState.dust=dust;
+const canvas=$('world-canvas'),scene=new THREE.Scene(),isOcean=type==='ocean',isMetro=type==='metro';
+scene.background=new THREE.Color(isOcean?0x063958:isMetro?0x070b27:0x80d6f5);scene.fog=new THREE.FogExp2(isOcean?0x063958:isMetro?0x10102f:0x80d6f5,.003);
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const camera=new THREE.PerspectiveCamera(65,1,.1,1200);camera.position.set(0,5,18);
+scene.add(new THREE.HemisphereLight(0xc9edff,0x201d42,isOcean?.9:1.8));
+const keyLight=new THREE.DirectionalLight(0xffedcf,2);keyLight.position.set(20,35,15);keyLight.castShadow=true;keyLight.shadow.mapSize.set(1024,1024);scene.add(keyLight);
+const fillLight=new THREE.PointLight(isOcean?0x22cfff:isMetro?0xb14cff:0x42cfff,35,100);fillLight.position.set(-12,12,8);scene.add(fillLight);
+const root=new THREE.Group();scene.add(root);const anim=[];
+worldState={THREE,type,scene,renderer,camera,root,keyLight,fillLight,light:'day',view:$('world-location').value||worldDefs[type].views[0][0],yaw:0,pitch:0,dragging:false,lastX:0,lastY:0,elapsed:0,resize:null,anim};
+const material=(c,r=.65,m=.08,e=0,ei=0)=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m,emissive:e,emissiveIntensity:ei});
+const glow=(c,i=1.8)=>material(c,.25,.2,c,i);
+const box=(x,y,z,w,h,d,mat,parent=root)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o};
+const sphere=(x,y,z,r,mat,parent=root)=>{const o=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),mat);o.position.set(x,y,z);parent.add(o);return o};
+const cylinder=(x,y,z,rt,rb,h,mat,parent=root)=>{const o=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,12),mat);o.position.set(x,y,z);parent.add(o);return o};
+const plane=(w,h,c,y=0,z=0)=>{const o=new THREE.Mesh(new THREE.PlaneGeometry(w,h),material(c,.95));o.rotation.x=-Math.PI/2;o.position.set(0,y,z);root.add(o);return o};
+const point=(x,y,z,r,c)=>{const o=sphere(x,y,z,r,glow(c,2));o.userData.pulse=true;o.userData.phase=Math.random()*6;return o};
+
+/* Stars, atmospheric dust and luminous particles in every world. */
+const positions=[];for(let i=0;i<900;i++)positions.push((Math.random()-.5)*260,Math.random()*100-5,-Math.random()*230-15);
+const sg=new THREE.BufferGeometry();sg.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));const stars=new THREE.Points(sg,new THREE.PointsMaterial({color:0xd9f4ff,size:.17,transparent:true,opacity:.85}));scene.add(stars);worldState.stars=stars;
+const dp=[];for(let i=0;i<250;i++)dp.push((Math.random()-.5)*100,Math.random()*45-8,(Math.random()-.5)*100);
+const dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.Float32BufferAttribute(dp,3));const dust=new THREE.Points(dg,new THREE.PointsMaterial({color:isOcean?0x56eaff:0xffc9ff,size:.12,transparent:true,opacity:.6}));scene.add(dust);worldState.dust=dust;
 
 if(type==='villa'){
-scene.background=new THREE.Color(0x83d7f4);
-scene.fog.color.set(0x9ddff0);
-addPlane(220,220,0x3a9a70);
-const river=addBox(0,.04,-35,180,.12,42,mat(0x087fae,.22,.25,0x063c70,.5));
-river.userData.water=true;
-const pool=addBox(0,.12,7,26,.18,9,mat(0x21c9ed,.18,.3,0x078dbb,.7));
-pool.userData.water=true;
-addBox(0,.23,12,29,.25,1,mat(0xe9dfc9));
-addBox(-14,.23,7,1,.25,11,mat(0xe9dfc9));addBox(14,.23,7,1,.25,11,mat(0xe9dfc9));
-/* Main villa: layered architecture, balcony, windows and roof */
-addBox(0,3,0,15,6,11,mat(0xf5e8cf));
-addBox(0,6.25,0,16,.55,12,mat(0xc77c53));
-addBox(0,7.1,-.1,12,.45,9,mat(0x8b4b43));
-addBox(0,4.3,5.62,13,.25,.35,mat(0xffffff));
-for(let side of [-1,1]){
-addBox(side*4.6,3.4,5.58,3.3,3.4,.16,mat(0x4ac7e8,.2,.3,0x1a7199,.7));
-addBox(side*4.6,3.4,5.69,.12,3.5,.08,mat(0xece6d8));
-addBox(side*4.6,3.4,5.69,3.3,.12,.08,mat(0xece6d8));
-addBox(side*8,1.5,1,.25,3,.25,mat(0xe4d9c4));
+plane(220,220,0x358e69);
+const river=box(0,.03,-34,180,.12,40,material(0x087fae,.2,.3,0x087fc0,.7));river.userData.water=true;
+box(0,.12,7,28,.18,10,material(0x20c9ec,.18,.35,0x078dbb,.7));
+box(0,.22,12,30,.22,1,material(0xe9dfc9));box(-14,.22,7,1,.22,11,material(0xe9dfc9));box(14,.22,7,1,.22,11,material(0xe9dfc9));
+/* Mansion, layered roof, glass walls and terrace. */
+box(0,3,0,15,6,11,material(0xf5e8cf));box(0,6.2,0,16,.5,12,material(0xc77c53));box(0,6.9,0,12,.4,9,material(0x8b4b43));
+for(const x of [-4.7,4.7]){box(x,3.5,5.57,3.2,3.5,.12,material(0x42c7e8,.2,.3,0x167fa8,.9));box(x,3.5,5.66,.12,3.6,.08,material(0xf4ead7));box(x,3.5,5.66,3.2,.12,.08,material(0xf4ead7))}
+box(0,1.7,5.8,2.1,3.2,.3,material(0x684d3d));box(0,4.8,5.8,2.5,.15,.15,material(0xffffff));
+for(const x of [-7,-4,4,7])box(x,4.7,8,.16,2.5,.16,material(0xf5e4c6));box(0,6,8,15,.18,.18,material(0xf5e4c6));
+for(let x=-6;x<=6;x+=4)point(x,3.5,6.2,.2,0xffc86b);
+for(let i=0;i<32;i++){
+const x=(Math.random()-.5)*100,z=(Math.random()-.5)*90;if(Math.abs(x)<11&&z>-9&&z<14)continue;
+cylinder(x,1.1,z,.22,.32,2.2,material(0x795037));const crown=sphere(x,3,z,1.5,material([0x277c4c,0x36945a,0x1d6947][i%3]));crown.scale.set(1,1.1,1);
 }
-addBox(0,1.7,5.8,2.2,3.2,.3,mat(0x684d3d));
-addBox(0,5.3,5.8,2.5,.16,.18,mat(0xfef3d7));
-/* Terrace pergola and warm lanterns */
-for(let x of [-7,-4,4,7])addBox(x,4.7,8,.16,2.5,.16,mat(0xf5e4c6));
-addBox(0,6,8,15,.18,.18,mat(0xf5e4c6));
-for(let x=-6;x<=6;x+=4)addGlowSphere(x,3.5,6.2,.22,0xffc86b,2.5);
-for(let i=0;i<30;i++){
-const x=(Math.random()-.5)*100,z=(Math.random()-.5)*90;
-if(Math.abs(x)<11&&z>-9&&z<14)continue;
-addCylinder(x,1.1,z,.22,.32,2.2,mat(0x795037));
-const crown=addSphere(x,3,z,1.65,mat([0x277c4c,0x36945a,0x1d6947][i%3]));
-crown.scale.set(1,1.1,1);
-if(i%3===0)addGlowSphere(x,3.7,z, .12,0xffd17c,1.5);
-}
-for(let i=0;i<18;i++){
-const x=(Math.random()-.5)*90,z=-18-Math.random()*30;
-const flower=addSphere(x,.7,z,.22,mat([0xffa6c9,0xffd66b,0xffffff][i%3]));
-flower.scale.set(1,.5,1);
-}
-/* Palm trees */
-for(let i=0;i<8;i++){
-const x=(i%2?1:-1)*(18+Math.random()*14),z=-5-i*5;
-const trunk=addCylinder(x,3,z,.25,.42,6,mat(0x986440));trunk.rotation.z=(i%2?.12:-.12);
-for(let j=0;j<6;j++){
-const leaf=addSphere(x+Math.cos(j*Math.PI/3)*1.7,5.7,z+Math.sin(j*Math.PI/3)*1.7,1,mat(0x23895e));
-leaf.scale.set(1.7,.12,.45);leaf.rotation.y=j*Math.PI/3;leaf.rotation.z=-.25;
-}
-}
+for(let i=0;i<8;i++){const x=(i%2?1:-1)*(18+Math.random()*14),z=-5-i*5;cylinder(x,3,z,.25,.42,6,material(0x986440));for(let j=0;j<6;j++){const leaf=sphere(x+Math.cos(j*Math.PI/3)*1.7,5.7,z+Math.sin(j*Math.PI/3)*1.7,1,material(0x23895e));leaf.scale.set(1.7,.12,.45);leaf.rotation.y=j*Math.PI/3}}
+for(let i=0;i<35;i++){const x=(Math.random()-.5)*90,z=-18-Math.random()*30;const f=sphere(x,.7,z,.16,material([0xffa6c9,0xffd66b,0xffffff][i%3]));f.scale.set(1,.5,1)}
 }else if(type==='metro'){
-scene.background=new THREE.Color(0x090b27);
-scene.fog.color.set(0x11102f);
-addPlane(240,240,0x10152d);
-const road=addBox(0,.08,0,19,.1,170,mat(0x202943,.4,.25));
-const road2=addBox(0,.09,-6,170,.1,17,mat(0x202943,.4,.25));
-for(let i=-10;i<=10;i++){
-addBox(i*7,.13,0,.07,.025,170,mat(0x394467));
-addBox(0,.14,i*7,170,.025,.07,mat(0x394467));
+plane(240,240,0x10152d);box(0,.08,0,19,.1,170,material(0x202943,.4,.25));box(0,.09,-6,170,.1,17,material(0x202943,.4,.25));
+for(let i=-10;i<=10;i++){box(i*7,.13,0,.07,.025,170,material(0x394467));box(0,.14,i*7,170,.025,.07,material(0x394467))}
+box(0,.18,0,1,.04,170,glow(0x167aab,.65));
+const colors=[0x172747,0x202c51,0x282345,0x183a50,0x32254b,0x152b3b,0x292a55],neon=[0x32e8ff,0xd45cff,0xffb45e,0x6effd2];
+for(let i=0;i<105;i++){
+const side=Math.random()<.5?-1:1,x=side*(13+Math.random()*66),z=(Math.random()-.5)*130,h=8+Math.random()*35,w=2.5+Math.random()*5,d=3+Math.random()*5,g=new THREE.Group();g.position.set(x,h/2,z);root.add(g);
+box(0,0,0,w,h,d,material(colors[i%colors.length],.42,.25),g);box(0,h/2+.12,0,w*.72,.25,d*.72,glow(neon[i%4],.5),g);
+for(let yy=-h/2+1.5;yy<h/2-1;yy+=2.1)for(let xx=-w/2+.55;xx<w/2-.2;xx+=1.05){const wm=Math.random()>.4?glow(neon[i%4],1):material(0x18243c);box(xx,yy,d/2+.035,.43,.72,.055,wm,g)}
+if(i%5===0){box(0,h/2+1,0,w*.85,.08,d*.85,glow(neon[i%4],2),g);point(x,h+2,z,.28,neon[i%4])}
 }
-addBox(0,.18,0,1,.04,170,glow(0x167aab,.65));
-/* A luminous skyline, with varied silhouettes and emissive windows */
-const colors=[0x172747,0x202c51,0x282345,0x183a50,0x32254b,0x152b3b,0x292a55];
-const neon=[0x32e8ff,0xd45cff,0xffb45e,0x6effd2];
-for(let i=0;i<100;i++){
-const side=Math.random()<.5?-1:1;
-const x=side*(13+Math.random()*66),z=(Math.random()-.5)*130;
-const h=8+Math.random()*35,w=2.5+Math.random()*5,d=3+Math.random()*5;
-const building=new THREE.Group();building.position.set(x,h/2,z);root.add(building);
-addBox(0,0,0,w,h,d,mat(colors[i%colors.length],.42,.25),building);
-addBox(0,h/2+.12,0,w*.72,.25,d*.72,glow(neon[i%neon.length],.45),building);
-for(let yy=-h/2+1.5;yy<h/2-1;yy+=2.1){
-for(let xx=-w/2+.55;xx<w/2-.2;xx+=1.05){
-const wm=glow(neon[(i+Math.floor(yy))%neon.length],.7+Math.random()*1.5);
-const win=addBox(xx,yy,d/2+.035,.43,.72,.055,wm,building);
-if(Math.random()>.58)win.material=mat(0x18243c);
-}
-}
-if(i%5===0){
-addBox(0,h/2+1,0,w*.85,.08,d*.85,glow(neon[i%4],2),building);
-addGlowSphere(0,h/2+2,0,.35,neon[i%4],2.5,building);
-}
-}
-/* Elevated monorail and luminous guide rails */
-for(let x of [-2.8,2.8])addBox(x,7,-8,.18,.22,170,glow(0x1de9ff,1.6));
-addBox(0,7,-8,6,.35,170,mat(0x424b6b,.3,.5));
-for(let z=-75;z<80;z+=12)addBox(0,7.25,z,5,.07,.18,glow(0x42eaff,1.8));
-/* Moving trains */
-for(let lane=0;lane<2;lane++){
-const train=new THREE.Group();root.add(train);
-const body=addBox(0,0,0,4.5,1.45,8,mat(lane?0x44265d:0x15516c,.25,.55));
-addBox(0,.12,4.05,4.1,.9,.08,glow(lane?0xff68d4:0x59f5ff,2));
-for(let z of [-2.7,-.9,.9,2.7])addBox(0,.2,z,4.25,.65,.08,mat(0x132b49,.18,.2,0x29cfff,.8));
-for(let x of [-1.9,1.9])addBox(x,-.6,0,.12,.25,7,glow(0x55eaff,1.4));
-train.position.set(0,9,lane?-55:55);train.userData.motion='train';train.userData.speed=lane?10:-8;
-}
-/* Cars and light trails */
-for(let i=0;i<13;i++){
-const car=new THREE.Group();root.add(car);
-const color=neon[i%neon.length];
-addBox(0,.45,0,1.4,.65,2.5,mat([0x263a61,0x34304d,0x1b4a58][i%3],.25,.5));
-addBox(0,.78,-.2,.95,.22,1.15,mat(0x78dff5,.15,.25,0x2479aa,.8));
-for(let x of [-.48,.48])addBox(x,.42,1.27,.15,.15,.08,glow(color,2));
-car.position.set(i%2? -3.8:3.8,.15,-65+i*10);
-car.userData.motion='car';car.userData.speed=i%2?13:-10;car.userData.lane=i%2?-3.8:3.8;
-}
-for(let i=0;i<12;i++){
-const holo=addBox((Math.random()-.5)*70,5+Math.random()*16,(Math.random()-.5)*100,.12,2+Math.random()*5,.12,glow(neon[i%4],2.2));
-holo.userData.pulse=true;holo.userData.phase=Math.random()*6;
-}
-for(let i=0;i<18;i++)addGlowSphere((Math.random()-.5)*95,10+Math.random()*28,-30-Math.random()*100,.18+Math.random()*.25,neon[i%4],2);
+for(const x of [-2.8,2.8])box(x,7,-8,.18,.22,170,glow(0x1de9ff,1.6));box(0,7,-8,6,.35,170,material(0x424b6b,.3,.5));
+for(let z=-75;z<80;z+=12)box(0,7.25,z,5,.07,.18,glow(0x42eaff,1.8));
+for(let lane=0;lane<2;lane++){const g=new THREE.Group();root.add(g);box(0,0,0,4.5,1.45,8,material(lane?0x44265d:0x15516c,.25,.55),g);box(0,.12,4.05,4.1,.9,.08,glow(lane?0xff68d4:0x59f5ff,2),g);for(const z of [-2.7,-.9,.9,2.7])box(0,.2,z,4.25,.65,.08,material(0x132b49,.18,.2,0x29cfff,.8),g);g.position.set(0,9,lane?-55:55);g.userData.motion='train';g.userData.speed=lane?10:-8;anim.push(g)}
+for(let i=0;i<14;i++){const car=new THREE.Group();root.add(car);const c=neon[i%4];box(0,.45,0,1.4,.65,2.5,material(0x263a61,.25,.5),car);box(0,.78,-.2,.95,.22,1.15,glow(0x78dff5,.8),car);for(const x of [-.48,.48])box(x,.42,1.27,.15,.15,.08,glow(c,2),car);car.position.set(i%2?-3.8:3.8,.15,-65+i*10);car.userData.motion='car';car.userData.speed=i%2?13:-10;anim.push(car)}
+for(let i=0;i<16;i++){const o=point((Math.random()-.5)*90,8+Math.random()*28,-30-Math.random()*100,.18+Math.random()*.2,neon[i%4]);o.userData.pulse=true}
 }else{
-scene.background=new THREE.Color(0x064a70);
-scene.fog.color.set(0x075071);
-addPlane(220,220,0x0b4260);
-const seabed=addBox(0,-2,-8,180,2,180,mat(0x07506c,.9));
-/* Ocean surface shimmer */
-const surface=addPlane(180,180,0x087da0,-Math.PI/2,11,-15);
-surface.material=mat(0x087da0,.2,.3,0x0c9fc7,.45);
-surface.userData.water=true;
-for(let i=0;i<14;i++){
-const beam=new THREE.Mesh(new THREE.CylinderGeometry(.4,4,24,16,1,true),new THREE.MeshBasicMaterial({color:0x72edff,transparent:true,opacity:.055,side:THREE.DoubleSide,depthWrite:false}));
-beam.position.set((Math.random()-.5)*42,7,-10-Math.random()*25);beam.rotation.z=(Math.random()-.5)*.3;root.add(beam);
-beam.userData.motion='beam';beam.userData.phase=Math.random()*6;
+plane(220,220,0x0b4260);box(0,-2,-8,180,2,180,material(0x07506c,.9));
+const surface=plane(180,180,0x087da0,11,-15);surface.material=material(0x087da0,.2,.3,0x0c9fc7,.45);
+for(let i=0;i<14;i++){const beam=new THREE.Mesh(new THREE.CylinderGeometry(.4,4,24,16,1,true),new THREE.MeshBasicMaterial({color:0x72edff,transparent:true,opacity:.055,side:THREE.DoubleSide,depthWrite:false}));beam.position.set((Math.random()-.5)*42,7,-10-Math.random()*25);root.add(beam);beam.userData.motion='beam';beam.userData.phase=Math.random()*6;anim.push(beam)}
+const coralColors=[0xff7a9c,0xffa34e,0xd65edb,0xf2d16b,0x44dfce,0x6b9cff];
+for(let i=0;i<65;i++){const x=(Math.random()-.5)*75,z=(Math.random()-.5)*65-7,h=1+Math.random()*4.5,g=new THREE.Group();g.position.set(x,-.5,z);root.add(g);const c=coralColors[i%coralColors.length],m=material(c,.42,.08,c,.25);cylinder(0,h/2-1,0,.13,.34,h,m,g);for(let b=0;b<4;b++){const br=cylinder((Math.random()-.5)*1.2,h-1+Math.random()*1.4,(Math.random()-.5)*1.2,.06,.15,1.4,m,g);br.rotation.z=(Math.random()-.5)*.9;br.rotation.x=(Math.random()-.5)*.7}if(i%3===0)point(x,h,z,.16,c)}
+for(let i=0;i<22;i++){const rock=sphere((Math.random()-.5)*80,-1.4,(Math.random()-.5)*70-8,1+Math.random()*2,material(0x315e6b));rock.scale.set(1.5,.65,1)}
+for(let i=0;i<30;i++){const p=sphere((Math.random()-.5)*70,1,(Math.random()-.5)*65-8,.7,material(i%2?0x168b83:0x2bb49a));p.scale.set(.4,2+Math.random()*2,.3);p.userData.sway=true;p.userData.phase=Math.random()*6;anim.push(p)}
+for(let i=0;i<110;i++){const b=sphere((Math.random()-.5)*90,-1+Math.random()*15,(Math.random()-.5)*75,.07+Math.random()*.18,new THREE.MeshStandardMaterial({color:0xa8ecff,transparent:true,opacity:.55,roughness:.15}));b.userData.bubble=true;b.userData.speed=.3+Math.random()*.9;anim.push(b)}
+for(let school=0;school<4;school++)for(let i=0;i<9;i++){const c=[0xffc857,0x4ed5e8,0xf48fb1,0x9cffcb][school],fish=new THREE.Group();const body=sphere(0,0,0,.38,material(c,.28,.15,c,.35),fish);body.scale.set(1.35,.68,.62);const tail=sphere(-.52,0,0,.22,material(c),fish);tail.scale.set(.65,.5,.2);tail.userData.tail=true;tail.userData.phase=Math.random()*6;fish.position.set((Math.random()-.5)*40,1+Math.random()*8,(Math.random()-.5)*42-5);fish.userData.fish=true;fish.userData.baseX=fish.position.x;fish.userData.baseY=fish.position.y;fish.userData.baseZ=fish.position.z;fish.userData.phase=Math.random()*6;root.add(fish);anim.push(fish)}
+for(let i=0;i<22;i++)point((Math.random()-.5)*55,Math.random()*10,(Math.random()-.5)*45,.12+Math.random()*.2,0x50eaff)
 }
-/* Large, varied coral gardens */
-for(let i=0;i<65;i++){
-const x=(Math.random()-.5)*75,z=(Math.random()-.5)*65-7;
-const h=1+Math.random()*4.5;
-const coralGroup=new THREE.Group();coralGroup.position.set(x,-.5,z);root.add(coralGroup);
-const colors=[0xff7a9c,0xffa34e,0xd65edb,0xf2d16b,0x44dfce,0x6b9cff];
-const cm=mat(colors[i%colors.length],.42,.08,colors[i%colors.length],.25);
-addCylinder(0,h/2-1,0,.13,.34,h,cm,coralGroup);
-for(let b=0;b<4;b++){
-const branch=addCylinder((Math.random()-.5)*1.2,h-1+Math.random()*1.4,(Math.random()-.5)*1.2,.06,.15,1.4,cm,coralGroup);
-branch.rotation.z=(Math.random()-.5)*.9;branch.rotation.x=(Math.random()-.5)*.7;
-}
-if(i%3===0)addGlowSphere(0,h,0,.16,colors[i%colors.length],1.8,coralGroup);
-}
-/* Rock formations and sea plants */
-for(let i=0;i<22;i++){
-const rock=addSphere((Math.random()-.5)*80,-1.4,(Math.random()-.5)*70-8,1+Math.random()*2,mat(0x315e6b));
-rock.scale.set(1.5,.65,1);
-}
-for(let i=0;i<30;i++){
-const plant=addSphere((Math.random()-.5)*70,1,(Math.random()-.5)*65-8,.7,mat(i%2?0x168b83:0x2bb49a));
-plant.scale.set(.4,2+Math.random()*2,.3);plant.userData.sway=true;plant.userData.phase=Math.random()*6;
-}
-/* Bubbles */
-for(let i=0;i<110;i++){
-const bubble=addSphere((Math.random()-.5)*90,-1+Math.random()*15,(Math.random()-.5)*75,.07+Math.random()*.18,new THREE.MeshStandardMaterial({color:0xa8ecff,transparent:true,opacity:.55,roughness:.15,metalness:.1}));
-bubble.userData.bubble=true;bubble.userData.speed=.3+Math.random()*.9;root.add(bubble);
-}
-/* Schools of fish, each with moving tails and luminous accents */
-for(let school=0;school<4;school++){
-const color=[0xffc857,0x4ed5e8,0xf48fb1,0x9cffcb][school];
-for(let i=0;i<9;i++){
-const fish=new THREE.Group();
-const body=addSphere(0,0,0,.38,mat(color,.28,.15,color,.35),fish);body.scale.set(1.35,.68,.62);
-const tail=addSphere(-.52,0,0,.22,mat(color,.3,.1),fish);tail.scale.set(.65,.5,.2);
-tail.userData.fishTail=true;tail.userData.phase=Math.random()*6;
-for(let x of [-.25,.25])addSphere(x,.14,.2,.055,glow(0xffffff,1.2),fish);
-fish.position.set((Math.random()-.5)*40,1+Math.random()*8,(Math.random()-.5)*42-5);
-fish.userData.fish=true;fish.userData.baseX=fish.position.x;fish.userData.baseY=fish.position.y;fish.userData.baseZ=fish.position.z;fish.userData.phase=Math.random()*6;fish.userData.speed=2+Math.random()*3;
-root.add(fish);
-}
-}
-for(let i=0;i<14;i++)addGlowSphere((Math.random()-.5)*55,Math.random()*10,(Math.random()-.5)*45,.12+Math.random()*.2,0x50eaff,1.7);
-}
-const wrap=$('world-canvas-wrap');
-worldState.resize=()=>{
-if(!worldState)return;
-const w=Math.max(1,canvas.clientWidth),h=Math.max(1,canvas.clientHeight);
-renderer.setSize(w,h,false);camera.aspect=(worldSplit?w/2:w)/h;camera.updateProjectionMatrix();
-};
-worldState.resize();
+worldState.resize=()=>{if(!worldState)return;const w=Math.max(1,canvas.clientWidth),h=Math.max(1,canvas.clientHeight);renderer.setSize(w,h,false);camera.aspect=(worldSplit?w/2:w)/h;camera.updateProjectionMatrix()};
 worldState.pointerDown=e=>{worldState.dragging=true;worldState.lastX=e.clientX;worldState.lastY=e.clientY;canvas.setPointerCapture?.(e.pointerId)};
-worldState.pointerMove=e=>{
-if(!worldState||!worldState.dragging)return;
-worldState.yaw-=(e.clientX-worldState.lastX)*.004;
-worldState.pitch=Math.max(-.8,Math.min(.8,worldState.pitch+(e.clientY-worldState.lastY)*.003));
-worldState.lastX=e.clientX;worldState.lastY=e.clientY;
-};
+worldState.pointerMove=e=>{if(!worldState||!worldState.dragging)return;worldState.yaw-=(e.clientX-worldState.lastX)*.004;worldState.pitch=Math.max(-.8,Math.min(.8,worldState.pitch+(e.clientY-worldState.lastY)*.003));worldState.lastX=e.clientX;worldState.lastY=e.clientY};
 worldState.pointerUp=()=>{if(worldState)worldState.dragging=false};
-canvas.addEventListener('pointerdown',worldState.pointerDown);
-canvas.addEventListener('pointermove',worldState.pointerMove);
-canvas.addEventListener('pointerup',worldState.pointerUp);
-canvas.addEventListener('pointercancel',worldState.pointerUp);
+canvas.addEventListener('pointerdown',worldState.pointerDown);canvas.addEventListener('pointermove',worldState.pointerMove);canvas.addEventListener('pointerup',worldState.pointerUp);canvas.addEventListener('pointercancel',worldState.pointerUp);
 worldState.animate=()=>{
-if(!worldState)return;
-worldFrame=requestAnimationFrame(worldState.animate);
-const s=worldState;s.elapsed+=.016;
-s.root.rotation.y=Math.sin(s.elapsed*.12)*.018;
-s.root.traverse(o=>{
+if(!worldState)return;worldFrame=requestAnimationFrame(worldState.animate);const s=worldState;s.elapsed+=.016;s.root.rotation.y=Math.sin(s.elapsed*.12)*.018;
+s.anim.forEach(o=>{
 if(o.userData.bubble){o.position.y+=o.userData.speed*.016;if(o.position.y>12)o.position.y=-1}
-if(o.userData.fish){
-o.position.x=o.userData.baseX+Math.sin(s.elapsed*.35+o.userData.phase)*3;
-o.position.y=o.userData.baseY+Math.sin(s.elapsed+o.userData.phase)*.55;
-o.position.z=o.userData.baseZ+Math.cos(s.elapsed*.3+o.userData.phase)*1.6;
-o.rotation.y=Math.sin(s.elapsed*.3+o.userData.phase)*.15;
-}
-if(o.userData.motion==='train'){o.position.z+=o.userData.speed*.016;if(o.position.z>75)o.position.z=-75;if(o.position.z< -75)o.position.z=75}
-if(o.userData.motion==='car'){o.position.z+=o.userData.speed*.016;if(o.position.z>75)o.position.z=-75;if(o.position.z< -75)o.position.z=75}
-if(o.userData.motion==='beam'){o.rotation.z=Math.sin(s.elapsed*.25+o.userData.phase)*.16}
+if(o.userData.fish){o.position.x=o.userData.baseX+Math.sin(s.elapsed*.35+o.userData.phase)*3;o.position.y=o.userData.baseY+Math.sin(s.elapsed+o.userData.phase)*.55;o.position.z=o.userData.baseZ+Math.cos(s.elapsed*.3+o.userData.phase)*1.6;o.rotation.y=Math.sin(s.elapsed*.3+o.userData.phase)*.15}
+if(o.userData.motion==='train'||o.userData.motion==='car'){o.position.z+=o.userData.speed*.016;if(o.position.z>75)o.position.z=-75;if(o.position.z< -75)o.position.z=75}
+if(o.userData.motion==='beam')o.rotation.z=Math.sin(s.elapsed*.25+o.userData.phase)*.16;
 if(o.userData.sway)o.rotation.z=Math.sin(s.elapsed*.7+o.userData.phase)*.12;
-if(o.userData.pulse){const k=1.15+Math.sin(s.elapsed*1.6+o.userData.phase)*.3;if(o.material&&'emissiveIntensity'in o.material)o.material.emissiveIntensity=k}
+if(o.userData.pulse&&o.material&&'emissiveIntensity'in o.material)o.material.emissiveIntensity=1.3+Math.sin(s.elapsed*1.6+(o.userData.phase||0))*.5;
 });
-if(s.starField)s.starField.rotation.y=s.elapsed*.003;
-if(s.dust)s.dust.rotation.y=-s.elapsed*.009;
-s.fillLight.position.x=Math.sin(s.elapsed*.22)*18;
-s.fillLight.position.z=Math.cos(s.elapsed*.2)*15;
-s.camera.position.x=Math.sin(s.yaw)*18;
-s.camera.position.z=Math.cos(s.yaw)*18;
-s.camera.position.y=5+s.pitch*8;
-s.camera.lookAt(0,4,0);
-s.resize();
-if(worldSplit){
-const w=canvas.clientWidth,h=canvas.clientHeight;
-renderer.setScissorTest(true);
-renderer.setViewport(0,0,w/2,h);renderer.setScissor(0,0,w/2,h);renderer.render(scene,camera);
-renderer.setViewport(w/2,0,w/2,h);renderer.setScissor(w/2,0,w/2,h);
-const old=s.camera.position.clone();s.camera.position.x+=.15;renderer.render(scene,camera);s.camera.position.copy(old);
-renderer.setScissorTest(false);
-}else renderer.render(scene,camera);
+s.stars.rotation.y=s.elapsed*.003;s.dust.rotation.y=-s.elapsed*.009;s.fillLight.position.x=Math.sin(s.elapsed*.22)*18;s.fillLight.position.z=Math.cos(s.elapsed*.2)*15;
+const base=worldCameraPosition(s.type,s.view);s.camera.position.x=base[0]+Math.sin(s.yaw)*4;s.camera.position.y=base[1]+s.pitch*5;s.camera.position.z=base[2]+Math.cos(s.yaw)*4;s.camera.lookAt(0,s.type==='metro'&&s.view==='sky'?12:4,0);s.resize();
+if(worldSplit){const w=canvas.clientWidth,h=canvas.clientHeight;s.renderer.setScissorTest(true);s.renderer.setViewport(0,0,w/2,h);s.renderer.setScissor(0,0,w/2,h);s.renderer.render(s.scene,s.camera);s.renderer.setViewport(w/2,0,w/2,h);s.renderer.setScissor(w/2,0,w/2,h);const old=s.camera.position.clone();s.camera.position.x+=.15;s.renderer.render(s.scene,s.camera);s.camera.position.copy(old);s.renderer.setScissorTest(false)}else s.renderer.render(s.scene,s.camera);
 };
-applyWorldLighting();updateWorldSceneText();worldState.animate();
+worldState.resize();applyWorldLighting();applyWorldCamera();updateWorldSceneText();worldState.animate();
 }
-
-function applyWorldCamera(){if(!worldState)return;const type=worldState.type,view=worldState.view;
-const positions={
-villa:{garden:[0,5,18],terrace:[0,5,12],sea:[0,9,24]},
-metro:{street:[0,5,18],roof:[0,20,20],train:[0,10,26],sky:[0,42,45]},
-ocean:{surface:[0,8,18],shallow:[0,5,18],reef:[0,2,16],abyss:[0,-1,18]}
-};
-const p=(positions[type]||{})[view]||[0,5,18];
-worldState.camera.position.set(...p);
-worldState.camera.lookAt(0,4,0);
+function worldCameraPosition(type,view){
+const p={villa:{garden:[0,5,18],terrace:[0,5,12],sea:[0,9,24]},metro:{street:[0,5,18],roof:[0,20,20],train:[0,10,26],sky:[0,42,45]},ocean:{surface:[0,8,18],shallow:[0,5,18],reef:[0,2,16],abyss:[0,-1,18]}};return ((p[type]||{})[view]||[0,5,18]);
 }
+function applyWorldCamera(){if(!worldState)return;worldState.view=$('world-location').value||worldState.view;worldState.camera.position.set(...worldCameraPosition(worldState.type,worldState.view));worldState.camera.lookAt(0,4,0)}
 function applyWorldLighting(){
-if(!worldState)return;
-const s=worldState,light=s.light;
-const settings=light==='night'?{bg:s.type==='ocean'?0x031426:0x050818,intensity:.45,sky:0x243252}:
-light==='sunset'?{bg:s.type==='ocean'?0x164d70:0x4c315f,intensity:1.1,sky:0xf7a35b}:
-{bg:s.type==='ocean'?0x075071:s.type==='metro'?0x10152c:0x8bc8e9,intensity:2,sky:0xbfe8ff};
-s.renderer.setClearColor(settings.bg,1);s.keyLight.intensity=settings.intensity;
-s.scene.children.forEach(o=>{if(o.isHemisphereLight)o.color.setHex(settings.sky)});
+if(!worldState)return;const s=worldState,l=s.light,settings=l==='night'?{bg:s.type==='ocean'?0x031426:0x050818,intensity:.45,sky:0x243252}:l==='sunset'?{bg:s.type==='ocean'?0x164d70:0x4c315f,intensity:1.1,sky:0xf7a35b}:{bg:s.type==='ocean'?0x075071:s.type==='metro'?0x10152c:0x8bc8e9,intensity:2,sky:0xbfe8ff};
+s.renderer.setClearColor(settings.bg,1);s.scene.background.setHex(settings.bg);s.scene.fog.color.setHex(settings.bg);s.keyLight.intensity=settings.intensity;s.scene.children.forEach(o=>{if(o.isHemisphereLight)o.color.setHex(settings.sky)});
 }
-function toggleWorldHud(){worldHudOn=!worldHudOn;$('world-hud').classList.toggle('hidden',!worldHudOn);updateWorldControlsText()}
+function populateWorldLocations(type=worldState?.type){
+if(!type)return;const def=worldDefs[type],sel=$('world-location'),old=sel.value;sel.innerHTML='';
+def.views.forEach((v,i)=>{const op=document.createElement('option');op.value=v[0];op.textContent=currentLang==='es'?v[2]:v[1];sel.appendChild(op)});
+sel.value=def.views.some(v=>v[0]===old)?old:def.views[0][0];if(worldState){worldState.view=sel.value;applyWorldCamera()}
+}
+function changeWorldLocation(v){if(!worldState)return;worldState.view=v;applyWorldCamera();updateWorldSceneText()}
+function changeWorldLight(v){if(!worldState)return;worldState.light=v;applyWorldLighting()}
+function updateWorldSceneText(){if(!worldState)return;$('hud-title').innerText=worldDefs[worldState.type].title;$('hud-desc').innerText=t()[worldDefs[worldState.type].hud]}
+function updateWorldControlsText(){
+if(!$('world-audio-btn'))return;const x=t();$('world-audio-btn').innerText=worldAudioOn?x.soundOn:x.soundOff;$('world-hud-btn').innerText=worldHudOn?x.hideInfo:x.showInfo;$('world-split-btn').innerText=worldSplit?x.splitOff:x.splitOn;$('world-full-btn').innerText=document.fullscreenElement?x.exitFullscreen:x.fullscreen;$('world-hud').classList.toggle('hidden',!worldHudOn)
+}
+function toggleWorldHud(){worldHudOn=!worldHudOn;updateWorldControlsText()}
 function toggleWorldSplit(){worldSplit=!worldSplit;if(worldState)worldState.resize();updateWorldControlsText()}
-async function toggleWorldFullscreen(){
-const wrap=$('world-canvas-wrap');
-try{if(!document.fullscreenElement)await wrap.requestFullscreen();else await document.exitFullscreen()}catch(e){console.warn('Fullscreen unavailable',e)}
-updateWorldControlsText();
-}
+async function toggleWorldFullscreen(){const wrap=$('world-canvas-wrap');try{if(!document.fullscreenElement)await wrap.requestFullscreen();else await document.exitFullscreen()}catch(e){console.warn('Fullscreen unavailable',e)}updateWorldControlsText()}
 document.addEventListener('fullscreenchange',updateWorldControlsText);
 function toggleWorldAudio(){
 if(worldAudioOn){stopWorldAudio();worldAudioOn=false;updateWorldControlsText();return}
-try{
-const AC=window.AudioContext||window.webkitAudioContext;
-if(!AC)throw new Error('Audio unavailable');
-worldAudioContext=new AC();
-const master=worldAudioContext.createGain();master.gain.value=.025;master.connect(worldAudioContext.destination);
-const osc=worldAudioContext.createOscillator(),gain=worldAudioContext.createGain();
-osc.type='sine';osc.frequency.value=worldState?.type==='ocean'?110:worldState?.type==='metro'?65:174;
-gain.gain.value=.35;osc.connect(gain);gain.connect(master);osc.start();
-worldAudioNodes=[osc,gain,master];worldAudioOn=true;updateWorldControlsText();
-}catch(e){console.warn(e);alert(currentLang==='es'?'El sonido no está disponible en este navegador.':'Sound is unavailable in this browser.')}
+try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Audio unavailable');worldAudioContext=new AC();const master=worldAudioContext.createGain();master.gain.value=.025;master.connect(worldAudioContext.destination);const osc=worldAudioContext.createOscillator(),gain=worldAudioContext.createGain();osc.type='sine';osc.frequency.value=worldState?.type==='ocean'?110:worldState?.type==='metro'?65:174;gain.gain.value=.35;osc.connect(gain);gain.connect(master);osc.start();worldAudioNodes=[osc,gain,master];worldAudioOn=true;updateWorldControlsText()}catch(e){console.warn(e);alert(currentLang==='es'?'El sonido no está disponible en este navegador.':'Sound is unavailable in this browser.')}
 }
-function stopWorldAudio(){
-worldAudioNodes.forEach(n=>{try{if(n.stop)n.stop();if(n.disconnect)n.disconnect()}catch(e){}});
-worldAudioNodes=[];if(worldAudioContext){worldAudioContext.close().catch(()=>{});worldAudioContext=null}
-}
+function stopWorldAudio(){worldAudioNodes.forEach(n=>{try{if(n.stop)n.stop();if(n.disconnect)n.disconnect()}catch(e){}});worldAudioNodes=[];if(worldAudioContext){worldAudioContext.close().catch(()=>{});worldAudioContext=null}}
 function stopWorld(){
-if(worldTimer){clearInterval(worldTimer);worldTimer=null}
-if(worldFrame){cancelAnimationFrame(worldFrame);worldFrame=null}
+if(worldTimer){clearInterval(worldTimer);worldTimer=null}if(worldFrame){cancelAnimationFrame(worldFrame);worldFrame=null}
 stopWorldAudio();worldAudioOn=false;worldSplit=false;
-if(worldState){
-const canvas=$('world-canvas');
-if(worldState.pointerDown)canvas.removeEventListener('pointerdown',worldState.pointerDown);
-if(worldState.pointerMove)canvas.removeEventListener('pointermove',worldState.pointerMove);
-if(worldState.pointerUp){canvas.removeEventListener('pointerup',worldState.pointerUp);canvas.removeEventListener('pointercancel',worldState.pointerUp)}
-try{worldState.renderer.dispose()}catch(e){}
-worldState=null;
-}
-updateWorldControlsText();
+if(worldState){const c=$('world-canvas');c.removeEventListener('pointerdown',worldState.pointerDown);c.removeEventListener('pointermove',worldState.pointerMove);c.removeEventListener('pointerup',worldState.pointerUp);c.removeEventListener('pointercancel',worldState.pointerUp);try{worldState.renderer.dispose()}catch(e){}worldState=null}
+updateWorldControlsText()
 }
 updateStaticTexts();
 </script>
