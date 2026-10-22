@@ -168,72 +168,183 @@ function saveNextExercise(){
 const $=id=>document.getElementById(id);
 const translations={
 en:{
-subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',
-langBtn:'ES',
-welcomeH2:'What can five minutes give you?',
-welcomeP:'Five focused minutes, one clear purpose: discover an idea, practice a decision, or take a useful pause. Your time should give something back.',
-startBtn:'Begin My Five Minutes',
-startNote:'Choose only comfortable movements. You can skip any exercise.',
-sessionLabel:'Your five minutes',
-continueBtn:'Continue',
-voiceOn:'🔊 Voice on',
-voiceOff:'🔇 Voice off',
-takeReset:'Take a short reset',
-correct:'Correct',
-incorrect:'Not quite. The answer is: ',
-key:'Key idea: ',
-resetHeading:'Easy Reset',
-resetIntro:'Take a short, comfortable pause. You do not need to do anything that feels uncomfortable.',
-skip:'Skip pause',
-endH2:'Your five minutes had a purpose.',
-endP:'Take one useful idea, one clearer perspective, or a moment to reset back into your day. Your time matters.',
-homeBtn:'Return Home',
-safety:'This is an optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
-curiosity:'Curiosity',
-choice:'Your choice',
-surprise:'The surprise',
-discovery:'The discovery',
-question:'Question',
-finished:'You have completed this experience.',
-inhale:'Breathe in',
-exhale:'Breathe out',
-ready:'Ready',
-breathHelp:'Follow the circle only if it feels comfortable. You can breathe naturally.'
+subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',welcomeH2:'Ready for your five-minute break?',welcomeP:'A few surprising questions, a simple reset, and a fresh perspective. No pressure.',
+startBtn:'Start Experience',startNote:'Choose only comfortable movements. You can skip any exercise.',sessionLabel:'Your five minutes',continueBtn:'Continue',voiceOn:'🔊 Voice on',voiceOff:'🔇 Voice off',
+takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',key:'Key idea: ',resetHeading:'Easy Reset',
+resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',skip:'Skip pause',endH2:'Time well spent.',
+endP:'A small discovery. A short reset. Now return to your day whenever you’re ready.',homeBtn:'Return Home',
+safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
+curiosity:'Curiosity',choice:'Your choice',surprise:'The surprise',discovery:'The discovery',question:'Question',finished:'You have completed this experience.',
+inhale:'Breathe in gently',exhale:'Breathe out gently',breathHelp:'Follow the circle only if it feels comfortable. You can breathe naturally.',ready:'Ready',
+cueIn:['Let the air arrive softly.','Welcome a comfortable breath.','Allow an easy breath in.','Notice the beginning of a breath.','Let your next breath come naturally.','Breathe in only as much as feels easy.'],
+cueOut:['Let the air leave without force.','Allow a gentle release.','Let your breath go in its own time.','Notice the breath moving away.','Release any unnecessary effort.','Allow the next exhale to be easy.']
 },
 es:{
-subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',
-langBtn:'EN',
-welcomeH2:'¿Qué pueden darte cinco minutos?',
-welcomeP:'Cinco minutos con un propósito: descubrir una idea, practicar una decisión o hacer una pausa útil. Tu tiempo debe aportarte algo.',
-startBtn:'Comenzar mis cinco minutos',
-startNote:'Elige solo movimientos cómodos. Puedes omitir cualquier ejercicio.',
-sessionLabel:'Tus cinco minutos',
-continueBtn:'Continuar',
-voiceOn:'🔊 Voz activada',
-voiceOff:'🔇 Voz silenciada',
-takeReset:'Tomar una pausa breve',
-correct:'Correcto',
-incorrect:'No exactamente. La respuesta es: ',
-key:'Idea clave: ',
-resetHeading:'Pausa sencilla',
-resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',
-skip:'Omitir pausa',
-endH2:'Tus cinco minutos tuvieron un propósito.',
-endP:'Llévate una idea útil, una perspectiva más clara o un momento para hacer una pausa. Tu tiempo importa.',
-homeBtn:'Volver al inicio',
-safety:'Esta pausa es opcional y no constituye tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
-curiosity:'Curiosidad',
-choice:'Tu decisión',
-surprise:'La sorpresa',
-discovery:'El descubrimiento',
-question:'Pregunta',
-finished:'Has completado esta experiencia.',
-inhale:'Inspira',
-exhale:'Suelta el aire',
-ready:'Prepárate',
-breathHelp:'Sigue el círculo solo si te resulta cómodo. Puedes respirar con naturalidad.'
+subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',welcomeH2:'¿Listo para una pausa de cinco minutos?',welcomeP:'Algunas preguntas sorprendentes, una pausa sencilla y una perspectiva diferente. Sin presión.',
+startBtn:'Comenzar experiencia',startNote:'Elige solo movimientos cómodos. Puedes omitir cualquier ejercicio.',sessionLabel:'Tus cinco minutos',continueBtn:'Continuar',voiceOn:'🔊 Voz activada',voiceOff:'🔇 Voz silenciada',
+takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',key:'Idea clave: ',resetHeading:'Pausa sencilla',
+resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',
+endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',homeBtn:'Volver al inicio',
+safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
+curiosity:'Curiosidad',choice:'Tu decisión',surprise:'La sorpresa',discovery:'El descubrimiento',question:'Pregunta',finished:'Has completado esta experiencia.',
+inhale:'Inhala suavemente',exhale:'Exhala suavemente',breathHelp:'Sigue el círculo solo si te resulta cómodo. Puedes respirar con naturalidad.',ready:'Preparado',
+cueIn:['Deja que el aire entre suavemente.','Recibe una respiración cómoda.','Permite una inhalación tranquila.','Nota el comienzo de una respiración.','Deja que la próxima respiración llegue sola.','Inhala solo hasta donde te resulte cómodo.'],
+cueOut:['Deja salir el aire sin forzarlo.','Permite una liberación suave.','Deja que el aire salga a su tiempo.','Nota cómo se aleja la respiración.','Suelta cualquier esfuerzo innecesario.','Permite que la exhalación sea cómoda.']
 }
 };
+function t(){return translations[currentLang]}
+function stopVoice(){if('speechSynthesis'in window)window.speechSynthesis.cancel();voiceRunId++}
+function speak(text,onEnd){
+if(!exerciseVoiceEnabled||!('speechSynthesis'in window)||!text)return;
+const id=voiceRunId,u=new SpeechSynthesisUtterance(text);
+u.lang=currentLang==='es'?'es-ES':'en-US';
+u.rate=.76;
+u.pitch=.92;
+u.volume=.85;
+u.onend=()=>{if(id===voiceRunId&&onEnd)onEnd()};
+u.onerror=()=>{if(id===voiceRunId&&onEnd)onEnd()};
+try{speechSynthesis.speak(u)}catch(e){console.warn('Voice unavailable',e)}
+}
+function updateVoiceButton(){
+const x=t();$('voice-toggle-btn').innerText=exerciseVoiceEnabled?x.voiceOn:x.voiceOff;
+$('voice-toggle-btn').setAttribute('aria-pressed',String(exerciseVoiceEnabled));
+}
+function toggleExerciseVoice(){
+exerciseVoiceEnabled=!exerciseVoiceEnabled;
+if(!exerciseVoiceEnabled)stopVoice();
+else if(currentExercise&&!$('reset-view').classList.contains('hidden'))speakCurrentExercise();
+updateVoiceButton();
+}
+function stopBreathing(){
+clearInterval(breathTimer);clearInterval(voiceCueTimer);breathTimer=voiceCueTimer=null;
+}
+function stopExerciseVoice(){stopVoice();stopBreathing()}
+function toggleLanguage(){
+currentLang=currentLang==='en'?'es':'en';document.documentElement.lang=currentLang;updateStaticTexts();
+if(currentCardData&&!$('session-view').classList.contains('hidden')){
+const hadAnswered=answered,wasCorrect=answerWasCorrect;renderCard();
+if(hadAnswered){answered=true;answerWasCorrect=wasCorrect;document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback()}
+}
+if(currentExercise&&!$('reset-view').classList.contains('hidden'))renderExercise();
+}
+function updateStaticTexts(){
+const x=t();
+$('sub-title').innerText=x.subTitle;$('lang-btn').innerText=x.langBtn;$('welcome-h2').innerText=x.welcomeH2;$('welcome-p').innerText=x.welcomeP;
+$('start-btn').innerText=x.startBtn;$('start-note').innerText=x.startNote;$('session-label').innerText=x.sessionLabel;$('next-btn').innerText=x.continueBtn;
+$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;$('skip-reset-btn').innerText=x.skip;
+$('end-h2').innerText=x.endH2;$('end-p').innerText=x.endP;$('home-btn').innerText=x.homeBtn;updateVoiceButton();
+}
+function setDonationVisible(show){
+const box=$('donation-section');
+box.classList.toggle('hidden',!show);
+if(show)box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function startInitialDonationWindow(){
+clearTimeout(donationStartTimer);donationMode='start';setDonationVisible(true);
+donationStartTimer=setTimeout(()=>{
+if(donationMode==='start')setDonationVisible(false);
+},30000);
+}
+function updateDonationForSession(){
+const shouldShow=remainingTime>0&&remainingTime<=40;
+if(shouldShow!==donationLastVisible){
+donationLastVisible=shouldShow;
+setDonationVisible(shouldShow);
+}
+}
+async function startSession(){
+const btn=$('start-btn');btn.disabled=true;
+try{
+const res=await fetch('/api/session');
+if(!res.ok)throw new Error('Session could not load');
+const data=await res.json();
+questions=data.questions||[];exercises=data.exercises||[];safetyNotes=data.safety_notes||{};
+sessionSeconds=Number(data.session_seconds)||300;
+if(!questions.length)throw new Error('No questions found');
+}catch(e){
+console.error(e);
+alert(currentLang==='es'?'No se pudo cargar el contenido. Comprueba el archivo JSON y vuelve a intentarlo.':'Content could not load. Check the JSON file and try again.');
+btn.disabled=false;return;
+}
+btn.disabled=false;clearTimeout(donationStartTimer);donationMode='session';donationLastVisible=false;setDonationVisible(false);
+stopExerciseVoice();clearInterval(sessionTimer);clearInterval(exerciseTimer);
+questionIndex=0;
+exerciseIndex=getSavedExerciseIndex();
+currentCardData=questions[0];
+remainingTime=sessionSeconds;$('start-view').classList.add('hidden');$('end-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('session-view').classList.remove('hidden');
+updateTimer();renderCard();
+sessionTimer=setInterval(()=>{
+remainingTime=Math.max(0,remainingTime-1);updateTimer();updateDonationForSession();
+if(remainingTime<=0)endSession();
+},1000);
+}
+function updateTimer(){
+const r=Math.max(0,remainingTime);
+$('time-left').innerText=`${Math.floor(r/60)}:${String(r%60).padStart(2,'0')}`;
+$('timer-bar').style.width=`${Math.max(0,r/sessionSeconds)*100}%`;
+}
+function renderCard(){
+if(!currentCardData||!currentCardData[currentLang])return;
+const card=currentCardData[currentLang],x=t();
+$('category-badge').innerText=currentCardData.topic||(currentLang==='es'?'Descubrimientos':'Discoveries');
+$('stage-label').innerText=`${x.curiosity} · ${x.choice} · ${x.surprise} · ${x.discovery}`;
+$('prompt-text').innerText=card.prompt||'';$('options-container').innerHTML='';
+$('feedback-card').style.display='none';$('feedback-card').className='feedback';$('next-btn').classList.add('hidden');
+(card.options||[]).forEach(opt=>{
+const b=document.createElement('button');b.className='option-btn';b.innerText=opt;b.onclick=()=>selectOption(opt);$('options-container').appendChild(b);
+});
+$('question-progress').innerText=`${x.question} ${questionIndex+1} / ${questions.length}`;
+answered=false;selectedAnswer=null;answerWasCorrect=null;
+}
+function selectOption(opt){
+if(answered||!currentCardData)return;
+answered=true;selectedAnswer=opt;answerWasCorrect=opt===currentCardData[currentLang].correct_answer;
+document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback();
+}
+function showFeedback(){
+const card=currentCardData[currentLang],x=t(),correct=answerWasCorrect===true;
+$('feedback-card').style.display='block';$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;
+$('feedback-status').innerText=correct?x.correct:`${x.incorrect}${card.correct_answer}`;
+$('feedback-explanation').innerText=card.explanation||'';$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
+$('next-btn').classList.remove('hidden');
+const willReset=((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length>0;
+$('next-btn').innerText=willReset?x.takeReset:x.continueBtn;
+}
+function advanceExperience(){
+if(!answered)return;
+if(((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length){showReset();return}
+goNextQuestion();
+}
+function goNextQuestion(){
+questionIndex++;
+if(questionIndex>=questions.length||remainingTime<=0){endSession();return}
+currentCardData=questions[questionIndex];answered=false;selectedAnswer=null;answerWasCorrect=null;renderCard();
+}
+function showReset(){
+if(!exercises.length){goNextQuestion();return}
+clearInterval(exerciseTimer);stopExerciseVoice();
+exerciseIndex=getSavedExerciseIndex();
+currentExercise=exercises[exerciseIndex];
+exerciseRemaining=Math.max(10,Math.min(300,Number(currentExercise.duration_seconds)||45));
+$('session-view').classList.add('hidden');$('reset-view').classList.remove('hidden');
+renderExercise();const run=++exerciseRunId;
+exerciseTimer=setInterval(()=>{
+if(run!==exerciseRunId)return;
+exerciseRemaining=Math.max(0,exerciseRemaining-1);renderCountdown();
+if(exerciseRemaining<=0)finishReset(false);
+},1000);
+}
+function renderExercise(){
+if(!currentExercise)return;
+const x=t(),lang=currentLang;
+$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;
+$('exercise-title').innerText=(currentExercise.title||{})[lang]||'';
+$('exercise-instructions').innerText=(currentExercise.instructions||{})[lang]||'';
+$('exercise-type').innerText=(currentExercise.type||'easy reset').replaceAll('_',' ').toUpperCase();
+$('safety-note').innerText=(safetyNotes||{})[lang]||x.safety;
+$('skip-reset-btn').innerText=x.skip;$('breath-help').innerText=x.breathHelp;
+updateVoiceButton();renderCountdown();updateBreathVisual('ready');speakCurrentExercise();
+}
 function renderCountdown(){
 $('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`;
 }
