@@ -14,7 +14,7 @@ header{text-align:center;border-bottom:1px solid var(--border);padding:4px 50px 
 header h1{font-size:1.45rem;letter-spacing:2px;color:var(--accent)}
 header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 .top-controls{position:absolute;right:0;top:0;display:flex;gap:5px}
-.icon-btn{background:#38bdf81a;border:1px solid var(--accent);color:var(--accent);padding:7px 11px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
+.icon-btn{background:#38bdf81a;border:1px solid var(--accent);color:var(--accent);padding:8px 11px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
 .timer-wrap{display:flex;flex-direction:column;gap:7px}
 .timer-labels{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
 .timer-track{height:6px;background:var(--border);border-radius:8px;overflow:hidden}
@@ -40,20 +40,26 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 .screen h2{font-size:1.55rem;color:var(--accent)}
 .screen p{color:var(--muted);line-height:1.6}
 .screen-icon{font-size:2rem}
-.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:20px;border-radius:12px;display:flex;flex-direction:column;gap:13px}
+.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:20px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:13px}
 .exercise-card h3{font-size:1.2rem}
 .countdown{font-size:2rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
 .safety{font-size:.76rem!important;color:var(--muted)!important}
 .mini-progress{font-size:.78rem;color:var(--muted);text-align:center}
-
-/* Donation box */
+.breathing-stage{width:100%;display:flex;flex-direction:column;align-items:center;gap:14px;padding:8px 0}
+.breathing-circle{width:176px;height:176px;border:2px solid #38bdf8;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#38bdf82b,#38bdf806 70%);box-shadow:0 0 24px #38bdf81a;transform:scale(.88);transition:transform 3s ease-in-out,background 3s ease-in-out,border-color .5s;will-change:transform}
+.breathing-circle.inhale{transform:scale(1);background:radial-gradient(circle,#38bdf84a,#38bdf810 70%)}
+.breathing-circle.exhale{transform:scale(.82);background:radial-gradient(circle,#38bdf815,#38bdf805 70%)}
+.breathing-circle span{font-size:1rem;font-weight:800;color:var(--accent);text-align:center;padding:10px}
+.breath-phase{font-size:1rem;font-weight:700;color:var(--accent);min-height:24px}
+.breath-help{font-size:.8rem;color:var(--muted);text-align:center;max-width:310px;line-height:1.5}
 .donation-section{background:#fef08a;color:#422006;border:2px solid #eab308;border-radius:12px;padding:18px;text-align:center;display:flex;flex-direction:column;gap:10px}
 .donation-section h2{font-size:1.2rem;color:#713f12;margin:0}
 .donation-section p{color:#713f12;font-size:.92rem;line-height:1.6}
 .donation-button{display:block;background:#854d0e;color:#fff;padding:13px 16px;border-radius:9px;text-decoration:none;font-weight:800;font-size:1rem;transition:background .2s}
 .donation-button:hover{background:#713f12}
 .donation-note{font-size:.74rem!important;color:#713f12!important;line-height:1.5}
-@media(max-width:430px){body{padding:9px}.container{padding:17px;gap:17px}header h1{font-size:1.25rem}.question-text{font-size:1.08rem}.option-btn{padding:12px;font-size:.92rem}.icon-btn{padding:7px 9px}}
+@media(max-width:430px){body{padding:9px}.container{padding:17px;gap:17px}header h1{font-size:1.25rem}.question-text{font-size:1.08rem}.option-btn{padding:12px;font-size:.92rem}.icon-btn{padding:7px 9px}.breathing-circle{width:155px;height:155px}}
+@media(prefers-reduced-motion:reduce){.breathing-circle,.timer-bar{transition:none}}
 </style>
 </head>
 <body>
@@ -61,9 +67,7 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <header>
 <h1>WE SELL TIME</h1>
 <p id="sub-title">5 MINUTES. A DIFFERENT PERSPECTIVE.</p>
-<div class="top-controls">
-<button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">ES</button>
-</div>
+<div class="top-controls"><button class="icon-btn" onclick="toggleLanguage()" id="lang-btn">ES</button></div>
 </header>
 
 <section id="start-view" class="screen">
@@ -79,9 +83,7 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <div class="timer-labels"><span id="session-label">Your five minutes</span><span id="time-left">5:00</span></div>
 <div class="timer-track"><div id="timer-bar" class="timer-bar"></div></div>
 </div>
-<div class="badge-row">
-<span id="category-badge" class="badge">Discovery</span>
-</div>
+<div class="badge-row"><span id="category-badge" class="badge">Discovery</span></div>
 <div id="stage-label" class="stage-label">Curiosity · Your choice · The surprise · The discovery</div>
 <div id="prompt-text" class="question-text">Loading...</div>
 <div id="options-container" class="options-grid"></div>
@@ -102,6 +104,11 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <span class="badge" id="exercise-type">GENTLE PAUSE</span>
 <h3 id="exercise-title">Natural breathing</h3>
 <p id="exercise-instructions"></p>
+<div class="breathing-stage" aria-live="polite">
+<div id="breathing-circle" class="breathing-circle"><span id="breathing-circle-label">Ready</span></div>
+<div id="breath-phase" class="breath-phase">Breathe comfortably</div>
+<p id="breath-help" class="breath-help">Follow the circle only if it feels comfortable. You can breathe naturally.</p>
+</div>
 <div class="countdown" id="exercise-countdown">0:45</div>
 <p class="safety" id="safety-note"></p>
 </div>
@@ -116,345 +123,266 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <button class="action-btn" onclick="resetToHome()" id="home-btn">Return Home</button>
 </section>
 
-<!-- DONATION BOX: WE SELL TIME -->
-<section id="donation-section" class="donation-section" aria-label="Support our team">
+<section id="donation-section" class="donation-section hidden" aria-label="Support our team">
 <h2>💛 SUPPORT OUR TEAM / APOYA A NUESTRO EQUIPO</h2>
-<p id="donation-message">
-If this experience brings you value, you can support our team with a voluntary contribution.
-<br>
-Si esta experiencia te aporta valor, puedes apoyar a nuestro equipo con una contribución voluntaria.
-</p>
-<a class="donation-button"
-href="https://buy.stripe.com/4gM00i67Z79N28D0b17Vm0v"
-target="_blank"
-rel="noopener noreferrer">
-💛 PLEASE-SUPPORT / POR FAVOR APOYA
-</a>
-<p class="donation-note">
-Tu apoyo es voluntario y no es necesario para utilizar la experiencia.
-<br>
-Your support is voluntary and is not required to use the experience.
-</p>
+<p id="donation-message">If this experience brings you value, you can support our team with a voluntary contribution.<br>Si esta experiencia te aporta valor, puedes apoyar a nuestro equipo con una contribución voluntaria.</p>
+<a class="donation-button" href="https://buy.stripe.com/4gM00i67Z79N28D0b17Vm0v" target="_blank" rel="noopener noreferrer">💛 PLEASE-SUPPORT / POR FAVOR APOYA</a>
+<p class="donation-note">Tu apoyo es voluntario y no es necesario para utilizar la experiencia.<br>Your support is voluntary and is not required to use the experience.</p>
 </section>
-
 </main>
 
 <script>
-let remainingTime=300,sessionTimer=null,exerciseTimer=null,exerciseRemaining=45;
-let questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0;
+let remainingTime=300,sessionTimer=null,exerciseTimer=null,donationTimer=null,breathTimer=null,voiceCueTimer=null;
+let exerciseRemaining=45,questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0;
 let currentCardData=null,currentExercise=null,currentLang='en';
 let answered=false,selectedAnswer=null,answerWasCorrect=null,sessionSeconds=300;
-let exerciseVoiceEnabled=true;
-
+let exerciseVoiceEnabled=true,breathPhase='inhale',phaseStartedAt=0,exerciseRunId=0,voiceRunId=0;
+let donationMode='start',donationStartTimer=null,donationLastVisible=false;
 const $=id=>document.getElementById(id);
-
 const translations={
 en:{
-subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',
-welcomeH2:'Ready for your five-minute break?',
-welcomeP:'A few surprising questions, a simple reset, and a fresh perspective. No pressure.',
-startBtn:'Start Experience',startNote:'Choose only comfortable movements. You can skip any exercise.',
-sessionLabel:'Your five minutes',continueBtn:'Continue',
-voiceOn:'🔊 Voice on',voiceOff:'🔇 Voice off',
-takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',
-key:'Key idea: ',resetHeading:'Easy Reset',
-resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',
-skip:'Skip pause',endH2:'Time well spent.',
-endP:'A small discovery. A short reset. Now return to your day whenever you’re ready.',
-homeBtn:'Return Home',safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
-curiosity:'Curiosity',choice:'Your choice',surprise:'The surprise',discovery:'The discovery',
-question:'Question',finished:'You have completed this experience.'
+subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',welcomeH2:'Ready for your five-minute break?',welcomeP:'A few surprising questions, a simple reset, and a fresh perspective. No pressure.',
+startBtn:'Start Experience',startNote:'Choose only comfortable movements. You can skip any exercise.',sessionLabel:'Your five minutes',continueBtn:'Continue',voiceOn:'🔊 Voice on',voiceOff:'🔇 Voice off',
+takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',key:'Key idea: ',resetHeading:'Easy Reset',
+resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',skip:'Skip pause',endH2:'Time well spent.',
+endP:'A small discovery. A short reset. Now return to your day whenever you’re ready.',homeBtn:'Return Home',
+safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
+curiosity:'Curiosity',choice:'Your choice',surprise:'The surprise',discovery:'The discovery',question:'Question',finished:'You have completed this experience.',
+inhale:'Breathe in gently',exhale:'Breathe out gently',breathHelp:'Follow the circle only if it feels comfortable. You can breathe naturally.',ready:'Ready',
+cueIn:['Let the air arrive softly.','Welcome a comfortable breath.','Allow an easy breath in.','Notice the beginning of a breath.','Let your next breath come naturally.','Breathe in only as much as feels easy.'],
+cueOut:['Let the air leave without force.','Allow a gentle release.','Let your breath go in its own time.','Notice the breath moving away.','Release any unnecessary effort.','Allow the next exhale to be easy.']
 },
 es:{
-subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',
-welcomeH2:'¿Listo para una pausa de cinco minutos?',
-welcomeP:'Algunas preguntas sorprendentes, una pausa sencilla y una perspectiva diferente. Sin presión.',
-startBtn:'Comenzar experiencia',startNote:'Elige solo movimientos cómodos. Puedes omitir cualquier ejercicio.',
-sessionLabel:'Tus cinco minutos',continueBtn:'Continuar',
-voiceOn:'🔊 Voz activada',voiceOff:'🔇 Voz silenciada',
-takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',
-key:'Idea clave: ',resetHeading:'Pausa sencilla',
-resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',
-skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',
-endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',
-homeBtn:'Volver al inicio',safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
-curiosity:'Curiosidad',choice:'Tu decisión',surprise:'La sorpresa',discovery:'El descubrimiento',
-question:'Pregunta',finished:'Has completado esta experiencia.'
+subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',welcomeH2:'¿Listo para una pausa de cinco minutos?',welcomeP:'Algunas preguntas sorprendentes, una pausa sencilla y una perspectiva diferente. Sin presión.',
+startBtn:'Comenzar experiencia',startNote:'Elige solo movimientos cómodos. Puedes omitir cualquier ejercicio.',sessionLabel:'Tus cinco minutos',continueBtn:'Continuar',voiceOn:'🔊 Voz activada',voiceOff:'🔇 Voz silenciada',
+takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',key:'Idea clave: ',resetHeading:'Pausa sencilla',
+resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',
+endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',homeBtn:'Volver al inicio',
+safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
+curiosity:'Curiosidad',choice:'Tu decisión',surprise:'La sorpresa',discovery:'El descubrimiento',question:'Pregunta',finished:'Has completado esta experiencia.',
+inhale:'Inhala suavemente',exhale:'Exhala suavemente',breathHelp:'Sigue el círculo solo si te resulta cómodo. Puedes respirar con naturalidad.',ready:'Preparado',
+cueIn:['Deja que el aire entre suavemente.','Recibe una respiración cómoda.','Permite una inhalación tranquila.','Nota el comienzo de una respiración.','Deja que la próxima respiración llegue sola.','Inhala solo hasta donde te resulte cómodo.'],
+cueOut:['Deja salir el aire sin forzarlo.','Permite una liberación suave.','Deja que el aire salga a su tiempo.','Nota cómo se aleja la respiración.','Suelta cualquier esfuerzo innecesario.','Permite que la exhalación sea cómoda.']
 }
 };
-
 function t(){return translations[currentLang]}
-
+function stopVoice(){if('speechSynthesis'in window)window.speechSynthesis.cancel();voiceRunId++}
+function speak(text,onEnd){
+if(!exerciseVoiceEnabled||!('speechSynthesis'in window)||!text)return;
+const id=voiceRunId,u=new SpeechSynthesisUtterance(text);
+u.lang=currentLang==='es'?'es-ES':'en-US';u.rate=.91;u.pitch=1;
+u.onend=()=>{if(id===voiceRunId&&onEnd)onEnd()};
+try{speechSynthesis.speak(u)}catch(e){console.warn('Voice unavailable',e)}
+}
 function updateVoiceButton(){
-const x=t();
-$('voice-toggle-btn').innerText=exerciseVoiceEnabled?x.voiceOn:x.voiceOff;
+const x=t();$('voice-toggle-btn').innerText=exerciseVoiceEnabled?x.voiceOn:x.voiceOff;
 $('voice-toggle-btn').setAttribute('aria-pressed',String(exerciseVoiceEnabled));
 }
-
 function toggleExerciseVoice(){
 exerciseVoiceEnabled=!exerciseVoiceEnabled;
-if(!exerciseVoiceEnabled){
-stopExerciseVoice();
-}else if(currentExercise&&!$('reset-view').classList.contains('hidden')){
-speakCurrentExercise();
-}
+if(!exerciseVoiceEnabled)stopVoice();
+else if(currentExercise&&!$('reset-view').classList.contains('hidden'))speakCurrentExercise();
 updateVoiceButton();
 }
-
-function stopExerciseVoice(){
-if('speechSynthesis'in window)window.speechSynthesis.cancel();
+function stopBreathing(){
+clearInterval(breathTimer);clearInterval(voiceCueTimer);breathTimer=voiceCueTimer=null;
 }
-
-function speakCurrentExercise(){
-if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
-
-const title=(currentExercise.title||{})[currentLang]||'';
-const instructions=(currentExercise.instructions||{})[currentLang]||'';
-
-if(!title.trim()&&!instructions.trim())return;
-
-stopExerciseVoice();
-
-const message=[title,instructions].filter(Boolean).join('. ');
-const utterance=new SpeechSynthesisUtterance(message);
-
-utterance.lang=currentLang==='es'?'es-ES':'en-US';
-utterance.rate=0.92;
-utterance.pitch=1;
-
-window.speechSynthesis.speak(utterance);
-}
-
+function stopExerciseVoice(){stopVoice();stopBreathing()}
 function toggleLanguage(){
-currentLang=currentLang==='en'?'es':'en';
-document.documentElement.lang=currentLang;
-updateStaticTexts();
+currentLang=currentLang==='en'?'es':'en';document.documentElement.lang=currentLang;updateStaticTexts();
 if(currentCardData&&!$('session-view').classList.contains('hidden')){
-const hadAnswered=answered,wasCorrect=answerWasCorrect;
-renderCard();
-if(hadAnswered){
-answered=true;
-answerWasCorrect=wasCorrect;
-document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-showFeedback();
+const hadAnswered=answered,wasCorrect=answerWasCorrect;renderCard();
+if(hadAnswered){answered=true;answerWasCorrect=wasCorrect;document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback()}
 }
+if(currentExercise&&!$('reset-view').classList.contains('hidden'))renderExercise();
 }
-if(currentExercise&&!$('reset-view').classList.contains('hidden')){
-renderExercise();
-}
-}
-
 function updateStaticTexts(){
 const x=t();
-$('sub-title').innerText=x.subTitle;
-$('lang-btn').innerText=x.langBtn;
-$('welcome-h2').innerText=x.welcomeH2;
-$('welcome-p').innerText=x.welcomeP;
-$('start-btn').innerText=x.startBtn;
-$('start-note').innerText=x.startNote;
-$('session-label').innerText=x.sessionLabel;
-$('next-btn').innerText=x.continueBtn;
-$('reset-heading').innerText=x.resetHeading;
-$('reset-intro').innerText=x.resetIntro;
-$('skip-reset-btn').innerText=x.skip;
-$('end-h2').innerText=x.endH2;
-$('end-p').innerText=x.endP;
-$('home-btn').innerText=x.homeBtn;
-updateVoiceButton();
+$('sub-title').innerText=x.subTitle;$('lang-btn').innerText=x.langBtn;$('welcome-h2').innerText=x.welcomeH2;$('welcome-p').innerText=x.welcomeP;
+$('start-btn').innerText=x.startBtn;$('start-note').innerText=x.startNote;$('session-label').innerText=x.sessionLabel;$('next-btn').innerText=x.continueBtn;
+$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;$('skip-reset-btn').innerText=x.skip;
+$('end-h2').innerText=x.endH2;$('end-p').innerText=x.endP;$('home-btn').innerText=x.homeBtn;updateVoiceButton();
 }
-
+function setDonationVisible(show){
+const box=$('donation-section');
+box.classList.toggle('hidden',!show);
+if(show)box.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function startInitialDonationWindow(){
+clearTimeout(donationStartTimer);donationMode='start';setDonationVisible(true);
+donationStartTimer=setTimeout(()=>{
+if(donationMode==='start')setDonationVisible(false);
+},30000);
+}
+function updateDonationForSession(){
+const shouldShow=remainingTime>0&&remainingTime<=40;
+if(shouldShow!==donationLastVisible){
+donationLastVisible=shouldShow;
+setDonationVisible(shouldShow);
+}
+}
 async function startSession(){
-const btn=$('start-btn');
-btn.disabled=true;
+const btn=$('start-btn');btn.disabled=true;
 try{
 const res=await fetch('/api/session');
 if(!res.ok)throw new Error('Session could not load');
 const data=await res.json();
-questions=data.questions||[];
-exercises=data.exercises||[];
-safetyNotes=data.safety_notes||{};
+questions=data.questions||[];exercises=data.exercises||[];safetyNotes=data.safety_notes||{};
 sessionSeconds=Number(data.session_seconds)||300;
 if(!questions.length)throw new Error('No questions found');
 }catch(e){
 console.error(e);
 alert(currentLang==='es'?'No se pudo cargar el contenido. Comprueba el archivo JSON y vuelve a intentarlo.':'Content could not load. Check the JSON file and try again.');
-btn.disabled=false;
-return;
+btn.disabled=false;return;
 }
-btn.disabled=false;
-stopExerciseVoice();
-questionIndex=0;
-exerciseIndex=0;
-currentCardData=questions[0];
-currentExercise=null;
-answered=false;
-selectedAnswer=null;
-answerWasCorrect=null;
-remainingTime=sessionSeconds;
-clearInterval(sessionTimer);
-clearInterval(exerciseTimer);
-$('start-view').classList.add('hidden');
-$('end-view').classList.add('hidden');
-$('reset-view').classList.add('hidden');
-$('session-view').classList.remove('hidden');
-updateTimer();
+btn.disabled=false;clearTimeout(donationStartTimer);donationMode='session';donationLastVisible=false;setDonationVisible(false);
+stopExerciseVoice();clearInterval(sessionTimer);clearInterval(exerciseTimer);
+questionIndex=0;exerciseIndex=0;currentCardData=questions[0];currentExercise=null;answered=false;selectedAnswer=null;answerWasCorrect=null;
+remainingTime=sessionSeconds;$('start-view').classList.add('hidden');$('end-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('session-view').classList.remove('hidden');
+updateTimer();renderCard();
 sessionTimer=setInterval(()=>{
-remainingTime--;
-updateTimer();
+remainingTime=Math.max(0,remainingTime-1);updateTimer();updateDonationForSession();
 if(remainingTime<=0)endSession();
 },1000);
-renderCard();
 }
-
 function updateTimer(){
-$('time-left').innerText=`${Math.floor(Math.max(0,remainingTime)/60)}:${String(Math.max(0,remainingTime)%60).padStart(2,'0')}`;
-$('timer-bar').style.width=`${Math.max(0,remainingTime/sessionSeconds)*100}%`;
+const r=Math.max(0,remainingTime);
+$('time-left').innerText=`${Math.floor(r/60)}:${String(r%60).padStart(2,'0')}`;
+$('timer-bar').style.width=`${Math.max(0,r/sessionSeconds)*100}%`;
 }
-
 function renderCard(){
 if(!currentCardData||!currentCardData[currentLang])return;
 const card=currentCardData[currentLang],x=t();
 $('category-badge').innerText=currentCardData.topic||(currentLang==='es'?'Descubrimientos':'Discoveries');
 $('stage-label').innerText=`${x.curiosity} · ${x.choice} · ${x.surprise} · ${x.discovery}`;
-$('prompt-text').innerText=card.prompt||'';
-$('options-container').innerHTML='';
-$('feedback-card').style.display='none';
-$('feedback-card').className='feedback';
-$('next-btn').classList.add('hidden');
-card.options.forEach(opt=>{
-const b=document.createElement('button');
-b.className='option-btn';
-b.innerText=opt;
-b.onclick=()=>selectOption(opt);
-$('options-container').appendChild(b);
+$('prompt-text').innerText=card.prompt||'';$('options-container').innerHTML='';
+$('feedback-card').style.display='none';$('feedback-card').className='feedback';$('next-btn').classList.add('hidden');
+(card.options||[]).forEach(opt=>{
+const b=document.createElement('button');b.className='option-btn';b.innerText=opt;b.onclick=()=>selectOption(opt);$('options-container').appendChild(b);
 });
 $('question-progress').innerText=`${x.question} ${questionIndex+1} / ${questions.length}`;
-answered=false;
-selectedAnswer=null;
-answerWasCorrect=null;
+answered=false;selectedAnswer=null;answerWasCorrect=null;
 }
-
 function selectOption(opt){
 if(answered||!currentCardData)return;
-answered=true;
-selectedAnswer=opt;
-answerWasCorrect=opt===currentCardData[currentLang].correct_answer;
-document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);
-showFeedback();
+answered=true;selectedAnswer=opt;answerWasCorrect=opt===currentCardData[currentLang].correct_answer;
+document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback();
 }
-
 function showFeedback(){
 const card=currentCardData[currentLang],x=t(),correct=answerWasCorrect===true;
-$('feedback-card').style.display='block';
-$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;
+$('feedback-card').style.display='block';$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;
 $('feedback-status').innerText=correct?x.correct:`${x.incorrect}${card.correct_answer}`;
-$('feedback-explanation').innerText=card.explanation||'';
-$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
+$('feedback-explanation').innerText=card.explanation||'';$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
 $('next-btn').classList.remove('hidden');
-const willReset=((questionIndex+1)%3===0)&&remainingTime>70;
+const willReset=((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length>0;
 $('next-btn').innerText=willReset?x.takeReset:x.continueBtn;
 }
-
 function advanceExperience(){
 if(!answered)return;
-if(((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length){
-showReset();
-return;
-}
+if(((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length){showReset();return}
 goNextQuestion();
 }
-
 function goNextQuestion(){
 questionIndex++;
-if(questionIndex>=questions.length||remainingTime<=0){
-endSession();
-return;
+if(questionIndex>=questions.length||remainingTime<=0){endSession();return}
+currentCardData=questions[questionIndex];answered=false;selectedAnswer=null;answerWasCorrect=null;renderCard();
 }
-currentCardData=questions[questionIndex];
-answered=false;
-selectedAnswer=null;
-answerWasCorrect=null;
-renderCard();
-}
-
 function showReset(){
-if(!exercises.length){goNextQuestion();return;}
-clearInterval(exerciseTimer);
-stopExerciseVoice();
-currentExercise=exercises[exerciseIndex%exercises.length];
-exerciseIndex++;
-exerciseRemaining=Math.max(40,Math.min(60,Number(currentExercise.duration_seconds)||45));
-$('session-view').classList.add('hidden');
-$('reset-view').classList.remove('hidden');
-renderExercise();
+if(!exercises.length){goNextQuestion();return}
+clearInterval(exerciseTimer);stopExerciseVoice();
+currentExercise=exercises[exerciseIndex%exercises.length];exerciseIndex++;
+exerciseRemaining=Math.max(10,Math.min(300,Number(currentExercise.duration_seconds)||45));
+$('session-view').classList.add('hidden');$('reset-view').classList.remove('hidden');
+renderExercise();const run=++exerciseRunId;
 exerciseTimer=setInterval(()=>{
-exerciseRemaining--;
-renderCountdown();
+if(run!==exerciseRunId)return;
+exerciseRemaining=Math.max(0,exerciseRemaining-1);renderCountdown();
 if(exerciseRemaining<=0)finishReset(false);
 },1000);
 }
-
 function renderExercise(){
 if(!currentExercise)return;
 const x=t(),lang=currentLang;
-$('reset-heading').innerText=x.resetHeading;
-$('reset-intro').innerText=x.resetIntro;
+$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;
 $('exercise-title').innerText=(currentExercise.title||{})[lang]||'';
 $('exercise-instructions').innerText=(currentExercise.instructions||{})[lang]||'';
 $('exercise-type').innerText=(currentExercise.type||'easy reset').replaceAll('_',' ').toUpperCase();
 $('safety-note').innerText=(safetyNotes||{})[lang]||x.safety;
-$('skip-reset-btn').innerText=x.skip;
-updateVoiceButton();
-renderCountdown();
-speakCurrentExercise();
+$('skip-reset-btn').innerText=x.skip;$('breath-help').innerText=x.breathHelp;
+updateVoiceButton();renderCountdown();updateBreathVisual('ready');speakCurrentExercise();
 }
-
 function renderCountdown(){
 $('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`;
 }
-
+function speakCurrentExercise(){
+if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
+stopExerciseVoice();
+const title=(currentExercise.title||{})[currentLang]||'';
+const instructions=(currentExercise.instructions||{})[currentLang]||'';
+const intro=[title,instructions].filter(Boolean).join('. ');
+speak(intro,()=>{if(currentExercise&&exerciseRemaining>0)startBreathingGuidance()});
+}
+function updateBreathVisual(phase){
+const x=t(),circle=$('breathing-circle'),label=$('breathing-circle-label');
+breathPhase=phase;
+circle.classList.remove('inhale','exhale');
+if(phase==='inhale'){
+circle.classList.add('inhale');label.innerText=x.inhale;$('breath-phase').innerText=x.inhale;
+}else if(phase==='exhale'){
+circle.classList.add('exhale');label.innerText=x.exhale;$('breath-phase').innerText=x.exhale;
+}else{
+label.innerText=x.ready;$('breath-phase').innerText=x.ready;
+}
+}
+function startBreathingGuidance(){
+if(!currentExercise||exerciseRemaining<=0)return;
+stopBreathing();
+const run=exerciseRunId,x=t();
+let cueInIndex=0,cueOutIndex=0;
+const pattern=currentExercise.breathing_pattern||{};
+const inhaleSeconds=Math.max(2,Math.min(6,Number(pattern.inhale_seconds)||3));
+const exhaleSeconds=Math.max(2,Math.min(8,Number(pattern.exhale_seconds)||4));
+let nextPhase='inhale',phaseEnd=Date.now();
+function step(){
+if(!currentExercise||exerciseRemaining<=0||run!==exerciseRunId)return;
+const now=Date.now();
+if(now>=phaseEnd){
+nextPhase=nextPhase==='inhale'?'exhale':'inhale';
+const duration=nextPhase==='inhale'?inhaleSeconds:exhaleSeconds;
+phaseEnd=now+duration*1000;
+updateBreathVisual(nextPhase);
+if(exerciseVoiceEnabled){
+const phrases=nextPhase==='inhale'?x.cueIn:x.cueOut;
+let phrase='';
+if(nextPhase==='inhale'&&cueInIndex<phrases.length)phrase=phrases[cueInIndex++];
+if(nextPhase==='exhale'&&cueOutIndex<phrases.length)phrase=phrases[cueOutIndex++];
+if(phrase)speak(phrase);
+}
+}
+}
+phaseEnd=Date.now();
+step();breathTimer=setInterval(step,250);
+}
 function finishReset(skipped){
-clearInterval(exerciseTimer);
-exerciseTimer=null;
-stopExerciseVoice();
-currentExercise=null;
-if(remainingTime<=0){endSession();return;}
-$('reset-view').classList.add('hidden');
-$('session-view').classList.remove('hidden');
-goNextQuestion();
+clearInterval(exerciseTimer);exerciseTimer=null;exerciseRunId++;stopExerciseVoice();currentExercise=null;
+if(remainingTime<=0){endSession();return}
+$('reset-view').classList.add('hidden');$('session-view').classList.remove('hidden');goNextQuestion();
 }
-
 function endSession(){
-clearInterval(sessionTimer);
-clearInterval(exerciseTimer);
-sessionTimer=exerciseTimer=null;
-stopExerciseVoice();
-currentExercise=null;
-$('session-view').classList.add('hidden');
-$('reset-view').classList.add('hidden');
-$('end-view').classList.remove('hidden');
-$('end-h2').innerText=t().endH2;
-$('end-p').innerText=remainingTime<=0?t().endP:t().finished;
+clearInterval(sessionTimer);clearInterval(exerciseTimer);clearTimeout(donationStartTimer);
+sessionTimer=exerciseTimer=null;donationMode='end';donationLastVisible=false;
+stopExerciseVoice();currentExercise=null;currentCardData=null;
+$('session-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('end-view').classList.remove('hidden');setDonationVisible(false);
+$('end-h2').innerText=t().endH2;$('end-p').innerText=t().endP;
 }
-
 function resetToHome(){
-clearInterval(sessionTimer);
-clearInterval(exerciseTimer);
-sessionTimer=exerciseTimer=null;
-stopExerciseVoice();
-currentCardData=null;
-currentExercise=null;
-questions=[];
-exercises=[];
-$('end-view').classList.add('hidden');
-$('session-view').classList.add('hidden');
-$('reset-view').classList.add('hidden');
-$('start-view').classList.remove('hidden');
-remainingTime=300;
-updateStaticTexts();
+clearInterval(sessionTimer);clearInterval(exerciseTimer);clearTimeout(donationStartTimer);sessionTimer=exerciseTimer=null;
+stopExerciseVoice();currentCardData=null;currentExercise=null;questions=[];exercises=[];
+$('end-view').classList.add('hidden');$('session-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('start-view').classList.remove('hidden');
+remainingTime=300;donationLastVisible=false;updateStaticTexts();startInitialDonationWindow();
 }
-
 updateStaticTexts();
+startInitialDonationWindow();
 </script>
 </body>
 </html>
