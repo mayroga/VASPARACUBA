@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,58 +9,71 @@
 <style>
 :root{--bg:#0f172a;--panel:#1e293b;--accent:#38bdf8;--good:#22c55e;--bad:#ef4444;--text:#f8fafc;--muted:#94a3b8;--border:#334155}
 *{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-body{background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
-.container{width:100%;max-width:620px;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:clamp(18px,4vw,32px);box-shadow:0 20px 25px #0005;display:flex;flex-direction:column;gap:22px;position:relative}
-header{text-align:center;border-bottom:1px solid var(--border);padding:4px 50px 16px;position:relative}
+body{background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:12px}
+button,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+.container{width:100%;max-width:760px;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:clamp(16px,4vw,30px);box-shadow:0 20px 25px #0005;display:flex;flex-direction:column;gap:20px}
+header{text-align:center;border-bottom:1px solid var(--border);padding:4px 52px 16px;position:relative}
 header h1{font-size:1.45rem;letter-spacing:2px;color:var(--accent)}
 header p{font-size:.85rem;color:var(--muted);margin-top:5px}
-.top-controls{position:absolute;right:0;top:0;display:flex;gap:5px}
-.icon-btn{background:#38bdf81a;border:1px solid var(--accent);color:var(--accent);padding:8px 11px;border-radius:8px;cursor:pointer;font-size:.8rem;font-weight:700}
+.top-controls{position:absolute;right:0;top:0}
+.icon-btn{background:#38bdf81a;border:1px solid var(--accent);color:var(--accent);padding:8px 11px;border-radius:8px;font-size:.82rem;font-weight:700}
+.screen{display:flex;flex-direction:column;gap:15px;text-align:center}
+.screen h2{font-size:1.45rem;color:var(--accent)}
+.screen p{color:var(--muted);line-height:1.6}
+.screen-icon{font-size:2rem}
+.hidden{display:none!important}
+.action-btn{background:var(--accent);color:#082f49;border:0;padding:14px;border-radius:9px;font-weight:800;font-size:1rem;width:100%}
+.secondary-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:11px;border-radius:8px;width:100%}
+.button-row{display:flex;gap:9px;flex-wrap:wrap}
+.button-row>*{flex:1;min-width:120px}
 .timer-wrap{display:flex;flex-direction:column;gap:7px}
-.timer-labels{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
+.timer-labels{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);gap:10px}
 .timer-track{height:6px;background:var(--border);border-radius:8px;overflow:hidden}
 .timer-bar{height:100%;width:100%;background:var(--accent);transition:width 1s linear}
+.badge{display:inline-block;font-size:.7rem;text-transform:uppercase;padding:5px 10px;border-radius:20px;background:#38bdf81a;color:var(--accent);border:1px solid var(--accent);letter-spacing:.6px}
 .badge-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.badge{font-size:.7rem;text-transform:uppercase;padding:5px 10px;border-radius:20px;background:#38bdf81a;color:var(--accent);border:1px solid var(--accent);letter-spacing:.6px}
-.stage-label{color:var(--muted);font-size:.78rem}
-.question-text{font-size:1.2rem;line-height:1.55;font-weight:600}
-.options-grid{display:flex;flex-direction:column;gap:10px}
-.option-btn{background:#ffffff08;border:1px solid var(--border);color:var(--text);padding:13px 15px;border-radius:9px;font-size:.96rem;text-align:left;cursor:pointer;line-height:1.4;transition:.15s}
+.stage-label,.mini-progress{color:var(--muted);font-size:.78rem}
+.question-text{font-size:1.15rem;line-height:1.55;font-weight:650}
+.options-grid{display:flex;flex-direction:column;gap:9px}
+.option-btn{background:#ffffff08;border:1px solid var(--border);color:var(--text);padding:13px 14px;border-radius:9px;font-size:.95rem;text-align:left;line-height:1.4}
 .option-btn:hover:not(:disabled){background:#38bdf81a;border-color:var(--accent)}
-.option-btn:disabled{cursor:default;opacity:.85}
-.feedback{display:none;background:#ffffff06;border-left:4px solid var(--accent);padding:14px;border-radius:5px;font-size:.92rem;line-height:1.5}
+.feedback{display:none;background:#ffffff06;border-left:4px solid var(--accent);padding:14px;border-radius:5px;font-size:.92rem;line-height:1.5;text-align:left}
 .feedback.correct{border-left-color:var(--good)}
 .feedback.incorrect{border-left-color:var(--bad)}
 .feedback p{margin-top:7px}
 .takeaway{color:var(--accent);font-style:italic}
-.action-btn{background:var(--accent);color:#082f49;border:0;padding:14px;border-radius:9px;font-weight:800;font-size:1rem;cursor:pointer;width:100%}
-.action-btn:disabled{opacity:.5;cursor:wait}
-.secondary-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:11px;border-radius:8px;cursor:pointer;width:100%}
-.hidden{display:none!important}
-.screen{display:flex;flex-direction:column;gap:16px;text-align:center}
-.screen h2{font-size:1.55rem;color:var(--accent)}
-.screen p{color:var(--muted);line-height:1.6}
-.screen-icon{font-size:2rem}
-.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:20px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:13px}
+.exercise-card{background:#ffffff06;border:1px solid var(--border);padding:18px;border-radius:12px;display:flex;flex-direction:column;gap:12px}
 .exercise-card h3{font-size:1.2rem}
 .countdown{font-size:2rem;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
 .safety{font-size:.76rem!important;color:var(--muted)!important}
-.mini-progress{font-size:.78rem;color:var(--muted);text-align:center}
-.breathing-stage{width:100%;display:flex;flex-direction:column;align-items:center;gap:14px;padding:8px 0}
-.breathing-circle{width:176px;height:176px;border:2px solid #38bdf8;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#38bdf82b,#38bdf806 70%);box-shadow:0 0 24px #38bdf81a;transform:scale(.88);transition:transform 3s ease-in-out,background 3s ease-in-out,border-color .5s;will-change:transform}
-.breathing-circle.inhale{transform:scale(1);background:radial-gradient(circle,#38bdf84a,#38bdf810 70%)}
-.breathing-circle.exhale{transform:scale(.82);background:radial-gradient(circle,#38bdf815,#38bdf805 70%)}
-.breathing-circle span{font-size:1rem;font-weight:800;color:var(--accent);text-align:center;padding:10px}
-.breath-phase{font-size:1rem;font-weight:700;color:var(--accent);min-height:24px}
-.breath-help{font-size:.8rem;color:var(--muted);text-align:center;max-width:310px;line-height:1.5}
-.donation-section{background:#fef08a;color:#422006;border:2px solid #eab308;border-radius:12px;padding:18px;text-align:center;display:flex;flex-direction:column;gap:10px}
-.donation-section h2{font-size:1.2rem;color:#713f12;margin:0}
-.donation-section p{color:#713f12;font-size:.92rem;line-height:1.6}
-.donation-button{display:block;background:#854d0e;color:#fff;padding:13px 16px;border-radius:9px;text-decoration:none;font-weight:800;font-size:1rem;transition:background .2s}
-.donation-button:hover{background:#713f12}
-.donation-note{font-size:.74rem!important;color:#713f12!important;line-height:1.5}
-@media(max-width:430px){body{padding:9px}.container{padding:17px;gap:17px}header h1{font-size:1.25rem}.question-text{font-size:1.08rem}.option-btn{padding:12px;font-size:.92rem}.icon-btn{padding:7px 9px}.breathing-circle{width:155px;height:155px}}
-@media(prefers-reduced-motion:reduce){.breathing-circle,.timer-bar{transition:none}}
+.donation-section{background:#fef08a;color:#422006;border:2px solid #eab308;border-radius:12px;padding:17px;text-align:center;display:flex;flex-direction:column;gap:10px}
+.donation-section h2{font-size:1.1rem;color:#713f12}
+.donation-section p{color:#713f12;font-size:.9rem;line-height:1.6}
+.donation-button{display:block;background:#854d0e;color:#fff;padding:13px;border-radius:9px;text-decoration:none;font-weight:800}
+.donation-note{font-size:.74rem!important}
+.experience-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.experience-card{background:#ffffff06;border:1px solid var(--border);border-radius:12px;padding:15px;text-align:left;display:flex;flex-direction:column;gap:9px;min-height:145px}
+.experience-card h3{color:var(--accent);font-size:1rem}
+.experience-card p{font-size:.82rem;line-height:1.45}
+.experience-card .secondary-btn{margin-top:auto}
+.experience-card.wide{grid-column:1/-1}
+#world-view{gap:12px}
+.world-heading{text-align:left;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.world-heading h2{font-size:1.15rem;color:var(--accent)}
+#world-canvas-wrap{height:clamp(280px,48vh,440px);min-height:250px;position:relative;overflow:hidden;background:#07101f;border:1px solid var(--border);border-radius:12px}
+#world-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#world-hud{position:absolute;inset:12px auto auto 12px;max-width:80%;padding:10px 12px;background:#07101f9c;border:1px solid #ffffff24;border-radius:9px;pointer-events:none;text-align:left}
+#world-hud strong{display:block;font-size:.9rem;color:white}
+#world-hud span{display:block;color:#dbeafe;font-size:.75rem;margin-top:4px;line-height:1.4}
+.world-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;text-align:left}
+.world-control{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:.78rem}
+.world-control select{width:100%;padding:10px;background:#0f172a;color:var(--text);border:1px solid var(--border);border-radius:8px}
+.world-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.world-buttons button{min-height:40px}
+.world-note{font-size:.74rem;color:var(--muted);line-height:1.5}
+@media(max-width:470px){body{padding:7px}.container{padding:14px;gap:16px}.experience-grid{grid-template-columns:1fr}.experience-card.wide{grid-column:auto}.world-controls,.world-buttons{grid-template-columns:1fr 1fr}header h1{font-size:1.25rem}.question-text{font-size:1.05rem}}
 </style>
 </head>
 <body>
@@ -72,13 +86,39 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 
 <section id="start-view" class="screen">
 <div class="screen-icon">⌛</div>
-<h2 id="welcome-h2">Ready for your five-minute break?</h2>
-<p id="welcome-p">A few surprising questions, a simple reset, and a fresh perspective. No pressure.</p>
-<button class="action-btn" onclick="startSession()" id="start-btn">Start Experience</button>
-<p class="safety" id="start-note">Choose only comfortable movements. You can skip any exercise.</p>
+<h2 id="welcome-h2">Choose your five-minute experience</h2>
+<p id="welcome-p">Five minutes for discovery, imagination or a different world. Choose what you feel like doing.</p>
+<div class="experience-grid">
+<article class="experience-card">
+<h3 id="questions-title">Discoveries & riddles</h3>
+<p id="questions-desc">Surprising questions, useful ideas and small discoveries.</p>
+<button class="action-btn" onclick="startSession()" id="start-btn">Start discoveries</button>
+</article>
+<article class="experience-card">
+<h3 id="reset-title">Easy reset</h3>
+<p id="reset-desc">A short, comfortable pause with spoken guidance.</p>
+<button class="secondary-btn" onclick="startResetOnly()" id="reset-start-btn">Take a pause</button>
+</article>
+<article class="experience-card">
+<h3>VILLA RÍO Y MAR</h3>
+<p id="villa-desc">Explore a peaceful riverside mansion with a sea view.</p>
+<button class="secondary-btn" onclick="startWorld('villa')" id="villa-btn">Enter villa</button>
+</article>
+<article class="experience-card">
+<h3>METROPOLIS 360</h3>
+<p id="metro-desc">Discover a futuristic city, neon streets and rooftops.</p>
+<button class="secondary-btn" onclick="startWorld('metro')" id="metro-btn">Enter city</button>
+</article>
+<article class="experience-card wide">
+<h3>OCEANIS 360</h3>
+<p id="ocean-desc">Explore the ocean surface, coral reef and deep sea.</p>
+<button class="secondary-btn" onclick="startWorld('ocean')" id="ocean-btn">Enter ocean</button>
+</article>
+</div>
+<p class="safety" id="start-note">Choose only comfortable activities. You can stop or return at any time.</p>
 </section>
 
-<section id="session-view" class="hidden" style="display:flex;flex-direction:column;gap:18px">
+<section id="session-view" class="hidden">
 <div class="timer-wrap">
 <div class="timer-labels"><span id="session-label">Your five minutes</span><span id="time-left">5:00</span></div>
 <div class="timer-track"><div id="timer-bar" class="timer-bar"></div></div>
@@ -94,6 +134,7 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 </div>
 <p id="question-progress" class="mini-progress"></p>
 <button id="next-btn" class="action-btn hidden" onclick="advanceExperience()">Continue</button>
+<button class="secondary-btn" onclick="exitToHome()" id="leave-session-btn">Return to menu</button>
 </section>
 
 <section id="reset-view" class="screen hidden">
@@ -104,26 +145,50 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 <span class="badge" id="exercise-type">GENTLE PAUSE</span>
 <h3 id="exercise-title">Natural breathing</h3>
 <p id="exercise-instructions"></p>
-<div class="breathing-stage" aria-live="polite">
-<div id="breathing-circle" class="breathing-circle"><span id="breathing-circle-label">Ready</span></div>
-<div id="breath-phase" class="breath-phase">Breathe comfortably</div>
-<p id="breath-help" class="breath-help">Follow the circle only if it feels comfortable. You can breathe naturally.</p>
-</div>
 <div class="countdown" id="exercise-countdown">0:45</div>
 <p class="safety" id="safety-note"></p>
 </div>
 <button class="icon-btn" id="voice-toggle-btn" onclick="toggleExerciseVoice()">🔊 Voice on</button>
 <button class="secondary-btn" id="skip-reset-btn" onclick="finishReset(true)">Skip pause</button>
+<button class="secondary-btn" onclick="exitToHome()" id="leave-reset-btn">Return to menu</button>
+</section>
+
+<section id="world-view" class="screen hidden">
+<div class="timer-wrap">
+<div class="timer-labels"><span id="world-session-label">Your five-minute world</span><span id="world-time-left">5:00</span></div>
+<div class="timer-track"><div id="world-timer-bar" class="timer-bar"></div></div>
+</div>
+<div class="world-heading"><h2 id="world-title">VILLA RÍO Y MAR</h2><span class="badge" id="world-badge">3D EXPERIENCE</span></div>
+<div id="world-canvas-wrap">
+<canvas id="world-canvas" aria-label="Interactive generated 3D environment"></canvas>
+<div id="world-hud"><strong id="hud-title">Welcome</strong><span id="hud-desc">Look around and enjoy this short visit.</span></div>
+</div>
+<div class="world-controls">
+<label class="world-control"><span id="view-label">View</span>
+<select id="world-location" onchange="changeWorldLocation(this.value)"></select></label>
+<label class="world-control"><span id="light-label">Atmosphere</span>
+<select id="world-light" onchange="changeWorldLight(this.value)">
+<option value="day">Day</option><option value="sunset">Sunset</option><option value="night">Night</option>
+</select></label>
+</div>
+<div class="world-buttons">
+<button class="icon-btn" onclick="toggleWorldAudio()" id="world-audio-btn">🔇 Sound off</button>
+<button class="icon-btn" onclick="toggleWorldHud()" id="world-hud-btn">Hide info</button>
+<button class="icon-btn" onclick="toggleWorldSplit()" id="world-split-btn">VR split view</button>
+<button class="icon-btn" onclick="toggleWorldFullscreen()" id="world-full-btn">Full screen</button>
+</div>
+<p class="world-note" id="world-note">Generated 3D environment. Move your mouse or drag on the scene to look around.</p>
+<button class="secondary-btn" onclick="exitToHome()" id="leave-world-btn">Leave experience</button>
 </section>
 
 <section id="end-view" class="screen hidden">
 <div class="screen-icon">✦</div>
 <h2 id="end-h2">Time well spent.</h2>
-<p id="end-p">A small discovery. A short reset. Now return to your day whenever you're ready.</p>
+<p id="end-p">A small discovery. A short reset. Return to your day whenever you're ready.</p>
 <button class="action-btn" onclick="resetToHome()" id="home-btn">Return Home</button>
 </section>
 
-<section id="donation-section" class="donation-section hidden" aria-label="Support our team">
+<section id="donation-section" class="donation-section" aria-label="Support our team">
 <h2>💛 SUPPORT OUR TEAM / APOYA A NUESTRO EQUIPO</h2>
 <p id="donation-message">If this experience brings you value, you can support our team with a voluntary contribution.<br>Si esta experiencia te aporta valor, puedes apoyar a nuestro equipo con una contribución voluntaria.</p>
 <a class="donation-button" href="https://buy.stripe.com/4gM00i67Z79N28D0b17Vm0v" target="_blank" rel="noopener noreferrer">💛 PLEASE-SUPPORT / POR FAVOR APOYA</a>
@@ -132,165 +197,142 @@ header p{font-size:.85rem;color:var(--muted);margin-top:5px}
 </main>
 
 <script>
-let remainingTime=300,sessionTimer=null,exerciseTimer=null,donationTimer=null,breathTimer=null,voiceCueTimer=null;
-let exerciseRemaining=45,questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0;
+let remainingTime=300,sessionTimer=null,exerciseTimer=null,exerciseRemaining=45;
+let questions=[],exercises=[],safetyNotes={},questionIndex=0,exerciseIndex=0;
 let currentCardData=null,currentExercise=null,currentLang='en';
 let answered=false,selectedAnswer=null,answerWasCorrect=null,sessionSeconds=300;
-let exerciseVoiceEnabled=true,breathPhase='inhale',phaseStartedAt=0,exerciseRunId=0,voiceRunId=0;
-let donationMode='start',donationStartTimer=null,donationLastVisible=false;
-
-const EXERCISE_PROGRESS_KEY='wst_exercise_progress_v1';
-
-function getSavedExerciseIndex(){
-    try{
-        const savedId=localStorage.getItem(EXERCISE_PROGRESS_KEY);
-        if(!savedId||!Array.isArray(exercises))return 0;
-        const index=exercises.findIndex(item=>item.id===savedId);
-        return index>=0?index:0;
-    }catch(error){
-        console.warn('Exercise progress unavailable',error);
-        return 0;
-    }
-}
-
-function saveNextExercise(){
-    if(!Array.isArray(exercises)||!exercises.length)return;
-    const currentIndex=exercises.findIndex(item=>item.id===currentExercise?.id);
-    if(currentIndex<0)return;
-    const nextIndex=(currentIndex+1)%exercises.length;
-    try{
-        localStorage.setItem(EXERCISE_PROGRESS_KEY,exercises[nextIndex].id);
-    }catch(error){
-        console.warn('Could not save exercise progress',error);
-    }
-}
-
+let exerciseVoiceEnabled=true,resetOnly=false,activeMode='questions';
 const $=id=>document.getElementById(id);
+
 const translations={
 en:{
-subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',welcomeH2:'Ready for your five-minute break?',welcomeP:'A few surprising questions, a simple reset, and a fresh perspective. No pressure.',
-startBtn:'Start Experience',startNote:'Choose only comfortable movements. You can skip any exercise.',sessionLabel:'Your five minutes',continueBtn:'Continue',voiceOn:'🔊 Voice on',voiceOff:'🔇 Voice off',
-takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',key:'Key idea: ',resetHeading:'Easy Reset',
-resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',skip:'Skip pause',endH2:'Time well spent.',
-endP:'A small discovery. A short reset. Now return to your day whenever you’re ready.',homeBtn:'Return Home',
-safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
+subTitle:'5 MINUTES. A DIFFERENT PERSPECTIVE.',langBtn:'ES',
+welcomeH2:'Choose your five-minute experience',
+welcomeP:'Five minutes for discovery, imagination or a different world. Choose what you feel like doing.',
+questionsTitle:'Discoveries & riddles',questionsDesc:'Surprising questions, useful ideas and small discoveries.',
+resetTitle:'Easy reset',resetDesc:'A short, comfortable pause with spoken guidance.',
+startBtn:'Start discoveries',resetStartBtn:'Take a pause',startNote:'Choose only comfortable activities. You can stop or return at any time.',
+villaDesc:'Explore a peaceful riverside mansion with a sea view.',metroDesc:'Discover a futuristic city, neon streets and rooftops.',oceanDesc:'Explore the ocean surface, coral reef and deep sea.',
+villaBtn:'Enter villa',metroBtn:'Enter city',oceanBtn:'Enter ocean',
+sessionLabel:'Your five minutes',continueBtn:'Continue',voiceOn:'🔊 Voice on',voiceOff:'🔇 Voice off',
+takeReset:'Take a short reset',correct:'Correct',incorrect:'Not quite. The answer is: ',key:'Key idea: ',
+resetHeading:'Easy Reset',resetIntro:'Take a short, comfortable pause. No need to do anything that feels uncomfortable.',
+skip:'Skip pause',endH2:'Time well spent.',endP:'A small discovery. A short reset. Return to your day whenever you are ready.',
+homeBtn:'Return Home',safety:'Optional comfort break, not medical treatment. Stay seated if you prefer. Stop if you feel pain, dizziness, or shortness of breath.',
 curiosity:'Curiosity',choice:'Your choice',surprise:'The surprise',discovery:'The discovery',question:'Question',finished:'You have completed this experience.',
-inhale:'Breathe in gently',exhale:'Breathe out gently',breathHelp:'Follow the circle only if it feels comfortable. You can breathe naturally.',ready:'Ready',
-cueIn:['Let the air arrive softly.','Welcome a comfortable breath.','Allow an easy breath in.','Notice the beginning of a breath.','Let your next breath come naturally.','Breathe in only as much as feels easy.'],
-cueOut:['Let the air leave without force.','Allow a gentle release.','Let your breath go in its own time.','Notice the breath moving away.','Release any unnecessary effort.','Allow the next exhale to be easy.']
+leaveSession:'Return to menu',leaveReset:'Return to menu',worldLabel:'Your five-minute world',
+viewLabel:'View',lightLabel:'Atmosphere',day:'Day',sunset:'Sunset',night:'Night',
+soundOn:'🔊 Sound on',soundOff:'🔇 Sound off',hideInfo:'Hide info',showInfo:'Show info',splitOn:'VR split view',splitOff:'Single view',fullscreen:'Full screen',exitFullscreen:'Exit full screen',
+worldNote:'Generated 3D environment. Move your mouse or drag on the scene to look around.',
+villaHud:'A peaceful place by the water.',metroHud:'A city of light, movement and imagination.',oceanHud:'Explore a colorful world beneath the waves.',
+villaViews:['Riverside garden','Mansion terrace','Sea panorama'],metroViews:['Neon street','Rooftop','Monorail','Aerial skyline'],oceanViews:['Ocean surface','Shallow water','Coral reef','Deep sea'],
+leaveWorld:'Leave experience'
 },
 es:{
-subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',welcomeH2:'¿Listo para una pausa de cinco minutos?',welcomeP:'Algunas preguntas sorprendentes, una pausa sencilla y una perspectiva diferente. Sin presión.',
-startBtn:'Comenzar experiencia',startNote:'Elige solo movimientos cómodos. Puedes omitir cualquier ejercicio.',sessionLabel:'Tus cinco minutos',continueBtn:'Continuar',voiceOn:'🔊 Voz activada',voiceOff:'🔇 Voz silenciada',
-takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',key:'Idea clave: ',resetHeading:'Pausa sencilla',
-resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',
-endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',homeBtn:'Volver al inicio',
-safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
+subTitle:'5 MINUTOS. UNA PERSPECTIVA DIFERENTE.',langBtn:'EN',
+welcomeH2:'Elige tu experiencia de cinco minutos',
+welcomeP:'Cinco minutos para descubrir, imaginar o visitar otro mundo. Elige lo que te apetezca.',
+questionsTitle:'Descubrimientos y adivinanzas',questionsDesc:'Preguntas sorprendentes, ideas útiles y pequeños descubrimientos.',
+resetTitle:'Pausa sencilla',resetDesc:'Una pausa cómoda con instrucciones habladas.',
+startBtn:'Comenzar descubrimientos',resetStartBtn:'Tomar una pausa',startNote:'Elige una actividad cómoda. Puedes detenerte o volver cuando quieras.',
+villaDesc:'Explora una mansión tranquila junto al río, con vistas al mar.',metroDesc:'Descubre una ciudad futurista, calles de neón y azoteas.',oceanDesc:'Explora la superficie del océano, los arrecifes y las profundidades.',
+villaBtn:'Entrar en la villa',metroBtn:'Entrar en la ciudad',oceanBtn:'Entrar en el océano',
+sessionLabel:'Tus cinco minutos',continueBtn:'Continuar',voiceOn:'🔊 Voz activada',voiceOff:'🔇 Voz silenciada',
+takeReset:'Tomar una pausa breve',correct:'Correcto',incorrect:'No exactamente. La respuesta es: ',key:'Idea clave: ',
+resetHeading:'Pausa sencilla',resetIntro:'Tómate una pausa cómoda. No hagas nada que te resulte incómodo.',
+skip:'Omitir pausa',endH2:'Tiempo bien aprovechado.',endP:'Un pequeño descubrimiento. Una pausa breve. Vuelve a tu día cuando quieras.',
+homeBtn:'Volver al inicio',safety:'Pausa opcional de comodidad, no tratamiento médico. Puedes permanecer sentado. Detente si sientes dolor, mareo o falta de aire.',
 curiosity:'Curiosidad',choice:'Tu decisión',surprise:'La sorpresa',discovery:'El descubrimiento',question:'Pregunta',finished:'Has completado esta experiencia.',
-inhale:'Inhala suavemente',exhale:'Exhala suavemente',breathHelp:'Sigue el círculo solo si te resulta cómodo. Puedes respirar con naturalidad.',ready:'Preparado',
-cueIn:['Deja que el aire entre suavemente.','Recibe una respiración cómoda.','Permite una inhalación tranquila.','Nota el comienzo de una respiración.','Deja que la próxima respiración llegue sola.','Inhala solo hasta donde te resulte cómodo.'],
-cueOut:['Deja salir el aire sin forzarlo.','Permite una liberación suave.','Deja que el aire salga a su tiempo.','Nota cómo se aleja la respiración.','Suelta cualquier esfuerzo innecesario.','Permite que la exhalación sea cómoda.']
+leaveSession:'Volver al menú',leaveReset:'Volver al menú',worldLabel:'Tus cinco minutos de mundo',
+viewLabel:'Vista',lightLabel:'Ambiente',day:'Día',sunset:'Atardecer',night:'Noche',
+soundOn:'🔊 Sonido activado',soundOff:'🔇 Sonido silenciado',hideInfo:'Ocultar información',showInfo:'Mostrar información',splitOn:'Vista VR dividida',splitOff:'Vista única',fullscreen:'Pantalla completa',exitFullscreen:'Salir de pantalla completa',
+worldNote:'Entorno 3D generado. Mueve el ratón o arrastra sobre la escena para mirar alrededor.',
+villaHud:'Un lugar tranquilo junto al agua.',metroHud:'Una ciudad de luces, movimiento e imaginación.',oceanHud:'Explora un mundo lleno de color bajo las olas.',
+villaViews:['Jardín junto al río','Terraza de la mansión','Panorama del mar'],metroViews:['Calle de neón','Azotea','Monorraíl','Vista aérea'],oceanViews:['Superficie del océano','Aguas poco profundas','Arrecife de coral','Mar profundo'],
+leaveWorld:'Salir de la experiencia'
 }
 };
 function t(){return translations[currentLang]}
-function stopVoice(){if('speechSynthesis'in window)window.speechSynthesis.cancel();voiceRunId++}
-function speak(text,onEnd){
-if(!exerciseVoiceEnabled||!('speechSynthesis'in window)||!text)return;
-const id=voiceRunId,u=new SpeechSynthesisUtterance(text);
-u.lang=currentLang==='es'?'es-ES':'en-US';
-u.rate=.76;
-u.pitch=.92;
-u.volume=.85;
-u.onend=()=>{if(id===voiceRunId&&onEnd)onEnd()};
-u.onerror=()=>{if(id===voiceRunId&&onEnd)onEnd()};
-try{speechSynthesis.speak(u)}catch(e){console.warn('Voice unavailable',e)}
-}
-function updateVoiceButton(){
-const x=t();$('voice-toggle-btn').innerText=exerciseVoiceEnabled?x.voiceOn:x.voiceOff;
-$('voice-toggle-btn').setAttribute('aria-pressed',String(exerciseVoiceEnabled));
-}
+function setVisible(id,yes){$(id).classList.toggle('hidden',!yes)}
+function clearTimers(){clearInterval(sessionTimer);clearInterval(exerciseTimer);sessionTimer=exerciseTimer=null}
+function stopExerciseVoice(){if('speechSynthesis'in window)window.speechSynthesis.cancel()}
+function updateVoiceButton(){if($('voice-toggle-btn'))$('voice-toggle-btn').innerText=exerciseVoiceEnabled?t().voiceOn:t().voiceOff}
 function toggleExerciseVoice(){
 exerciseVoiceEnabled=!exerciseVoiceEnabled;
-if(!exerciseVoiceEnabled)stopVoice();
-else if(currentExercise&&!$('reset-view').classList.contains('hidden'))speakCurrentExercise();
+if(!exerciseVoiceEnabled)stopExerciseVoice();else if(currentExercise)speakCurrentExercise();
 updateVoiceButton();
 }
-function stopBreathing(){
-clearInterval(breathTimer);clearInterval(voiceCueTimer);breathTimer=voiceCueTimer=null;
-}
-function stopExerciseVoice(){stopVoice();stopBreathing()}
-function toggleLanguage(){
-currentLang=currentLang==='en'?'es':'en';document.documentElement.lang=currentLang;updateStaticTexts();
-if(currentCardData&&!$('session-view').classList.contains('hidden')){
-const hadAnswered=answered,wasCorrect=answerWasCorrect;renderCard();
-if(hadAnswered){answered=true;answerWasCorrect=wasCorrect;document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback()}
-}
-if(currentExercise&&!$('reset-view').classList.contains('hidden'))renderExercise();
+function speakCurrentExercise(){
+if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
+stopExerciseVoice();
+const title=(currentExercise.title||{})[currentLang]||'',instructions=(currentExercise.instructions||{})[currentLang]||'';
+if(!title&&!instructions)return;
+const u=new SpeechSynthesisUtterance([title,instructions].filter(Boolean).join('. '));
+u.lang=currentLang==='es'?'es-ES':'en-US';u.rate=.92;u.pitch=1;
+window.speechSynthesis.speak(u);
 }
 function updateStaticTexts(){
 const x=t();
-$('sub-title').innerText=x.subTitle;$('lang-btn').innerText=x.langBtn;$('welcome-h2').innerText=x.welcomeH2;$('welcome-p').innerText=x.welcomeP;
-$('start-btn').innerText=x.startBtn;$('start-note').innerText=x.startNote;$('session-label').innerText=x.sessionLabel;$('next-btn').innerText=x.continueBtn;
-$('reset-heading').innerText=x.resetHeading;$('reset-intro').innerText=x.resetIntro;$('skip-reset-btn').innerText=x.skip;
-$('end-h2').innerText=x.endH2;$('end-p').innerText=x.endP;$('home-btn').innerText=x.homeBtn;updateVoiceButton();
+const map={
+'sub-title':'subTitle','lang-btn':'langBtn','welcome-h2':'welcomeH2','welcome-p':'welcomeP',
+'questions-title':'questionsTitle','questions-desc':'questionsDesc','reset-title':'resetTitle','reset-desc':'resetDesc',
+'start-btn':'startBtn','reset-start-btn':'resetStartBtn','start-note':'startNote',
+'villa-desc':'villaDesc','metro-desc':'metroDesc','ocean-desc':'oceanDesc','villa-btn':'villaBtn','metro-btn':'metroBtn','ocean-btn':'oceanBtn',
+'session-label':'sessionLabel','next-btn':'continueBtn','reset-heading':'resetHeading','reset-intro':'resetIntro',
+'skip-reset-btn':'skip','end-h2':'endH2','end-p':'endP','home-btn':'homeBtn','leave-session-btn':'leaveSession',
+'leave-reset-btn':'leaveReset','world-session-label':'worldLabel','view-label':'viewLabel','light-label':'lightLabel',
+'world-note':'worldNote','leave-world-btn':'leaveWorld'
+};
+Object.entries(map).forEach(([id,key])=>{if($(id))$(id).innerText=x[key]});
+updateVoiceButton();updateWorldControlsText();
 }
-function setDonationVisible(show){
-const box=$('donation-section');
-box.classList.toggle('hidden',!show);
-if(show)box.scrollIntoView({behavior:'smooth',block:'nearest'});
+function toggleLanguage(){
+currentLang=currentLang==='en'?'es':'en';
+document.documentElement.lang=currentLang;
+updateStaticTexts();
+if(currentCardData&&!$('session-view').classList.contains('hidden')){
+const wasAnswered=answered,wasCorrect=answerWasCorrect;
+renderCard();
+if(wasAnswered){answered=true;answerWasCorrect=wasCorrect;document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback()}
 }
-function startInitialDonationWindow(){
-clearTimeout(donationStartTimer);donationMode='start';setDonationVisible(true);
-donationStartTimer=setTimeout(()=>{
-if(donationMode==='start')setDonationVisible(false);
-},30000);
+if(currentExercise&&!$('reset-view').classList.contains('hidden'))renderExercise();
+if(activeMode==='world'&&worldState){populateWorldLocations();updateWorldSceneText()}
 }
-function updateDonationForSession(){
-const shouldShow=remainingTime>0&&remainingTime<=40;
-if(shouldShow!==donationLastVisible){
-donationLastVisible=shouldShow;
-setDonationVisible(shouldShow);
-}
-}
+
 async function startSession(){
 const btn=$('start-btn');btn.disabled=true;
 try{
 const res=await fetch('/api/session');
 if(!res.ok)throw new Error('Session could not load');
 const data=await res.json();
-questions=data.questions||[];exercises=data.exercises||[];safetyNotes=data.safety_notes||{};
+questions=Array.isArray(data.questions)?data.questions:[];
+exercises=Array.isArray(data.exercises)?data.exercises:[];
+safetyNotes=data.safety_notes||{};
 sessionSeconds=Number(data.session_seconds)||300;
 if(!questions.length)throw new Error('No questions found');
 }catch(e){
 console.error(e);
-alert(currentLang==='es'?'No se pudo cargar el contenido. Comprueba el archivo JSON y vuelve a intentarlo.':'Content could not load. Check the JSON file and try again.');
+alert(currentLang==='es'?'No se pudo cargar el contenido. Comprueba cards_bilingual.json y vuelve a intentarlo.':'Content could not load. Check cards_bilingual.json and try again.');
 btn.disabled=false;return;
 }
-btn.disabled=false;clearTimeout(donationStartTimer);donationMode='session';donationLastVisible=false;setDonationVisible(false);
-stopExerciseVoice();clearInterval(sessionTimer);clearInterval(exerciseTimer);
-questionIndex=0;
-exerciseIndex=getSavedExerciseIndex();
-currentCardData=questions[0];
-remainingTime=sessionSeconds;$('start-view').classList.add('hidden');$('end-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('session-view').classList.remove('hidden');
-updateTimer();renderCard();
-sessionTimer=setInterval(()=>{
-remainingTime=Math.max(0,remainingTime-1);updateTimer();updateDonationForSession();
-if(remainingTime<=0)endSession();
-},1000);
+btn.disabled=false;stopExerciseVoice();clearTimers();stopWorld();
+activeMode='questions';resetOnly=false;questionIndex=0;exerciseIndex=0;
+currentCardData=questions[0];currentExercise=null;answered=false;selectedAnswer=null;answerWasCorrect=null;
+remainingTime=sessionSeconds;setVisible('start-view',false);setVisible('end-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('session-view',true);
+updateTimer();sessionTimer=setInterval(()=>{remainingTime--;updateTimer();if(remainingTime<=0)endSession()},1000);renderCard();
 }
 function updateTimer(){
-const r=Math.max(0,remainingTime);
-$('time-left').innerText=`${Math.floor(r/60)}:${String(r%60).padStart(2,'0')}`;
-$('timer-bar').style.width=`${Math.max(0,r/sessionSeconds)*100}%`;
+$('time-left').innerText=`${Math.floor(Math.max(0,remainingTime)/60)}:${String(Math.max(0,remainingTime)%60).padStart(2,'0')}`;
+$('timer-bar').style.width=`${Math.max(0,remainingTime/sessionSeconds)*100}%`;
 }
 function renderCard(){
 if(!currentCardData||!currentCardData[currentLang])return;
 const card=currentCardData[currentLang],x=t();
 $('category-badge').innerText=currentCardData.topic||(currentLang==='es'?'Descubrimientos':'Discoveries');
 $('stage-label').innerText=`${x.curiosity} · ${x.choice} · ${x.surprise} · ${x.discovery}`;
-$('prompt-text').innerText=card.prompt||'';$('options-container').innerHTML='';
-$('feedback-card').style.display='none';$('feedback-card').className='feedback';$('next-btn').classList.add('hidden');
-(card.options||[]).forEach(opt=>{
+$('prompt-text').innerText=card.prompt||'';
+$('options-container').innerHTML='';$('feedback-card').style.display='none';$('feedback-card').className='feedback';$('next-btn').classList.add('hidden');
+(Array.isArray(card.options)?card.options:[]).forEach(opt=>{
 const b=document.createElement('button');b.className='option-btn';b.innerText=opt;b.onclick=()=>selectOption(opt);$('options-container').appendChild(b);
 });
 $('question-progress').innerText=`${x.question} ${questionIndex+1} / ${questions.length}`;
@@ -298,16 +340,20 @@ answered=false;selectedAnswer=null;answerWasCorrect=null;
 }
 function selectOption(opt){
 if(answered||!currentCardData)return;
-answered=true;selectedAnswer=opt;answerWasCorrect=opt===currentCardData[currentLang].correct_answer;
+answered=true;selectedAnswer=opt;
+const localized=currentCardData[currentLang]||{};
+const correct=localized.correct_answer;
+answerWasCorrect=typeof correct==='number'?localized.options?.[correct]===opt:opt===correct;
 document.querySelectorAll('.option-btn').forEach(b=>b.disabled=true);showFeedback();
 }
 function showFeedback(){
 const card=currentCardData[currentLang],x=t(),correct=answerWasCorrect===true;
 $('feedback-card').style.display='block';$('feedback-card').className=`feedback ${correct?'correct':'incorrect'}`;
 $('feedback-status').innerText=correct?x.correct:`${x.incorrect}${card.correct_answer}`;
-$('feedback-explanation').innerText=card.explanation||'';$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
+$('feedback-explanation').innerText=card.explanation||'';
+$('feedback-takeaway').innerText=card.takeaway?`${x.key}${card.takeaway}`:'';
 $('next-btn').classList.remove('hidden');
-const willReset=((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length>0;
+const willReset=((questionIndex+1)%3===0)&&remainingTime>70&&exercises.length;
 $('next-btn').innerText=willReset?x.takeReset:x.continueBtn;
 }
 function advanceExperience(){
@@ -320,18 +366,26 @@ questionIndex++;
 if(questionIndex>=questions.length||remainingTime<=0){endSession();return}
 currentCardData=questions[questionIndex];answered=false;selectedAnswer=null;answerWasCorrect=null;renderCard();
 }
-function showReset(){
-if(!exercises.length){goNextQuestion();return}
+function startResetOnly(){
+clearTimers();stopWorld();stopExerciseVoice();activeMode='reset';resetOnly=true;
+exercises=exercises.length?exercises:[];exerciseIndex=0;
+if(!exercises.length){
+alert(currentLang==='es'?'Los ejercicios se cargan al iniciar una sesión de descubrimientos.':'Start a discovery session first to load the exercises.');return;
+}
+remainingTime=300;sessionSeconds=300;showReset(true);
+}
+function showReset(standalone=false){
+if(!exercises.length){if(standalone)exitToHome();else goNextQuestion();return}
 clearInterval(exerciseTimer);stopExerciseVoice();
-exerciseIndex=getSavedExerciseIndex();
-currentExercise=exercises[exerciseIndex];
-exerciseRemaining=Math.max(10,Math.min(300,Number(currentExercise.duration_seconds)||45));
-$('session-view').classList.add('hidden');$('reset-view').classList.remove('hidden');
-renderExercise();const run=++exerciseRunId;
+currentExercise=exercises[exerciseIndex%exercises.length];exerciseIndex++;
+exerciseRemaining=Math.max(10,Math.min(60,Number(currentExercise.duration_seconds)||45));
+setVisible('session-view',false);setVisible('world-view',false);setVisible('reset-view',true);
+renderExercise();
 exerciseTimer=setInterval(()=>{
-if(run!==exerciseRunId)return;
-exerciseRemaining=Math.max(0,exerciseRemaining-1);renderCountdown();
-if(exerciseRemaining<=0)finishReset(false);
+exerciseRemaining--;renderCountdown();
+if(exerciseRemaining<=0){
+if(resetOnly){endSession()}else finishReset(false)
+}
 },1000);
 }
 function renderExercise(){
@@ -342,121 +396,276 @@ $('exercise-title').innerText=(currentExercise.title||{})[lang]||'';
 $('exercise-instructions').innerText=(currentExercise.instructions||{})[lang]||'';
 $('exercise-type').innerText=(currentExercise.type||'easy reset').replaceAll('_',' ').toUpperCase();
 $('safety-note').innerText=(safetyNotes||{})[lang]||x.safety;
-$('skip-reset-btn').innerText=x.skip;$('breath-help').innerText=x.breathHelp;
-updateVoiceButton();renderCountdown();updateBreathVisual('ready');speakCurrentExercise();
+$('skip-reset-btn').innerText=x.skip;updateVoiceButton();renderCountdown();speakCurrentExercise();
 }
-function renderCountdown(){
-$('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`;
-}
-function speakCurrentExercise(){
-if(!exerciseVoiceEnabled||!currentExercise||!('speechSynthesis'in window))return;
-stopExerciseVoice();
-const title=(currentExercise.title||{})[currentLang]||'';
-const instructions=(currentExercise.instructions||{})[currentLang]||'';
-const intro=[title,instructions].filter(Boolean).join('. ');
-speak(intro,()=>{if(currentExercise&&exerciseRemaining>0)startBreathingGuidance()});
-}
-function updateBreathVisual(phase){
-const x=t(),circle=$('breathing-circle'),label=$('breathing-circle-label');
-breathPhase=phase;
-circle.classList.remove('inhale','exhale');
-if(phase==='inhale'){
-circle.classList.add('inhale');label.innerText=x.inhale;$('breath-phase').innerText=x.inhale;
-}else if(phase==='exhale'){
-circle.classList.add('exhale');label.innerText=x.exhale;$('breath-phase').innerText=x.exhale;
-}else{
-label.innerText=x.ready;$('breath-phase').innerText=x.ready;
-}
-}
-const BREATHING_VOICE_ARSENALS={
-en:[
-{intro:"I am here with you. I will guide you gently. There is no need to rush.",inhale:["Breathe in gently, at your own pace.","Let the air come in softly.","Allow a calm breath to enter."],exhale:["Breathe out slowly and easily.","Gently release the air.","Let the breath flow out without effort."],rest:["Take your time. I am here with you.","You are doing well. Stay comfortable.","Follow your own natural rhythm."]},
-{intro:"You are not alone in this moment. Let the circle guide you, and keep your breathing comfortable.",inhale:["Invite the air in, softly.","Breathe in without forcing it.","Let your next breath arrive naturally."],exhale:["Release the air without hurry.","Let your breath leave gently.","Soften your body as you breathe out."],rest:["There is no perfect way to do this.","Stay relaxed. There is no hurry.","I will stay with you as you continue."]},
-{intro:"Welcome to this quiet moment. I will accompany you step by step. Your comfort comes first.",inhale:["Draw in an easy, gentle breath.","Let yourself breathe in comfortably.","Receive the air slowly and naturally."],exhale:["Allow the air to leave your lungs gently.","Breathe out in a relaxed way.","Let the air go, without effort."],rest:["You can go at your own pace.","Let your shoulders soften. Take your time.","Stay with this quiet moment. I am guiding you."]}
-],
-es:[
-{intro:"Estoy aquí contigo. Voy a guiarte con suavidad. No tienes que apresurarte.",inhale:["Inspira suavemente, a tu propio ritmo.","Deja entrar el aire con calma.","Permite que entre una respiración tranquila."],exhale:["Suelta el aire despacio y sin esfuerzo.","Deja salir el aire suavemente.","Permite que el aire salga con tranquilidad."],rest:["Tómate tu tiempo. Estoy aquí contigo.","Lo estás haciendo bien. Busca comodidad.","Sigue tu propio ritmo natural."]},
-{intro:"No estás solo en este momento. Deja que el círculo te acompañe y respira de forma cómoda.",inhale:["Deja entrar el aire con suavidad.","Inspira sin forzar la respiración.","Permite que llegue la siguiente inspiración de forma natural."],exhale:["Suelta el aire sin ninguna prisa.","Deja que el aire salga tranquilamente.","Relaja el cuerpo mientras sueltas el aire."],rest:["No existe una forma perfecta de hacerlo.","Mantén la calma. No hay prisa.","Te acompaño mientras continúas."]},
-{intro:"Bienvenido a este momento tranquilo. Voy a acompañarte paso a paso. Lo más importante es tu comodidad.",inhale:["Recibe el aire con una inspiración suave.","Inspira de una manera que te resulte cómoda.","Deja entrar el aire lentamente y con naturalidad."],exhale:["Permite que el aire salga suavemente.","Exhala de forma relajada.","Deja salir el aire sin esfuerzo."],rest:["Puedes seguir a tu propio ritmo.","Relaja los hombros y tómate tu tiempo.","Quédate en este momento tranquilo. Te estoy guiando."]}
-]
-};
-function startBreathingGuidance(){
-if(!currentExercise||exerciseRemaining<=0)return;
-stopBreathing();
-const run=exerciseRunId;
-const lang=currentLang==='es'?'es':'en';
-const arsenals=BREATHING_VOICE_ARSENALS[lang];
-const arsenal=arsenals[Math.floor(Math.random()*arsenals.length)];
-let lastIn='',lastOut='',lastRest='',lastCueTime=0,guidanceIntroDone=false;
-const pattern=currentExercise.breathing_pattern||{};
-const inhaleSeconds=Math.max(3,Math.min(6,Number(pattern.inhale_seconds)||4));
-const exhaleSeconds=Math.max(4,Math.min(8,Number(pattern.exhale_seconds)||6));
-let nextPhase='ready',phaseEnd=Date.now()+1500;
-const used=new Set();
-function uniquePhrase(list,last){
-let choices=list.filter(p=>!used.has(p)&&p!==last);
-if(!choices.length){
-list.forEach(p=>used.delete(p));
-choices=list.filter(p=>p!==last);
-}
-if(!choices.length)choices=list;
-const phrase=choices[Math.floor(Math.random()*choices.length)];
-used.add(phrase);
-return phrase;
-}
-function sayCue(phase){
-if(!exerciseVoiceEnabled||!guidanceIntroDone||!('speechSynthesis'in window))return;
-if(Date.now()-lastCueTime<7000||speechSynthesis.speaking)return;
-let phrase='';
-if(phase==='inhale'){
-phrase=uniquePhrase(arsenal.inhale,lastIn);lastIn=phrase;
-}else if(phase==='exhale'){
-phrase=uniquePhrase(arsenal.exhale,lastOut);lastOut=phrase;
-}else{
-phrase=uniquePhrase(arsenal.rest,lastRest);lastRest=phrase;
-}
-if(phrase){lastCueTime=Date.now();speak(phrase)}
-}
-function step(){
-if(!currentExercise||exerciseRemaining<=0||run!==exerciseRunId)return;
-const now=Date.now();
-if(now>=phaseEnd){
-nextPhase=nextPhase==='inhale'?'exhale':'inhale';
-const duration=nextPhase==='inhale'?inhaleSeconds:exhaleSeconds;
-phaseEnd=now+duration*1000;
-updateBreathVisual(nextPhase);
-sayCue(nextPhase);
-}
-}
-updateBreathVisual('ready');
-if(exerciseVoiceEnabled){
-speak(arsenal.intro,()=>{if(run===exerciseRunId)guidanceIntroDone=true});
-}else{
-guidanceIntroDone=true;
-}
-step();
-breathTimer=setInterval(step,250);
-}
+function renderCountdown(){$('exercise-countdown').innerText=`0:${String(Math.max(0,exerciseRemaining)).padStart(2,'0')}`}
 function finishReset(skipped){
-clearInterval(exerciseTimer);exerciseTimer=null;exerciseRunId++;stopExerciseVoice();currentExercise=null;
+clearInterval(exerciseTimer);exerciseTimer=null;stopExerciseVoice();currentExercise=null;
+if(resetOnly){endSession();return}
 if(remainingTime<=0){endSession();return}
-$('reset-view').classList.add('hidden');$('session-view').classList.remove('hidden');goNextQuestion();
+setVisible('reset-view',false);setVisible('session-view',true);goNextQuestion();
 }
 function endSession(){
-clearInterval(sessionTimer);clearInterval(exerciseTimer);clearTimeout(donationStartTimer);
-sessionTimer=exerciseTimer=null;donationMode='end';donationLastVisible=false;
-stopExerciseVoice();currentExercise=null;currentCardData=null;
-$('session-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('end-view').classList.remove('hidden');setDonationVisible(false);
+clearTimers();stopExerciseVoice();currentExercise=null;setVisible('session-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('end-view',true);
 $('end-h2').innerText=t().endH2;$('end-p').innerText=t().endP;
 }
-function resetToHome(){
-clearInterval(sessionTimer);clearInterval(exerciseTimer);clearTimeout(donationStartTimer);sessionTimer=exerciseTimer=null;
-stopExerciseVoice();currentCardData=null;currentExercise=null;questions=[];exercises=[];
-$('end-view').classList.add('hidden');$('session-view').classList.add('hidden');$('reset-view').classList.add('hidden');$('start-view').classList.remove('hidden');
-remainingTime=300;donationLastVisible=false;updateStaticTexts();startInitialDonationWindow();
+function exitToHome(){clearTimers();stopExerciseVoice();stopWorld();activeMode='menu';currentExercise=null;currentCardData=null;setVisible('session-view',false);setVisible('reset-view',false);setVisible('world-view',false);setVisible('end-view',false);setVisible('start-view',true)}
+function resetToHome(){exitToHome();questions=[];exercises=[];remainingTime=300;sessionSeconds=300;updateStaticTexts()}
+
+/* GENERATED 3D WORLDS */
+let worldState=null,worldFrame=null,worldTimer=null,worldRemaining=300;
+let worldAudioContext=null,worldAudioNodes=[],worldAudioOn=false,worldHudOn=true,worldSplit=false;
+const worldDefs={
+villa:{title:'VILLA RÍO Y MAR',hud:'villaHud',views:[['garden','Riverside garden','Jardín junto al río'],['terrace','Mansion terrace','Terraza de la mansión'],['sea','Sea panorama','Panorama del mar']]},
+metro:{title:'METROPOLIS 360',hud:'metroHud',views:[['street','Neon street','Calle de neón'],['roof','Rooftop','Azotea'],['train','Monorail','Monorraíl'],['sky','Aerial skyline','Vista aérea']]},
+ocean:{title:'OCEANIS 360',hud:'oceanHud',views:[['surface','Ocean surface','Superficie del océano'],['shallow','Shallow water','Aguas poco profundas'],['reef','Coral reef','Arrecife de coral'],['abyss','Deep sea','Mar profundo']]}
+};
+const threeImport='https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+
+async function startWorld(type){
+clearTimers();stopExerciseVoice();stopWorld();
+activeMode='world';resetOnly=false;worldRemaining=300;
+setVisible('start-view',false);setVisible('session-view',false);setVisible('reset-view',false);setVisible('end-view',false);setVisible('world-view',true);
+const def=worldDefs[type];$('world-title').innerText=def.title;
+$('world-time-left').innerText='5:00';$('world-timer-bar').style.width='100%';
+$('world-light').value=type==='ocean'?'day':'day';
+populateWorldLocations(type);updateWorldControlsText();
+$('hud-title').innerText=def.title;$('hud-desc').innerText=t()[def.hud];
+try{
+const THREE=await import(threeImport);
+if(activeMode!=='world')return;
+buildWorld(THREE,type);
+}catch(err){
+console.error('3D scene could not load:',err);
+$('world-hud').classList.remove('hidden');
+$('hud-title').innerText=currentLang==='es'?'No se pudo cargar la escena 3D':'3D scene could not load';
+$('hud-desc').innerText=currentLang==='es'?'Comprueba la conexión a Internet y vuelve a intentarlo.':'Check your internet connection and try again.';
+}
+worldTimer=setInterval(()=>{
+worldRemaining--;const n=Math.max(0,worldRemaining);
+$('world-time-left').innerText=`${Math.floor(n/60)}:${String(n%60).padStart(2,'0')}`;
+$('world-timer-bar').style.width=`${n/300*100}%`;
+if(n<=0){stopWorld();setVisible('world-view',false);setVisible('end-view',true);$('end-h2').innerText=t().endH2;$('end-p').innerText=t().finished}
+},1000);
+}
+function populateWorldLocations(type){
+if(type)worldState={...(worldState||{}),type};
+const currentType=type||(worldState&&worldState.type)||'villa';
+const select=$('world-location'),views=worldDefs[currentType].views;
+select.innerHTML='';
+views.forEach(([id,en,es])=>{const o=document.createElement('option');o.value=id;o.textContent=currentLang==='es'?es:en;select.appendChild(o)});
+if(worldState&&worldState.type===currentType&&worldState.view&&views.some(v=>v[0]===worldState.view))select.value=worldState.view;
+else select.value=views[0][0];
+}
+function changeWorldLocation(value){if(!worldState)return;worldState.view=value;updateWorldSceneText();applyWorldCamera()}
+function changeWorldLight(value){if(!worldState)return;worldState.light=value;applyWorldLighting()}
+function updateWorldSceneText(){
+if(!worldState)return;
+const def=worldDefs[worldState.type],view=def.views.find(v=>v[0]===worldState.view)||def.views[0];
+$('hud-title').innerText=currentLang==='es'?view[2]:view[1];
+$('hud-desc').innerText=t()[def.hud];
+}
+function updateWorldControlsText(){
+const x=t();
+$('world-audio-btn').innerText=worldAudioOn?x.soundOn:x.soundOff;
+$('world-hud-btn').innerText=worldHudOn?x.hideInfo:x.showInfo;
+$('world-split-btn').innerText=worldSplit?x.splitOff:x.splitOn;
+$('world-full-btn').innerText=document.fullscreenElement?x.exitFullscreen:x.fullscreen;
+}
+function buildWorld(THREE,type){
+const canvas=$('world-canvas');
+const scene=new THREE.Scene();
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.setSize(canvas.clientWidth||640,canvas.clientHeight||360,false);
+renderer.shadowMap.enabled=true;
+renderer.setClearColor(type==='ocean'?0x062d49:type==='metro'?0x080b24:0x8bc8e9,1);
+const camera=new THREE.PerspectiveCamera(65,1,.1,1200);
+camera.position.set(0,5,18);
+scene.add(new THREE.HemisphereLight(0xbfe8ff,0x172033,1.8));
+const keyLight=new THREE.DirectionalLight(0xffffff,2);
+keyLight.position.set(10,18,8);scene.add(keyLight);
+const root=new THREE.Group();scene.add(root);
+worldState={THREE,type,scene,renderer,camera,root,keyLight,light:'day',view: $('world-location').value||worldDefs[type].views[0][0],yaw:0,pitch:0,dragging:false,lastX:0,lastY:0,elapsed:0,objects:[],resize:null};
+const mat=(color,roughness=.8,metalness=0)=>new THREE.MeshStandardMaterial({color,roughness,metalness});
+const addBox=(x,y,z,sx,sy,sz,material,parent=root)=>{
+const mesh=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;
+};
+const addSphere=(x,y,z,r,material,parent=root)=>{
+const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),material);mesh.position.set(x,y,z);parent.add(mesh);return mesh;
+};
+const addCylinder=(x,y,z,rt,rb,h,material,parent=root)=>{
+const mesh=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,12),material);mesh.position.set(x,y,z);parent.add(mesh);return mesh;
+};
+const addPlane=(w,h,color,rotationX=-Math.PI/2,y=0,z=0)=>{
+const mesh=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat(color));mesh.rotation.x=rotationX;mesh.position.set(0,y,z);root.add(mesh);return mesh;
+};
+if(type==='villa'){
+addPlane(180,180,0x327c65);
+addBox(0,0,-36,150,.3,45,mat(0x247ea1));
+addBox(0,.2,-12,80,.4,5,mat(0x9bc5d0));
+addBox(0,2,0,12,4,10,mat(0xf0e1c4));
+addBox(0,4.5,0,13,.6,11,mat(0x9c5b40));
+for(let i=-1;i<=1;i+=2){addBox(i*4,2.1,5.15,2.1,2.6,.15,mat(0x78b9d0,.3));}
+addBox(0,2,5.4,5,.2,.25,mat(0xffffff));
+for(let i=0;i<24;i++){
+const x=(Math.random()-.5)*100,z=(Math.random()-.5)*70;
+if(Math.abs(x)<9&&Math.abs(z)<9)continue;
+addCylinder(x,1,z,.25,.35,2,mat(0x69452f));
+addSphere(x,3,z,1.8,mat([0x28794c,0x348451,0x236843][i%3]));
+}
+for(let i=0;i<14;i++)addSphere((Math.random()-.5)*90,1.1,-22-Math.random()*18,.25,mat(0xe5e7eb));
+}else if(type==='metro'){
+addPlane(220,220,0x10152c);
+for(let i=-6;i<=6;i++){
+addBox(i*8,.04,0,.12,.05,150,mat(0x343b5a));
+addBox(0,.04,i*8,150,.05,.12,mat(0x343b5a));
+}
+const colors=[0x172744,0x202c51,0x282345,0x183a50,0x32254b];
+for(let i=0;i<90;i++){
+const x=(Math.random()-.5)*130,z=(Math.random()-.5)*110;
+if(Math.abs(x)<8&&Math.abs(z)<8)continue;
+const h=5+Math.random()*24,w=2.5+Math.random()*4;
+const building=addBox(x,h/2,z,w,h,w,mat(colors[i%colors.length],.5,.2));
+for(let yy=1.5;yy<h;yy+=2.2){
+for(let xx=-w/2+.5;xx<w/2;xx+=1.2){
+const window=addBox(x+xx,yy,z+w/2+.03,.35,.7,.05,mat(i%2?0x25d9ef:0xd34bff,.3,.2));
+}
+}
+}
+for(let i=-2;i<=2;i++)addBox(i*2,9,-22,.12,.12,80,mat(0x1de9ff,.3,.3));
+addBox(0,10,-4,3,.5,60,mat(0x3d4260,.4,.4));
+}else{
+addPlane(200,200,0x0b4260);
+addBox(0,-1,-8,180,2,180,mat(0x07506c));
+for(let i=0;i<90;i++){
+const x=(Math.random()-.5)*90,z=(Math.random()-.5)*85,y=-1+Math.random()*10;
+const bubble=addSphere(x,y,z,.08+Math.random()*.18,mat(0xa8ecff,.2,.1));
+bubble.userData.bubble=true;bubble.userData.speed=.25+Math.random()*.7;
+}
+for(let i=0;i<55;i++){
+const x=(Math.random()-.5)*65,z=(Math.random()-.5)*60;
+const h=1+Math.random()*4;
+const coral=addCylinder(x,h/2-1,z,.1,.25,h,mat([0xff7a8a,0xf6a04d,0xd65edb,0xf2d16b][i%4]));
+for(let b=0;b<3;b++)addCylinder(x+(Math.random()-.5),h-1,z+(Math.random()-.5),.07,.13,1.5,coral.material);
+}
+for(let i=0;i<10;i++){
+const fish=new THREE.Group();
+const color=mat([0xffc857,0x4ed5e8,0xf48fb1,0xf4f4f5][i%4]);
+addSphere(0,0,0,.45,color,fish);
+const tail=addSphere(-.48,0,0,.22,color,fish);tail.scale.set(1,.55,.35);
+fish.position.set((Math.random()-.5)*45,Math.random()*7,(Math.random()-.5)*45);
+fish.userData.fish=true;fish.userData.baseX=fish.position.x;fish.userData.baseY=fish.position.y;fish.userData.phase=Math.random()*6;
+root.add(fish);
+}
+}
+const stars=new THREE.Group();
+if(type==='metro'||type==='ocean'){
+for(let i=0;i<160;i++)addSphere((Math.random()-.5)*150,15+Math.random()*65,-20-Math.random()*100,.08,mat(0xd5f3ff),stars);
+scene.add(stars);
+}
+worldState.stars=stars;
+worldState.resize=()=>{
+if(!worldState)return;
+const w=Math.max(1,canvas.clientWidth),h=Math.max(1,canvas.clientHeight);
+renderer.setSize(w,h,false);camera.aspect=(worldSplit?w/2:w)/h;camera.updateProjectionMatrix();
+};
+worldState.resize();
+const wrap=$('world-canvas-wrap');
+worldState.pointerDown=e=>{worldState.dragging=true;worldState.lastX=e.clientX;worldState.lastY=e.clientY;canvas.setPointerCapture?.(e.pointerId)};
+worldState.pointerMove=e=>{
+if(!worldState||!worldState.dragging)return;
+worldState.yaw-=(e.clientX-worldState.lastX)*.004;
+worldState.pitch=Math.max(-.8,Math.min(.8,worldState.pitch+(e.clientY-worldState.lastY)*.003));
+worldState.lastX=e.clientX;worldState.lastY=e.clientY;
+};
+worldState.pointerUp=()=>{if(worldState)worldState.dragging=false};
+canvas.addEventListener('pointerdown',worldState.pointerDown);
+canvas.addEventListener('pointermove',worldState.pointerMove);
+canvas.addEventListener('pointerup',worldState.pointerUp);
+canvas.addEventListener('pointercancel',worldState.pointerUp);
+worldState.animate=()=>{
+if(!worldState)return;
+worldFrame=requestAnimationFrame(worldState.animate);
+const s=worldState;s.elapsed+=.016;
+s.root.rotation.y=Math.sin(s.elapsed*.12)*.025;
+s.root.children.forEach(o=>{
+if(o.userData.bubble){o.position.y+=o.userData.speed*.016;if(o.position.y>12)o.position.y=-1}
+if(o.userData.fish){o.position.x=o.userData.baseX+Math.sin(s.elapsed*.35+o.userData.phase)*3;o.position.y=o.userData.baseY+Math.sin(s.elapsed+o.userData.phase)*.6;o.rotation.y=Math.sin(s.elapsed*.3+o.userData.phase)*.15}
+});
+s.camera.position.x=Math.sin(s.yaw)*18;s.camera.position.z=Math.cos(s.yaw)*18;s.camera.position.y=5+s.pitch*8;
+s.camera.lookAt(0,4,0);
+s.resize();
+if(worldSplit){
+const w=canvas.clientWidth,h=canvas.clientHeight;
+renderer.setScissorTest(true);
+renderer.setViewport(0,0,w/2,h);renderer.setScissor(0,0,w/2,h);renderer.render(scene,camera);
+renderer.setViewport(w/2,0,w/2,h);renderer.setScissor(w/2,0,w/2,h);
+const old=s.camera.position.clone();s.camera.position.x+=.15;renderer.render(scene,camera);s.camera.position.copy(old);
+renderer.setScissorTest(false);
+}else renderer.render(scene,camera);
+};
+applyWorldLighting();updateWorldSceneText();worldState.animate();
+}
+function applyWorldCamera(){if(!worldState)return;const type=worldState.type,view=worldState.view;
+const positions={
+villa:{garden:[0,5,18],terrace:[0,5,12],sea:[0,9,24]},
+metro:{street:[0,5,18],roof:[0,20,20],train:[0,10,26],sky:[0,42,45]},
+ocean:{surface:[0,8,18],shallow:[0,5,18],reef:[0,2,16],abyss:[0,-1,18]}
+};
+const p=(positions[type]||{})[view]||[0,5,18];
+worldState.camera.position.set(...p);
+worldState.camera.lookAt(0,4,0);
+}
+function applyWorldLighting(){
+if(!worldState)return;
+const s=worldState,light=s.light;
+const settings=light==='night'?{bg:s.type==='ocean'?0x031426:0x050818,intensity:.45,sky:0x243252}:
+light==='sunset'?{bg:s.type==='ocean'?0x164d70:0x4c315f,intensity:1.1,sky:0xf7a35b}:
+{bg:s.type==='ocean'?0x075071:s.type==='metro'?0x10152c:0x8bc8e9,intensity:2,sky:0xbfe8ff};
+s.renderer.setClearColor(settings.bg,1);s.keyLight.intensity=settings.intensity;
+s.scene.children.forEach(o=>{if(o.isHemisphereLight)o.color.setHex(settings.sky)});
+}
+function toggleWorldHud(){worldHudOn=!worldHudOn;$('world-hud').classList.toggle('hidden',!worldHudOn);updateWorldControlsText()}
+function toggleWorldSplit(){worldSplit=!worldSplit;if(worldState)worldState.resize();updateWorldControlsText()}
+async function toggleWorldFullscreen(){
+const wrap=$('world-canvas-wrap');
+try{if(!document.fullscreenElement)await wrap.requestFullscreen();else await document.exitFullscreen()}catch(e){console.warn('Fullscreen unavailable',e)}
+updateWorldControlsText();
+}
+document.addEventListener('fullscreenchange',updateWorldControlsText);
+function toggleWorldAudio(){
+if(worldAudioOn){stopWorldAudio();worldAudioOn=false;updateWorldControlsText();return}
+try{
+const AC=window.AudioContext||window.webkitAudioContext;
+if(!AC)throw new Error('Audio unavailable');
+worldAudioContext=new AC();
+const master=worldAudioContext.createGain();master.gain.value=.025;master.connect(worldAudioContext.destination);
+const osc=worldAudioContext.createOscillator(),gain=worldAudioContext.createGain();
+osc.type='sine';osc.frequency.value=worldState?.type==='ocean'?110:worldState?.type==='metro'?65:174;
+gain.gain.value=.35;osc.connect(gain);gain.connect(master);osc.start();
+worldAudioNodes=[osc,gain,master];worldAudioOn=true;updateWorldControlsText();
+}catch(e){console.warn(e);alert(currentLang==='es'?'El sonido no está disponible en este navegador.':'Sound is unavailable in this browser.')}
+}
+function stopWorldAudio(){
+worldAudioNodes.forEach(n=>{try{if(n.stop)n.stop();if(n.disconnect)n.disconnect()}catch(e){}});
+worldAudioNodes=[];if(worldAudioContext){worldAudioContext.close().catch(()=>{});worldAudioContext=null}
+}
+function stopWorld(){
+if(worldTimer){clearInterval(worldTimer);worldTimer=null}
+if(worldFrame){cancelAnimationFrame(worldFrame);worldFrame=null}
+stopWorldAudio();worldAudioOn=false;worldSplit=false;
+if(worldState){
+const canvas=$('world-canvas');
+if(worldState.pointerDown)canvas.removeEventListener('pointerdown',worldState.pointerDown);
+if(worldState.pointerMove)canvas.removeEventListener('pointermove',worldState.pointerMove);
+if(worldState.pointerUp){canvas.removeEventListener('pointerup',worldState.pointerUp);canvas.removeEventListener('pointercancel',worldState.pointerUp)}
+try{worldState.renderer.dispose()}catch(e){}
+worldState=null;
+}
+updateWorldControlsText();
 }
 updateStaticTexts();
-startInitialDonationWindow();
 </script>
 </body>
 </html>
