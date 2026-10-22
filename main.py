@@ -344,7 +344,6 @@ def create_session():
     questions = list(QUESTIONS)
     random.shuffle(questions)
     exercises = deepcopy(EXERCISES)
-    random.shuffle(exercises)
     return {
         "questions": [
             copy_and_shuffle_options(question) for question in questions
